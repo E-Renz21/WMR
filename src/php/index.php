@@ -15,5 +15,31 @@
             <ul><a href="">About Us</a></ul>
         </li>
     </header>
+
+    <section class="hero">
+        <div class="hero-images">
+            <img src="../images/truck.png" alt="Truck 1">
+        </div>
+        <button href="#" class="cta-btn">REQUEST DELIVERY NOW</button>
+    </section>
+
+    <section class="features">
+        <h3>TRUST WMR FOR YOUR DELIVERY NEEDS.</h3>
+        <div class="features-grid">
+            <div>
+                <img src="../images/Trucklogo.png" alt="">
+                <p>FAST AND RELIABLE DELIVERIES</p>
+            </div>
+            <div>
+                <img src="../images/laptopLogo.png" alt="">
+                <p>EASY ONLINE BOOKING</p>
+            </div>
+            <div>
+                <img src="../images/CPlogo.png" alt="">
+                <p>REAL-TIME UPDATES</p>
+            </div>
+        </div>
+    </section>
+
 </body>
 </html>
