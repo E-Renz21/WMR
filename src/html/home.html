@@ -8,19 +8,19 @@
     <title>Document</title>
 </head>
 <body>
-    <header class="nav">
+    <header  class="nav">
         <img src="../images/logo.png" class="logo" alt="Logo">
         <li>
-            <ul><a href="">Request Delivery</a> </ul>
-            <ul><a href="">Trucks</a></ul>
+            <ul><a href="#hero">Request Delivery</a> </ul>
+            <ul><a href="#trucks">Trucks</a></ul>
             <ul><a href="">About Us</a></ul>
         </li>
     </header>
 
-    <section class="hero">
+    <section id="hero" class="hero">
         <div class="hero-background"></div>
         <h1 class="home-text">TRUST WMR FOR YOUR DELIVERY NEEDS.</h1>
-        <button href="#" class="cta-btn">REQUEST DELIVERY NOW</button>
+        <button href="" onclick="window.location.href='request.html'" class="cta-btn">REQUEST DELIVERY NOW</button>
     </section>
     
 
@@ -29,7 +29,7 @@
     <div class="features-grid">
         <div class="feature-item">
             <div class="logo-container">
-                <img src="../images/Trucklogo.png" alt="Truck Logo">
+                <img src="../images/Trucklogo.png" alt="Truck Logo" class="truckLogo">
             </div>
             <p>FAST AND RELIABLE DELIVERIES</p>
             <!-- <button class="btn-readmore">READ MORE</button> -->
@@ -50,7 +50,7 @@
         </div>
     </div>
 </section>
-    <section class="trucks">
+    <section class="trucks" id="trucks">
         <h2>OUR TRUCKS</h2>
         <div class="truck-gallery">
             <img src="../images/truck1.png" alt="Truck 1">
@@ -63,10 +63,6 @@
             <p>Our trucks are strong, reliable, and ready for any delivery task. They are well-maintained to ensure safe and on-time transport of your goods. With WMR, you can trust that your cargo is in good hands.</p>
         </div>
     </section>
-    
-
-
-
 
 
 </body>

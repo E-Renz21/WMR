@@ -3,6 +3,15 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    margin-right: 20px;
+    
+}
+
 .hero {
     text-align: center;
     padding: 30px 10px;
@@ -18,14 +27,17 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     position: absolute;
-    top: 10;
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: -1; /* Places it behind the content */
-    opacity: 0.6; /* Optional: blur or dim the image effect */
-    filter: blur(2px); /* Optional: adds blur */
+    background-color: rgba(0, 0, 0, 0.3); /* dark overlay */
+    background-blend-mode: darken; /* blends black over the image */
+    filter: blur(2px); /* optional blur */
 }
+
+
 
 header {
     background-color: #fff;
@@ -48,9 +60,11 @@ li{
     margin: 0;
     display: flex;
     gap: 20;
+    justify-content: space-evenly;
+
 }
 .logo{
-    height: 120px;
+    height: 80px;
 }
 a{
     color: black;
@@ -59,6 +73,9 @@ a{
 
 a:hover{
     color: orange;
+}
+a:active{
+    color: black;
 }
 
 .hero {
@@ -73,7 +90,7 @@ a:hover{
 .cta-btn {
     display: inline-block;
     background: #DFBE3A;
-    color: #000;
+    color: white;
     padding: 19px 20px;
     text-decoration: none;
     font-weight: bold;
@@ -82,7 +99,7 @@ a:hover{
     
 }
 .home-text{
-    margin-top: 250px;
+    margin-top: 200px;
     font-weight: 900;
     font-size: 30px;
     color: white;
@@ -96,6 +113,7 @@ a:hover{
 .features-grid {
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
     margin-top: 20px;
 }
 
@@ -132,12 +150,7 @@ a:hover{
     margin-bottom: 30px;
 }
 
-.features-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    
-}
+
 
 
 
@@ -194,7 +207,14 @@ a:hover{
     }
 }
 
-
+@media (max-width: 350px){
+    .truckLogo{
+        width: 300px;
+    }
+}
+html{
+    scroll-behavior: smooth;
+}
 
 .truck-gallery img {
     width: 100%;
