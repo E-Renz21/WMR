@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
     <title>Login</title>
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/signUp.css">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="../js/script.js" defer></script>
 </head>
 <body>
     <div class="container">
         <img class="logo"src="../images/logo.png" alt="WMR Logo" class="logo">
-        <h1 class="intro-text">Sign in to WMR to request a delivery and track your deliveries.</h1>
+        <h1 class="intro-text">Sign up to WMR to request a delivery and track your deliveries.</h1>
 
         <div class="card-login">
-            <h1>Login</h1>
+            <h1>Sign up </h1>
             <div>
                 <label for="name">Email:</label>
                 <input type="text" placeholder="Enter email" id="login-name" class="rounded">
@@ -20,9 +20,10 @@
             <div>
                 <label for="password">Password</label>
                 <input type="password" placeholder="Enter password" id="login-password" class="rounded">
-                <a id="forgotPassBTN" href="">Forgot Password?</a>
+                <label for="password">Confirm Password</label>
+                <input type="password" placeholder="Enter Confirm password" id="login-password" class="rounded">
             </div>
-            <button class="rounded" onclick="login()">Login</button>
+            <button class="rounded" onclick="signUp()">Sign up</button>
 
             <div style="margin-top: 20px; text-align: center;">
                 <div id="g_id_onload"
@@ -44,8 +45,8 @@
             </div>
 
             <div class="sign-up-container">
-                <p>New User?</p>
-                <a href="signUp.html">Create account here</a>
+                <p>Already have an account?</p>
+                <a href="login.html">Login here</a>
             </div>
         </div>
     </div>
