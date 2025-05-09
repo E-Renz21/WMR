@@ -8,14 +8,22 @@
     <title>Document</title>
 </head>
 <body>
-    <header  class="nav">
+    <header class="nav">
         <img src="../images/logo.png" class="logo" alt="Logo">
-        <li>
-            <ul><a href="#hero">Request Delivery</a> </ul>
-            <ul><a href="#trucks">Trucks</a></ul>
-            <ul><a href="">About Us</a></ul>
-        </li>
+    
+        <div class="right-side">
+            <nav class="nav-links">
+                <a href="#hero">Request Delivery</a>
+                <a href="#trucks">Trucks</a>
+                <a href="#">About Us</a>
+            </nav>
+            <div class="auth-buttons">
+                <button onclick="window.location.href='login.html'">Login</button>
+                <button onclick="window.location.href='signUp.html'">Sign up</button>
+            </div>
+        </div>
     </header>
+    
 
     <section id="hero" class="hero">
         <div class="hero-background"></div>

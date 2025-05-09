@@ -19,14 +19,10 @@ body {
     padding: 20px;
 }
 
-.card {
-    box-shadow: 0px 0px 10px black;
-}
 .logo {
     max-width: 180px;
-    height: auto;
-    margin-bottom: 10px;
-    margin-top: -90px;
+    height: 110px;
+    margin-top: -10px;
 }
 
 .intro-text {
@@ -38,21 +34,63 @@ body {
 
 .card-login {
     width: 100%;
+    max-width: 350px;
+    min-width: 280px;
     padding: 20px;
     box-shadow: 0px 0px 5px black;
     background-color: #fff;
     box-sizing: border-box;
     border-radius: 10px;
+    text-align: left;
 }
 
+.card-login h1 {
+    text-align: center;
+}
 
+form > div {
+    margin-bottom: 15px;
+}
 
-input {
+form label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+form input {
+    width: 100%;
+    font-size: 16px;
     padding: 10px;
+    margin-bottom: 10px;
+    outline: none;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
 }
-.logo{
-    height: 110px;
+
+form input:focus {
+    border-color: blue;
 }
+
+button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.rounded {
+    border-radius: 10px;
+}
+
 .sign-up-container {
     display: flex;
     align-items: center;
@@ -62,67 +100,6 @@ input {
     font-size: 14px;
 }
 
-#forgotPassBTN {
-    margin-top: -7px;
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 15px;
-    font-size: 14px;
-}
-
-/* ✅ UPDATED */
-.card-login {
-    width: 100%;
-    max-width: 350px;
-    min-width: 280px;
-    padding: 20px;
-    box-shadow: 0px 0px 5px black;
-    background-color: #fff;
-    box-sizing: border-box;
-}
-div label{
-    text-align: left;
-}
-.card-login > div > label {
-    display: block;
-    font-size: 16px;
-    margin-bottom: 5px;
-}
-
-.card-login > div > input {
-    width: 100%;
-    font-size: 16px;
-    margin-bottom: 10px;
-    outline: none;
-    box-sizing: border-box;
-}
-
-.card-login > div > input:focus {
-    border-color: blue;
-}
-
-.card-login > div > textarea {
-    width: 100%;
-    height: 150px;
-    margin-bottom: 10px;
-    resize: none;
-    font-size: 16px;
-    box-sizing: border-box;
-}
-
-.card-login > button {
-    width: 100%;
-    padding: 10px;
-    outline: none;
-}
-
-.rounded {
-    border-radius: 10px;
-}
-
-#signUp {
-    margin-top: 10px;
-}
 @media screen and (max-width: 400px) {
     body {
         margin-top: 50px;
@@ -136,13 +113,17 @@ div label{
         font-size: 20px;
     }
 
-    .card-login > div > label,
-    .card-login > div > input,
-    .card-login > button {
+    form label,
+    form input,
+    button {
         font-size: 14px;
     }
-
-    .card-login > div > textarea {
-        height: 120px;
-    }
+}
+.sign-up-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 auto;
+    width: fit-content;
+    font-size: 14px;
 }

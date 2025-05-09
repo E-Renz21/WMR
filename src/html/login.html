@@ -13,16 +13,21 @@
 
         <div class="card-login">
             <h1>Login</h1>
+        <form method="POST" action="../php/login.php">
             <div>
-                <label for="name">Email:</label>
-                <input type="text" placeholder="Enter email" id="login-name" class="rounded">
+                <label for="login-name">Email:</label>
+                <input type="text" name="email" placeholder="Enter email" id="login-name" class="rounded">
             </div>
             <div>
-                <label for="password">Password</label>
-                <input type="password" placeholder="Enter password" id="login-password" class="rounded">
+                <label for="login-password">Password</label>
+                <input type="password" name="password" placeholder="Enter password" id="login-password" class="rounded">
                 <a id="forgotPassBTN" href="">Forgot Password?</a>
             </div>
-            <button class="rounded" onclick="login()">Login</button>
+            <button class="rounded" type="submit">Login</button>
+        </form>
+
+
+            
 
             <div style="margin-top: 20px; text-align: center;">
                 <div id="g_id_onload"
@@ -49,6 +54,36 @@
             </div>
         </div>
     </div>
+
+    
+    <script>
+        function handleCredentialResponse(response) {
+            const credential = response.credential;
+            const data = {
+                credential: credential
+            };
+
+            // Send credential to the server for verification
+            fetch('../php/verify_google_login.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = "dashboard.php"; // Redirect to the dashboard
+                } else {
+                    alert("Google login failed");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
 </body>
 
 </html>
