@@ -10,8 +10,9 @@
 <body>
     <header class="nav">
         <img src="../images/logo.png" class="logo" alt="Logo">
-    
-        <div class="right-side">
+
+        <div class="burger" onclick="toggleMenu()">☰</div>
+        <div class="right-side" id="nav-menu">
             <nav class="nav-links">
                 <a href="#hero">Request Delivery</a>
                 <a href="#trucks">Trucks</a>
@@ -72,6 +73,12 @@
         </div>
     </section>
 
-
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.toggle('show');
+        }
+        </script>
+        
 </body>
 </html>

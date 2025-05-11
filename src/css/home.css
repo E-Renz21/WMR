@@ -279,6 +279,47 @@ html{
     margin: 0 auto;
 }   
 
+/* Burger icon */
+.burger {
+    display: none;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 100;
+}
+
+/* Hide nav by default on small screens */
+@media (max-width: 768px) {
+    .burger {
+        display: block;
+    }
+
+    .right-side {
+        display: none;
+        flex-direction: column;
+        background-color: #fff;
+        position: absolute;
+        top: 80px;
+        right: 0;
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .right-side.show {
+        display: flex;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .auth-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
 
 
 
