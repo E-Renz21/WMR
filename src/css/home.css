@@ -2,16 +2,6 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
 }
-
-.nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    margin-right: 20px;
-    
-}
-
 .hero {
     text-align: center;
     padding: 30px 10px;
@@ -20,7 +10,6 @@ body {
     overflow: hidden;
     height: 500px;
 }
-
 .hero-background {
     background-image: url('../images/Truck blured.png');
     background-size: cover;
@@ -36,45 +25,11 @@ body {
     background-blend-mode: darken; /* blends black over the image */
     filter: blur(2px); /* optional blur */
 }
-
-
-
-header {
-    background-color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-.nav {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 5px 30px;
-    position: fixed;
-    width: 100%;
-    z-index: 99;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
 .right-side {
     display: flex;
     align-items: center;
     gap: 20px;
 }
-.nav-links {
-    display: flex;
-    gap: 20px;
-} .nav-links a {
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-}
-
-.nav-links a:hover {
-    color: orange;
-}
-
 .auth-buttons {
     display: flex;
     gap: 10px;
@@ -90,6 +45,7 @@ li{
 }
 .logo{
     height: 80px;
+    margin-left: 100px;
 }
 a{
     color: black;
@@ -173,9 +129,7 @@ button:active{
     color: #DFBE3A;
 }
 
-.truck-description h3 {
-    color: #DFBE3A;
-}
+
 
 .truck-description p {
     color: #ddd;
@@ -222,7 +176,7 @@ button:active{
     text-align: center;
 }
 
-.trucks h2 {
+.trucks h1 {
     color: #DFBE3A;
     font-size: 2rem;
     margin-bottom: 40px;
@@ -237,16 +191,11 @@ button:active{
     grid-template-columns: repeat(1, 1fr); 
 }
 
-@media (min-width: 600px) {
-    .truck-gallery {
-        grid-template-columns: repeat(2, 1fr); 
-    }
-}
-
-@media (min-width: 1024px) {
-    .truck-gallery {
-        grid-template-columns: repeat(4, 1fr); 
-    }
+.truck-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
 }
 
 @media (max-width: 350px){
@@ -266,18 +215,26 @@ html{
     box-shadow: 0 4px 8px rgba(0,0,0,0.4);
 }
 
-.truck-description h3 {
+.truck-description {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.truck-description h2 {
     color: #DFBE3A;
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+    font-size: 2rem;
+    margin-bottom: 15px;
 }
 
 .truck-description p {
-    color: #ccc;
-    font-size: 1rem;
+    color: #ffffff;
+    font-size: 1.2rem;
     max-width: 800px;
     margin: 0 auto;
-}   
+}
+
+
 
 /* Burger icon */
 .burger {
@@ -286,40 +243,12 @@ html{
     cursor: pointer;
     z-index: 100;
 }
-
-/* Hide nav by default on small screens */
-@media (max-width: 768px) {
-    .burger {
-        display: block;
-    }
-
-    .right-side {
-        display: none;
-        flex-direction: column;
-        background-color: #fff;
-        position: absolute;
-        top: 80px;
-        right: 0;
-        width: 100%;
-        text-align: center;
-        padding: 10px 0;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-
-    .right-side.show {
-        display: flex;
-    }
-
-    .nav-links {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .auth-buttons {
-        flex-direction: column;
-        gap: 10px;
-    }
+.right-side{
+    margin-right: 70px;
 }
+
+
+
 
 
 
