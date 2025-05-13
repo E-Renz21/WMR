@@ -18,6 +18,46 @@ header {
     background-color: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+.logo{
+    height: 80px;
+    margin-left: 100px;
+}
+.burger {
+    display: none;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.right-side{
+    margin-right: 70px;
+}
+.right-side {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+button{
+    display: inline-block;
+    background: #DFBE3A;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+}
+button:hover{
+    color: white;
+    background-color: #f1c824;
+}
+button:active{
+    color: black;
+}
 .nav-links {
     display: flex;
     gap: 20px;

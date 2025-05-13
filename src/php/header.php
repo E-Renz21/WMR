@@ -8,7 +8,7 @@
             <a href="#">About Us</a>
         </nav>
         <div class="auth-buttons">
- <button onclick="window.location.href='/wmr/src/php/login.php'">Login</button>
+            <button onclick="window.location.href='/wmr/src/php/login.php'">Login</button>
             <button onclick="window.location.href='/wmr/src/php/signUp.php'">Sign up</button>
         </div>
     </div>

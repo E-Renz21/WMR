@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="../css/home.css">
     <link rel="stylesheet" href="../css/header.css">
 
-    
 </head>
 <body>
 
@@ -17,6 +16,7 @@
         <div class="hero-background"></div>
         <h1 class="home-text">TRUST WMR FOR YOUR DELIVERY NEEDS.</h1>
         <button onclick="window.location.href='request.php'" class="cta-btn">REQUEST DELIVERY NOW</button>
+
     </section>
 
     <section class="features">
