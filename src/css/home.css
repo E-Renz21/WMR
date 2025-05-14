@@ -227,93 +227,232 @@ html{
  
 /* Burger icon */
 .vision-mission {
-    background-color: #111;
+    background-color: #111111;
     padding: 60px 20px;
+    color: white;
 }
 
 .vm-container {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
+    gap: 30px;
     max-width: 1200px;
     margin: auto;
-    gap: 20px;
 }
 
 /* Left: Journey Box */
 .journey {
+    flex: 1;
     background-color: #f1f1f1;
-    flex: 1 1 35%;
-
-    width: 40%;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    color: black;
     text-align: center;
 }
 
 .journey h5 {
-    font-size: 1rem;
-    color: #333;
+    font-size: 1.2rem;
     margin-bottom: 10px;
+    color: #000000;
+    font-weight: bold;
 }
 
-.journey img.vm-logo {
-    max-width: 100px;
+.journey .vm-logo {
+    width: 150px;
     margin: 20px 0;
 }
 
 .journey p {
-    font-size: 0.95rem;
-    color: #333;
+    font-size: 1rem;
     line-height: 1.6;
 }
 
-/* Right: Vision & Mission Stacked */
+/* Right: Vision and Mission Stacked */
 .right-column {
-    flex: 1 1 60%;
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.vm-box {
-    border-radius: 12px;
-    padding: 30px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
+/* Vision Box */
 .vision {
     background-color: #1a1a1a;
-    color: white;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: left;
 }
 
-.mission {
-    background-color: #f5d547;
-    color: #111;
+.vision h1 {
+    font-size: 2rem;
+    color: #DFBE3A;
+    margin-bottom: 15px;
 }
 
-.vm-box h1 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-}
-
-.vm-box p {
+.vision p {
     font-size: 1rem;
     line-height: 1.6;
 }
 
-/* Responsive adjustments */
+/* Mission Box */
+.mission {
+    background-color: #f5d547;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: left;
+    color: black;
+}
+
+.mission h1 {
+    font-size: 2rem;
+    color: #1a1a1a;
+    margin-bottom: 15px;
+}
+
+.mission p {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Responsive Adjustments */
 @media (max-width: 900px) {
     .vm-container {
         flex-direction: column;
     }
 
-    .journey, .right-column {
-        flex: 1 1 100%;
+    .right-column {
+        width: 100%;
     }
+    .journey{
+        width: 80%;
+    }
+    .vm-container{
+        align-items: center;
+    }
+}
+
+ /* Add this to your CSS file or in a style tag */
+        .contactUs {
+            padding: 60px 20px;
+            background-color: #000000;
+            color: #333;
+        }
+
+        .contactUs h1 {
+            text-align: center;
+            color: #DFBE3A;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+.contact-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px; /* Reduced gap */
+    align-items: center; /* Align items vertically */
+}
+
+.contact-form {
+    flex: 1;
+    background-color: white;
+    padding: 20px; /* Reduced padding */
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 500px; /* Added max-width to constrain size */
+    margin: 0 auto; /* Center the form */
+    height: 480px;
+}
+
+        .contact-form p {
+            margin-bottom: 1px;
+            font-weight: bold;
+        }
+        textarea{
+            width: 50%; 
+            padding: 12px; 
+            margin-bottom: 15px; 
+            border: 1px solid #ddd; 
+            border-radius: 6px; 
+            font-size: 1rem; 
+        }
+
+.contact-form input {
+    width: 95%; /* Changed from 50% to 100% for better use of space */
+    padding: 10px; /* Reduced padding */
+    margin-bottom: 15px; /* Reduced margin */
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.9rem; /* Slightly smaller font */
+}
+.contact-form textarea {
+    width: 95%; /* Changed from 50% to 100% */
+    padding: 10px; /* Reduced padding */
+    margin-bottom: 15px; /* Reduced margin */
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.9rem; /* Slightly smaller font */
+    height: 20px; /* Fixed height for textarea */
+}
+.contact-form button {
+    padding: 10px 20px; /* Slightly smaller button */
+    font-size: 0.9rem; /* Slightly smaller font */
+}
+.contact-form button:hover {
+    background-color: #f1c824;
+    color: white;
+}
+
+.map-container {
+    flex: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    height: 500px;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.address {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.address h5 {
+    color: #DFBE3A;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.address p {
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .contact-container {
+        flex-direction: column;
+    }
+    
+    .contact-form {
+        width: 90%; /* More appropriate width for mobile */
+        max-width: none;
+    }
+    
+    .map-container {
+        width: 100%;
+        height: 400px; /* Slightly smaller map on mobile */
+    }
+}
+
+.message-textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    resize: none;
 }

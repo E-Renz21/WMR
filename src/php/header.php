@@ -5,7 +5,8 @@
         <nav class="nav-links">
             <a href="#hero">Request Delivery</a>
             <a href="#trucks">Trucks</a>
-            <a href="#">About Us</a>
+            <a href="#vision-mission">About Us</a>
+            <a href="#contactUs">Contact Us</a>
         </nav>
         <div class="auth-buttons">
             <button onclick="window.location.href='/wmr/src/php/login.php'">Login</button>
