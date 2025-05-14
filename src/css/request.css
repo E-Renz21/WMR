@@ -1,123 +1,234 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    position: relative;
-    background: #000;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-.hero-background {
+.hero-background{
     background-image: url('../images/Truck blured.png');
     background-size: cover;
     background-position: center;
-    filter: blur(3px);
+    background-repeat: no-repeat;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -2;
-        background-color: rgba(0, 0, 0, 0.7); /* dark overlay */
+    z-index: -1; /* Places it behind the content */
+    background-color: rgba(0, 0, 0, 0.3); /* dark overlay */
     background-blend-mode: darken; /* blends black over the image */
+    filter: blur(2px); /* optional blur */
+}
+
+nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+}
+
+.profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.request-delivery-container {
+  padding: 40px;
+}
+.request-delivery-container  .form-wrapper .left-panel h2{
+  padding: 15px;
+    font-weight: 200;
+
+}
+.request-delivery-container  .form-wrapper .left-panel .products-section h3{
+    text-align: center;
+}
+
+
+.form-wrapper {
+  display: flex;
+  max-width: 1100px;
+  margin: 0 auto;
+  background-color: rgba(255, 204, 0, 0.85);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 100px;
+}
+
+.left-panel {
+  flex: 1;
+  background-color: rgba(255, 204, 0, 0.85);
+  color: white;
+    padding: 20px;
+}
+.estimate-options label input{
+    color: black;
+}
+
+.left-panel h2 {
+  background-color: black;
+  padding: 10px;
+  text-align: center;
+  margin: -20px -20px 0 -20px;
+  border-radius: 10px;
+}
+
+.products-section h3 {
+  margin-bottom: 10px;
+}
+.products-section {
+  background-color: #2a2a2a;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 20px 15px 15px;
+  height: 260px;
+  overflow-y: auto;
+}
+.products-section::-webkit-scrollbar {
+  width: 6px;
+}
+.products-section::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
 }
 
 
 
-.logo {
-    height: 80px;
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.input-group input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 5px 0 0 5px;
+  border: none;
+}
+
+.add-btn {
+  padding: 8px 12px;
+  background-color: white;
+  border: none;
+  font-size: 18px;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
 }
 
 
 
-.hero {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 140px 20px 60px; /* add top padding for fixed header */
-    height: 100vh;
-    position: relative;
-    z-index: 1;
+.estimate-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+  font-weight: bold;
 }
 
-
-
-.form-container {
-    background-color: rgba(255, 223, 0, 0.85); /* Yellow with transparency */
-    border-radius: 10px;
-    padding: 40px;
-    max-width: 800px;
-    width: 100%;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+.estimate-boxes-column {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+.estimate-options input.small-input {
+  width: 60px;
+}
+.estimate-options input[type="number"] {
+  width: 80px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+}
+.weight-group input[type="number"] {
+  width: 80x;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
 }
 
-.form-container h2 {
-    margin-bottom: 30px;
-    background-color: #222;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
-    display: inline-block;
+.weight-group {
+  display: flex;
+  gap: 5px;
+  align-items: center;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.weight-group select {
+  padding: 5px;
+  border-radius: 5px;
 }
 
-.form-row {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
+.note {
+  font-size: 12px;
+  color: #000000;
+  margin-top: 10px;
+}
+.estimate-options p{
+    text-align: center;
+    font-size: 14px;
 }
 
-.form-group {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+.right-panel {
+  flex: 2;
+  padding: 20px;
 }
 
-.form-group label {
-    font-weight: 600;
-    margin-bottom: 8px;
+.right-panel label {
+  font-weight: bold;
+  margin-top: 10px;
+  display: block;
 }
 
-input, select {
-    padding: 10px;
-    border: none;
-    border-radius: 6px;
-    width: 100%;
+.address-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 0;
 }
 
-.button-group {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
+.address-row span {
+  font-size: 14px;
 }
 
-.button-group button {
-    padding: 10px 20px;
-    font-weight: bold;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+.right-panel input[type="text"],
+.right-panel input[type="date"],
+.right-panel select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
 }
 
-.button-group button:first-child {
-    background-color: #e5e5e5;
+.btn-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-.button-group button:last-child {
-    background-color: black;
-    color: white;
+.back-btn,
+.proceed-btn {
+  padding: 10px 20px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .form-row {
-        flex-direction: column;
-    }
+.back-btn {
+  background-color: #eee;
+}
 
-    .form-container {
-        padding: 30px 20px;
-    }
+.proceed-btn {
+  background-color: black;
+  color: white;
 }

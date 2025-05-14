@@ -1,0 +1,28 @@
+main {
+    display: flex;
+    justify-content: center;  /* Horizontal centering */
+    align-items: center;      /* Vertical centering if desired */
+    min-height: 100vh;        /* Full viewport height for vertical alignment */
+    padding: 20px;
+}
+.panel-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 20px; /* optional spacing between panels */
+  justify-content: space-between; /* optional */
+  align-items: flex-start; /* align to the top */
+  width: 70%;
+}
+
+/* Optional: give fixed widths or allow them to grow */
+.left-panel {
+  flex: 1;
+  padding: 20px;
+  background-color: #f9f9f9; /* or your preferred color */
+}
+
+.right-panel {
+  flex: 2;
+  padding: 20px;
+  background-color: #DFBE3A;; /* or your preferred color */
+}
