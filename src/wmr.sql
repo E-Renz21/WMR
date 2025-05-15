@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 10, 2025 at 08:46 AM
+-- Generation Time: May 15, 2025 at 10:53 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `wmr_services`
+-- Database: `wmr`
 --
 
 -- --------------------------------------------------------
@@ -83,6 +83,20 @@ CREATE TABLE `clients` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `deliveries`
+--
+
+CREATE TABLE `deliveries` (
+  `DeliveryID` int(11) DEFAULT NULL,
+  `DriverID` int(11) DEFAULT NULL,
+  `TruckID` int(11) DEFAULT NULL,
+  `Products` varchar(990) DEFAULT NULL,
+  `Weight` decimal(10,3) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Stand-in structure for view `delivery_completions`
 -- (See below for the actual view)
 --
@@ -107,19 +121,6 @@ CREATE TABLE `drivers` (
   `Driver_License_Number` varchar(100) NOT NULL,
   `Driver_Vehicle_Assignment` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `payments`
--- (See below for the actual view)
---
-CREATE TABLE `payments` (
-`Transaction_ID` int(11)
-,`Transaction_Location` varchar(255)
-,`Payment_Amount` decimal(10,2)
-,`Payment_Status` enum('Pending','Paid','Failed')
-);
 
 -- --------------------------------------------------------
 
@@ -220,15 +221,6 @@ CREATE TABLE `truck_dispatches` (
 DROP TABLE IF EXISTS `delivery_completions`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `delivery_completions`  AS SELECT `b`.`Transaction_ID` AS `Transaction_ID`, `b`.`Client_ID` AS `Client_ID`, `b`.`Cargo_ID` AS `Cargo_ID`, `b`.`Driver_ID` AS `Driver_ID`, `b`.`Truck_ID` AS `Truck_ID` FROM `bookings` AS `b` ;
-
--- --------------------------------------------------------
-
---
--- Structure for view `payments`
---
-DROP TABLE IF EXISTS `payments`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `payments`  AS SELECT `transactions`.`Transaction_ID` AS `Transaction_ID`, `transactions`.`Transaction_Location` AS `Transaction_Location`, `transactions`.`Payment_Amount` AS `Payment_Amount`, `transactions`.`Payment_Status` AS `Payment_Status` FROM `transactions` ;
 
 -- --------------------------------------------------------
 
