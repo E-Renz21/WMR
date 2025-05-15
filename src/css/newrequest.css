@@ -1,28 +1,265 @@
-main {
-    display: flex;
-    justify-content: center;  /* Horizontal centering */
-    align-items: center;      /* Vertical centering if desired */
-    min-height: 100vh;        /* Full viewport height for vertical alignment */
-    padding: 20px;
+  *  {
+  box-sizing:  border-box;
+  font-family:  Arial,  sans-serif;
+  margin:  0;
+  padding:  0;
+  }
+  body  {
+  background-color:  #f5f5f5;
+  }
+.hero-background {
+    background-image: url('../images/Truck blured.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Places it behind the content */
+    background-color: rgba(0, 0, 0, 0.3); /* dark overlay */
+    background-blend-mode: darken; /* blends black over the image */
+    filter: blur(2px); /* optional blur */
 }
+  main  {
+  display:  flex;
+  justify-content:  center;
+  align-items:  center;
+  min-height:  100vh;
+  padding:  40px  20px;
+  }
 .panel-wrapper {
   display: flex;
-  flex-direction: row;
-  gap: 20px; /* optional spacing between panels */
-  justify-content: space-between; /* optional */
-  align-items: flex-start; /* align to the top */
-  width: 70%;
+  width: 90%;
+  max-width: 1200px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
-
-/* Optional: give fixed widths or allow them to grow */
 .left-panel {
   flex: 1;
-  padding: 20px;
-  background-color: #f9f9f9; /* or your preferred color */
+  padding: 0;
+  background: #DFBE3A;
+  border-right: 2px solid #000; /* Added border between panels */
 }
 
 .right-panel {
-  flex: 2;
+  flex: 1;
   padding: 20px;
-  background-color: #DFBE3A;; /* or your preferred color */
+  background: #DFBE3A;
+}
+  .request-header  {
+  background-color:  #000;
+  color:  white;
+  padding:  20px;
+  text-align:  center;
+  border-radius:  10px;
+  }
+  .request-header  h6  {
+  font-style:  none;
+  font-size:  20px;
+  margin:  0;
+  }
+  .product-section  {
+  background-color:  #000;
+  color:  white;
+  padding:  20px;
+  margin:  25px  25px  0  25px;
+  width:  90%;
+  border-radius:  10px;
+  height:  35%;
+  }
+  .product-container  {
+  display:  flex;
+  align-items:  center;
+  gap:  10px;
+  margin-top:  10px;
+  }
+  .product-container  input  {
+  flex:  1;
+  padding:  12px  15px;
+  border:  none;
+  border-radius:  6px;
+  font-size:  14px;
+  width: 10%;
+  }
+  .addProductBTN  {
+  background:  #DFBE3A;
+  color:  black;
+  border:  none;
+  border-radius:  6px;
+  padding:  12px  15px;
+  font-size:  16px;
+  cursor:  pointer;
+  font-weight:  bold;
+  }
+  .content-section  {
+  padding:  20px;
+  }
+  .content-section  p  {
+  color:  #555;
+  font-size:  14px;
+  margin:  10px  0;
+  }
+  .input-group  {
+  margin:  20px  0;
+  }
+  .input-group  .box-icon  {
+  display:  flex;
+  align-items:  center;
+  gap:  10px;
+  margin-bottom:  10px;
+  }
+  .input-group  .box-icon  img  {
+    width: 50px;
+  }
+  .input-group  h4  {
+  color:  #333;
+  font-size:  18px;
+
+  display:  inline;
+  
+  }
+  .input-group  input  {
+  width:  100%;
+  padding:  12px  15px;
+  border:  1px  solid  #ddd;
+  border-radius:  6px;
+  font-size:  14px;
+  }
+  .weight-container  {
+  display:  flex;
+  gap:  10px;
+
+  align-items:  center;
+  }
+  .weight-container  .weight-icon  {
+  display:  flex;
+  align-items:  center;
+  gap:  10px;
+  margin-bottom:  10px;
+  }
+  .weight-container  .weight-icon  img  {
+  width:  35px;
+
+  }
+  .weight-icon{
+    margin-bottom: 20px;
+  }
+  .weight-container  input  {
+  flex:  1;
+  }
+  .weight-container  select  {
+  padding:  12px  15px;
+  border:  none;
+  border-radius:  6px;
+  font-size:  14px;
+  background-color:  #DFBE3A;
+  color:  black;
+  font-weight:  bold;
+  }
+  .right-panel  p  {
+  color:  #333;
+  font-size:  14px;
+  margin:  10px  0;
+  }
+  .right-panel  input  {
+  padding:  12px  15px;
+  border:  1px  solid  #ddd;
+  border-radius:  6px;
+  font-size:  14px;
+  width:  100%;
+  margin-bottom:  15px;
+  }
+
+  .address-header  {
+  display:  flex;
+  align-items:  center;
+  gap:  15px;
+
+  }
+.pickupLogo{
+  width: 60px;
+}
+.locationLogo{
+  width: 34px;
+}
+  .address-header  h4  {
+  color:  #333;
+  font-size:  18px;
+  margin:  0;
+  }
+  .address-field  {
+
+  }
+  .address-field  label  {
+  display:  block;
+  margin-bottom:  8px;
+  color:  #333;
+  font-size:  14px;
+  }
+
+  .date-header  {
+  display:  flex;
+  align-items:  center;
+  gap:  15px;
+  margin-bottom:  5px;
+  }
+  .date-header  img  {
+  width:  24px;
+  height:  24px;
+  }
+  .date-header  h4  {
+  color:  #333;
+  font-size:  18px;
+  margin:  0;
+  }
+  .button-group  {
+  display:  flex;
+  justify-content:  space-between;
+  gap:  20px;
+
+  }
+  .button-group  button  {
+  flex:  1;
+  padding:  12px  25px;
+  border:  none;
+  border-radius:  6px;
+  font-size:  16px;
+  cursor:  pointer;
+  font-weight:  bold;
+  }
+  .back-btn  {
+  background:  #f1f1f1;
+  color:  #333;
+  }
+  .proceed-btn  {
+  background:  #333;
+  color:  white;
+  }
+@media (max-width: 768px) {
+  .panel-wrapper {
+    flex-direction: column;
+  }
+  
+  .left-panel {
+    border-right: none; /* Remove border on mobile */
+    border-bottom: 2px solid #000; /* Optional: add border at bottom instead */
+  }
+  
+  .left-panel,
+  .right-panel {
+    padding: 20px;
+  }
+  
+  .button-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .product-section {
+    margin: 10px;
+  }
 }
