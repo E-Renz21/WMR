@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Settings</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+        }
+        
+.main-container {
+    display: flex;
+    flex: 1;
+    position: relative;
+    padding: 15px;
+    max-width: 1200px;
+    margin: 15px auto;
+    width: 100%;
+    align-items: flex-start;
+}
+        
+.settings-sidebar {
+    width: 250px;
+    background-color: #111;
+    color: white;
+    border-radius: 15px 0 0 15px;
+    margin-right: -15px;
+    z-index: 2;
+    position: relative;
+}
+        
+        .settings-header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .settings-header img {
+            width: 24px;
+            margin-right: 10px;
+        }
+        
+        .settings-header h2 {
+            font-size: 18px;
+        }
+        
+        .settings-menu {
+            padding: 20px 0;
+            flex: 1; /* Take up remaining space */
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            flex: 1;
+            max-height: 50px; /* Limit height of menu items */
+        }
+        
+        .menu-item:hover {
+            background-color: #333;
+        }
+        
+        .menu-item img {
+            width: 20px;
+            margin-right: 10px;
+        }
+        
+.profile-content {
+    flex: 1;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 0 15px 15px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 1;
+    min-height: auto;
+}
+        
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    
+}
+        
+
+.profile-pic-container {
+    position: relative;
+    margin-right: 15px;
+    text-align: center;
+}
+        
+.profile-pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+}
+        
+        .change-photo {
+            color: #0066cc;
+            cursor: pointer;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+        }
+        
+        .change-photo img {
+            width: 10px;
+            margin-left: 5px;
+        }
+        
+    .profile-info {
+        width: 100%;
+        max-width: 600px;
+    }
+        
+.info-row {
+    display: flex;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+        
+.info-group {
+    flex: 1;
+    margin-right: 10px;
+    min-width: 250px;
+}
+        
+        .info-group:last-child {
+            margin-right: 0;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+        }
+        
+.info-value {
+    padding: 5px 8px;
+    min-height: 30px;
+}
+        
+        .edit-icon {
+            width: 12px;
+            cursor: pointer;
+            display: none;
+        }
+        
+        .action-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            margin: 15px auto 0;
+            padding: 8px 16px;
+            background-color: #111;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 0.9em;
+        }
+        
+        .action-btn:hover {
+            background-color: #333;
+        }
+        
+        .info-value.editable {
+            background-color: white;
+        }
+        
+        .info-value input {
+            border: none;
+            outline: none;
+            width: 100%;
+            background: transparent;
+            font-size: 0.9em;
+        }
+        
+        .hero-background {
+            background-image: url('../images/Truck blured.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            background-blend-mode: multiply;
+            filter: blur(1px);
+            z-index: 0;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                padding: 10px;
+                margin: 10px auto;
+            }
+            
+            .settings-sidebar {
+                width: 100%;
+                border-radius: 15px 15px 0 0;
+                margin-right: 0;
+                margin-bottom: -15px;
+                height: auto;
+            }
+            
+            .profile-content {
+                width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+            
+    .profile-header {
+        justify-content: center;
+        text-align: center;
+    }
+    
+            
+    .profile-pic-container {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+            
+            .info-group {
+                min-width: 100%;
+                margin-right: 0;
+                margin-bottom: 12px;
+            }
+            
+            .info-value {
+                width: 100%;
+            }
+            
+            .settings-menu {
+                flex-direction: row;
+                flex-wrap: wrap;
+                padding: 10px 0;
+            }
+            
+            .menu-item {
+                flex: 1 1 50%;
+                max-height: none;
+                padding: 10px;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .profile-content {
+                padding: 15px;
+            }
+            
+            .settings-header, .menu-item {
+                padding: 12px;
+            }
+            
+            .settings-menu {
+                flex-direction: column;
+            }
+            
+            .menu-item {
+                flex: 1;
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-background"></div>
+    <div class="main-container">
+        <div class="settings-sidebar">
+            <div class="settings-header">
+                <img src="../images/Settings.png" alt="Settings">
+                <h2>SETTINGS</h2>
+            </div>
+            
+            <div class="settings-menu">
+                <div class="menu-item">
+                    <img src="../images/account_circle.png" alt="Profile">
+                    <span>Profile</span>
+                </div>
+
+                
+                <div class="menu-item">
+                    <img src="../images/Log_outLogo.png" alt="">
+                    <span>Log Out</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="profile-content">
+            <div class="profile-header">
+                <div class="profile-pic-container">
+                    <img src="profile-picture.jpg" alt="Profile Picture" class="profile-pic">
+                    <div class="change-photo" id="changePhotoBtn">
+                        <span>Change Photo</span>
+                        <img src="pencil-icon.png" alt="Edit" class="edit-icon" id="photoEditIcon">
+                    </div>
+                </div>
+                
+                <div class="profile-info" id="profileInfo">
+                    <div class="info-row">
+                        <div class="info-group">
+                            <div class="info-label">
+                                <span>Name</span>
+                            </div>
+                            <div class="info-value">
+                                <span>John Doe</span>
+                                <img src="pencil-icon.png" alt="Edit" class="edit-icon">
+                            </div>
+                        </div>
+                        
+                        <div class="info-group">
+                            <div class="info-label">
+                                <span>Nickname</span>
+                            </div>
+                            <div class="info-value">
+                                <span>Johnny</span>
+                                <img src="pencil-icon.png" alt="Edit" class="edit-icon">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-row">
+                        <div class="info-group">
+                            <div class="info-label">
+                                <span>Residence (Full Address)</span>
+                            </div>
+                            <div class="info-value">
+                                <span>123 Main St, Anytown, USA</span>
+                                <img src="pencil-icon.png" alt="Edit" class="edit-icon">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-row">
+                        <div class="info-group">
+                            <div class="info-label">
+                                <span>Birthdate</span>
+                            </div>
+                            <div class="info-value">
+                                <span>January 1, 1990</span>
+                                <img src="pencil-icon.png" alt="Edit" class="edit-icon">
+                            </div>
+                        </div>
+                        
+                        <div class="info-group">
+                            <div class="info-label">
+                                <span>Company/Business Name</span>
+                            </div>
+                            <div class="info-value">
+                                <span>Doe Enterprises</span>
+                                <img src="pencil-icon.png" alt="Edit" class="edit-icon">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-row">
+                        <div class="info-group">
+                            <div class="info-label">
+                                <span>Type of Business</span>
+                            </div>
+                            <div class="info-value">
+                                <span>Logistics</span>
+                                <img src="pencil-icon.png" alt="Edit" class="edit-icon">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-row">
+                        <div class="info-group">
+                            <div class="info-label">
+                                <span>Email</span>
+                            </div>
+                            <div class="info-value">
+                                <span>john.doe@example.com</span>
+                                <img src="pencil-icon.png" alt="Edit" class="edit-icon">
+                            </div>
+                        </div>
+                        
+                        <div class="info-group">
+                            <div class="info-label">
+                                <span>Phone Number</span>
+                            </div>
+                            <div class="info-value">
+                                <span>(123) 456-7890</span>
+                                <img src="pencil-icon.png" alt="Edit" class="edit-icon">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="action-btn" id="editSaveBtn">Edit</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const editSaveBtn = document.getElementById('editSaveBtn');
+            const editIcons = document.querySelectorAll('.edit-icon');
+            const infoValues = document.querySelectorAll('.info-value');
+            const changePhotoBtn = document.getElementById('changePhotoBtn');
+            const photoEditIcon = document.getElementById('photoEditIcon');
+            
+            let isEditMode = false;
+            
+            // Toggle edit/save mode
+            editSaveBtn.addEventListener('click', function() {
+                isEditMode = !isEditMode;
+                
+                if (isEditMode) {
+                    // Switch to edit mode
+                    editSaveBtn.textContent = 'Save';
+                    
+                    // Show all edit icons
+                    editIcons.forEach(icon => {
+                        icon.style.display = 'inline-block';
+                    });
+                    
+                    // Show photo edit icon
+                    photoEditIcon.style.display = 'inline-block';
+                    
+                    // Make fields editable
+                    infoValues.forEach(value => {
+                        const text = value.querySelector('span').textContent;
+                        value.innerHTML = `<input type="text" value="${text}">`;
+                        value.classList.add('editable');
+                    });
+                } else {
+                    // Switch to view mode
+                    editSaveBtn.textContent = 'Edit';
+                    
+                    // Hide all edit icons
+                    editIcons.forEach(icon => {
+                        icon.style.display = 'none';
+                    });
+                    
+                    // Hide photo edit icon
+                    photoEditIcon.style.display = 'none';
+                    
+                    // Save values and switch back to text display
+                    infoValues.forEach(value => {
+                        const inputValue = value.querySelector('input').value;
+                        value.innerHTML = `<span>${inputValue}</span><img src="pencil-icon.png" alt="Edit" class="edit-icon">`;
+                        value.classList.remove('editable');
+                    });
+                }
+            });
+            
+            // Initially hide all edit icons
+            editIcons.forEach(icon => {
+                icon.style.display = 'none';
+            });
+            photoEditIcon.style.display = 'none';
+            
+            // Change photo functionality
+            changePhotoBtn.addEventListener('click', function() {
+                if (isEditMode) {
+                    // In a real app, this would open a file dialog
+                    alert('Photo change functionality would go here');
+                }
+            });
+            
+            // Function to make both panels equal height
+            function equalizeHeights() {
+                const sidebar = document.querySelector('.settings-sidebar');
+                const content = document.querySelector('.profile-content');
+                
+                if (window.innerWidth > 768) {
+                    const contentHeight = content.offsetHeight;
+                    sidebar.style.height = `${contentHeight}px`;
+                } else {
+                    sidebar.style.height = 'auto';
+                }
+            }
+            
+            // Run on load and resize
+            window.addEventListener('load', equalizeHeights);
+            window.addEventListener('resize', equalizeHeights);
+        });
+    </script>
+    <script>
+        function adjustSidebarHeight() {
+    const content = document.querySelector('.profile-content');
+    const sidebar = document.querySelector('.settings-sidebar');
+    if (window.innerWidth > 768) {
+        sidebar.style.height = `${content.offsetHeight}px`;
+    } else {
+        sidebar.style.height = 'auto';
+    }
+}
+
+window.addEventListener('load', adjustSidebarHeight);
+window.addEventListener('resize', adjustSidebarHeight);
+    </script>
+</body>
+</html>

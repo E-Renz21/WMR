@@ -60,7 +60,7 @@
                 your goods. With WMR, you can trust that your cargo is in good hands.</h3>
         </div>
     </section>
-     <section class="vision-mission">
+     <section class="vision-mission" id="vision-mission">
         <div class="vm-container">
             <!-- Left: Journey Box -->
             <div class="vm-box journey">
@@ -97,7 +97,7 @@
     </div>
 </section>
 
-<section class="contactUs">
+<section class="contactUs" id="contactUs">
     <div class="contact-container">
         <!-- Left: Black background with form -->
         <div class="contact-left">
