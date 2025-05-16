@@ -1,123 +1,120 @@
-
-
-header {
-    background-color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-.nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 30px;
-    position: fixed;
-    width: 100%;
-    z-index: 99;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-.logo{
-    height: 80px;
-    margin-left: 100px;
-}
-.burger {
-    display: none;
-    font-size: 30px;
-    cursor: pointer;
-    z-index: 100;
-}
-
-.right-side{
-    margin-right: 70px;
-}
-.right-side {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-.auth-buttons {
-    display: flex;
-    gap: 10px;
-}
-button{
-    display: inline-block;
-    background: #DFBE3A;
-    color: rgb(0, 0, 0);
-    padding: 10px 20px;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 10px;
-    cursor: pointer;
-}
-button:hover{
-    color: white;
-    background-color: #f1c824;
-}
-button:active{
-    color: black;
-}
-.nav-links {
-    display: flex;
-    gap: 20px;
-} .nav-links a {
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-}
-.nav-links a:hover {
-    color: orange;
-}
-
-
-.nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    margin-right: 20px;
-    
-}
-/* Hide nav by default on small screens */
-@media (max-width: 950px) {
-    .burger {
-        display: block;
-        margin-right: 30px;
-    }
-
-    .right-side {
-        display: none;
-        flex-direction: column;
-        background-color: #fff;
-        position: absolute;
-        top: 80px;
-        right: 0;
-        width: 100%;
-        text-align: center;
-        padding: 10px 0;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        margin-right: 0;
-        
-    }
-    .logo{
-        margin-left: 20px;
-    }
-    .right-side.show {
+    .delivery-status-nav {
         display: flex;
-    }
-
-    .nav-links {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .auth-buttons {
-        flex-direction: column;
-        gap: 10px;
-    }
-    .nav{
         justify-content: space-between;
-        padding: 0;
+        align-items: center;
+        padding: 5px 30px;
+        position: fixed;
+        width: 100%;
+        z-index: 99;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
     }
-}
+    
+    .delivery-status-logo {
+        height: 80px;
+        margin-left: 100px;
+    }
+    
+    .delivery-status-burger {
+        display: none;
+        font-size: 30px;
+        cursor: pointer;
+        z-index: 100;
+    }
+    
+    .delivery-status-right-side {
+        margin-right: 70px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .delivery-status-auth-buttons {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .delivery-status-btn {
+        display: inline-block;
+        background: #DFBE3A;
+        color: rgb(0, 0, 0);
+        padding: 10px 20px;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    
+    .delivery-status-btn:hover {
+        color: white;
+        background-color: #f1c824;
+    }
+    
+    .delivery-status-btn:active {
+        color: black;
+    }
+    
+    .delivery-status-nav-links {
+        display: flex;
+        gap: 20px;
+    }
+    
+    .delivery-status-nav-links a {
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+    }
+    
+    .delivery-status-nav-links a:hover {
+        color: orange;
+    }
+    
+    /* Hide nav by default on small screens */
+    @media (max-width: 950px) {
+        .delivery-status-burger {
+            display: block;
+            margin-right: 30px;
+        }
+    
+        .delivery-status-right-side {
+            display: none;
+            flex-direction: column;
+            background-color: #fff;
+            position: absolute;
+            top: 80px;
+            right: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            margin-right: 0;
+        }
+        
+        .delivery-status-logo {
+            margin-left: 20px;
+        }
+        
+        .delivery-status-right-side.show {
+            display: flex;
+        }
+    
+        .delivery-status-nav-links {
+            flex-direction: column;
+            gap: 10px;
+        }
+    
+        .delivery-status-auth-buttons {
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .delivery-status-nav {
+            justify-content: space-between;
+            padding: 0;
+        }
+    }

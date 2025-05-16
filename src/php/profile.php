@@ -5,8 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Profile Settings</title>
         <link rel="stylesheet" href="../css/profile.css">
+        <link rel="stylesheet" href="../css/header.css">
     </head>
     <body>
+
+     <?php include('header.php'); ?> 
         <div class="hero-background"></div>
         <div class="main-container">
             <div class="settings-sidebar">
@@ -46,7 +49,7 @@
                                     <span>Name</span>
                                 </div>
                                 <div class="info-value">
-                                    <span>John Doe</span>
+                                    <span></span>
                                     <img src="pencil-icon.png" alt="Edit" class="edit-icon">
                                 </div>
                             </div>
@@ -56,7 +59,7 @@
                                     <span>Nickname</span>
                                 </div>
                                 <div class="info-value">
-                                    <span>Johnny</span>
+                                    <span></span>
                                     <img src="pencil-icon.png" alt="Edit" class="edit-icon">
                                 </div>
                             </div>
@@ -68,7 +71,7 @@
                                     <span>Residence (Full Address)</span>
                                 </div>
                                 <div class="info-value">
-                                    <span>123 Main St, Anytown, USA</span>
+                                    <span></span>
                                     <img src="pencil-icon.png" alt="Edit" class="edit-icon">
                                 </div>
                             </div>
@@ -80,7 +83,7 @@
                                     <span>Birthdate</span>
                                 </div>
                                 <div class="info-value">
-                                    <span>January 1, 1990</span>
+                                    <span></span>
                                     <img src="pencil-icon.png" alt="Edit" class="edit-icon">
                                 </div>
                             </div>
@@ -90,7 +93,7 @@
                                     <span>Company/Business Name</span>
                                 </div>
                                 <div class="info-value">
-                                    <span>Doe Enterprises</span>
+                                    <span></span>
                                     <img src="pencil-icon.png" alt="Edit" class="edit-icon">
                                 </div>
                             </div>
@@ -99,7 +102,7 @@
                         <div class="info-row">
                             <div class="info-group">
                                 <div class="info-label">
-                                    <span>Type of Business</span>
+                                    <span></span>
                                 </div>
                                 <div class="info-value">
                                     <span>Logistics</span>
@@ -114,7 +117,7 @@
                                     <span>Email</span>
                                 </div>
                                 <div class="info-value">
-                                    <span>john.doe@example.com</span>
+                                    <span></span>
                                     <img src="../images/pencil-icon.png" alt="Edit" class="edit-icon">
                                 </div>
                             </div>
@@ -124,7 +127,7 @@
                                     <span>Phone Number</span>
                                 </div>
                                 <div class="info-value">
-                                    <span>(123) 456-7890</span>
+                                    <span></span>
                                     <img src="pencil-icon.png" alt="Edit" class="edit-icon">
                                 </div>
                             </div>

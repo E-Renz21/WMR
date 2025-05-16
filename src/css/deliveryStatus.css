@@ -1,0 +1,306 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .hero-background {
+            background-image: url('../images/Truck blured.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            background-blend-mode: multiply;
+            filter: blur(1px);
+            z-index: -1;
+        }
+
+       .main-container {
+        margin: 100px auto;
+            display: flex;
+            max-width: 1200px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .left-side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #eee;
+        }
+        
+        .delivery-status-header {
+            background-color: #111;
+            color: white;
+            padding: 15px;
+        }
+        
+        .delivery-status-header h1 {
+            font-size: 1.5em;
+        }
+        
+        .delivery-requests {
+            padding: 15px;
+            flex: 1;
+        }
+        
+        .delivery-requests h5 {
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            color: #333;
+        }
+        
+        .request-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .request-item:last-child {
+            border-bottom: none;
+        }
+        
+        .request-item img {
+            width: 30px;
+            height: 30px;
+            margin-right: 15px;
+        }
+        
+        .request-info {
+            flex: 1;
+        }
+        
+        .request-date {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .request-status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
+        
+        .status-pending {
+            background-color: #FFD700;
+            color: #333;
+        }
+        
+        .status-intransit {
+            background-color: #1E90FF;
+            color: white;
+        }
+        
+        .status-arrived {
+            background-color: #32CD32;
+            color: white;
+        }
+        
+        .request-locations {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+        
+        .request-locations img {
+            width: 20px;
+            height: 20px;
+            margin: 0 10px;
+        }
+        
+        .right-side {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .driver-info {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .driver-top {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .driver-section {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+        
+        .driver-section img {
+            margin-right: 15px;
+        }
+        
+        .driver-details h2 {
+            font-size: 1.2em;
+            margin-top: 5px;
+        }
+        
+        .driver-bottom {
+            display: flex;
+        }
+        
+        .truck-section, .phone-section {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+        
+        .truck-section img, .phone-section img {
+            width: 60px;
+            margin-right: 15px;
+        }
+        
+        .delivery-details {
+            padding: 20px;
+            flex: 1;
+        }
+        
+        .details-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .details-left {
+            flex: 1;
+            padding-right: 20px;
+        }
+        
+        .details-right {
+            flex: 1;
+            padding-left: 20px;
+        }
+        
+        .location-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .location-section img {
+            width: 60px;
+            margin-right: 15px;
+        }
+        
+        .status-section {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        
+        .status-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .status-value {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            background-color: #1E90FF;
+            color: white;
+        }
+        
+        .date-time-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            margin-bottom: 20px;
+        }
+        
+        .date-time-item p {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .date-time-item h2 {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        
+        .address-section {
+            margin-bottom: 20px;
+        }
+        
+        .address-section p:first-child {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .cargo-section {
+            margin-bottom: 20px;
+        }
+        
+        .cargo-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .cargo-item img {
+            width: 50px;
+            margin-right: 15px;
+        }
+        
+        .cargo-details p {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .cargo-details h2 {
+            font-size: 1.1em;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .left-side {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .driver-top, .driver-bottom {
+                flex-direction: column;
+            }
+            
+            .driver-section, .truck-section, .phone-section {
+                margin-bottom: 15px;
+            }
+            
+            .date-time-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .details-container {
+                flex-direction: column;
+            }
+            
+            .details-left, .details-right {
+                padding: 0;
+            }
+        }
