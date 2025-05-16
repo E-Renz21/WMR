@@ -13,6 +13,14 @@
             overflow-y: auto;
             height: 140px;
         }
+  form{
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: none;
+    width: 100%;
+}
+  
 .hero-background {
     background-image: url('../images/Truck blured.png');
     background-size: cover;
@@ -40,13 +48,15 @@
   }
 .panel-wrapper {
   margin-top: 80px;
+   justify-content: center;
   display: flex;
   width: 90%;
   max-width: 1200px;
   background: white;
   border-radius: 15px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  overflow: hidden;
+  overflow: hidden;    
+  margin: 0 auto;         /* centers .panel-wrapper itself in its parent */    
 }
 .left-panel {
   flex: 1;
