@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $clientId = $_SESSION['user_id'];
-    $productDescriptions = isset($_POST['products']) ? implode(", ", $_POST['products']) : '';
+    $productDescriptions = isset($_POST['products_hidden']) ? $_POST['products_hidden'] : '';
     $estimatedBoxes = $_POST['estimated_boxes'];
     $estimatedWeight = $_POST['estimated_weight'];
     $weightUnit = $_POST['weight_unit'];
@@ -65,6 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="hero-background"></div>
     <main>
         <form action="request.php" method="POST">
+            <input type="hidden" name="products_hidden" id="productsHidden">
+
             <div class="panel-wrapper">
              
             <section class="left-panel">
@@ -75,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="product-section">
                     <h6>Products</h6>
                     <div class="product-container">
-                        <input type="text" id="productInput" name="products[]" placeholder="Enter product name">
+                        <input type="text" id="productInput" name="products[]" placeholder="Enter product name" >
                         <button type="button" class="addProductBTN" onclick="addProduct()">+</button>
                     </div>
 
@@ -102,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <h4>Estimated Weight</h4>
                         </div>
                         <div class="weight-container">
-                            <input type="number" name="estimated_weight" placeholder="Enter weight">
+                            <input type="number" name="estimated_weight" placeholder="Enter weight" required>
                             <select name="weight_unit">
                                     <option value="kg">Kg</option>
                                     <option value="tons">Tons</option>
@@ -123,12 +125,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     
                     <div class="address-field">
                         <label>City/Municipality/Town</label>
-                        <input type="text" name="pickup_address" placeholder="Enter full address">
+                        <input type="text" name="pickup_address" placeholder="Enter full address" required>
                     </div>
                     
                     <div class="address-field">
                         <label>Full Address</label>
-                        <input type="text" name="pickup_city" placeholder="Enter city/municipality/town">
+                        <input type="text" name="pickup_city" placeholder="Enter city/municipality/town" required>
                     </div>
                 </div>
 
@@ -142,13 +144,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     
                     <div class="address-field">
                         <label>City/Municipality/Town</label>
-                        <input type="text" name="delivery_city" placeholder="Enter city/municipality/town">
+                        <input type="text" name="delivery_city" placeholder="Enter city/municipality/town" required>
 
                     </div>
                     
                     <div class="address-field">
                         <label>Full Address</label>
-                        <input type="text" name="delivery_address" placeholder="Enter full address">
+                        <input type="text" name="delivery_address" placeholder="Enter full address" required>
 
 
                     </div>
@@ -159,14 +161,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <img src="../images/calendar_date-removebg-preview 1.png" alt="Calendar icon">
                         <h4>Pick-up Date</h4>
                     </div>
-                    <input type="date" name="pickup_date">
+                    <input type="date" name="pickup_date" required>
 
                     
                     <div class="date-header">
                         <img src="../images/calendar_date-removebg-preview 1.png" alt="Calendar icon">
                         <h4>Estimated Cargo Arrival Date</h4>
                     </div>
-                    <input type="date" name="estimated_arrival_date">
+                    <input type="date" name="estimated_arrival_date" required>
                 </div>
                 
                 <div class="button-group">
@@ -206,7 +208,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             products.splice(index, 1);
             renderProductList();
         }
-        
+            // Sync products[] array to hidden input field
+    function updateHiddenProductField() {
+        const hiddenInput = document.getElementById('productsHidden');
+        hiddenInput.value = products.join(", ");
+    }
+
+    // Update before form submission
+    document.querySelector('form').addEventListener('submit', function(e) {
+        updateHiddenProductField();
+    });
         function renderProductList() {
             const productList = document.getElementById('productList');
             productList.innerHTML = '';
