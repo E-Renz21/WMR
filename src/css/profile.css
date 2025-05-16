@@ -291,3 +291,48 @@
                     justify-content: flex-start;
                 }
             }
+    
+/* Profile picture container styles */
+.profile-pic-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+}
+
+.profile-pic {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #DFBE3A;
+}
+
+.change-photo {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #DFBE3A;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.change-photo:hover {
+    background: #f1c824;
+}
+
+.change-photo span {
+    white-space: nowrap;
+}
+
+.edit-icon {
+    width: 16px;
+    height: 16px;
+}

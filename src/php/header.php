@@ -1,5 +1,4 @@
 <?php
-
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -10,6 +9,10 @@ $avatar = "../images/profile-avatar.png"; // default
 if ($isLoggedIn) {
     // Connect to DB and get user's profile picture
     $conn = new mysqli("localhost", "root", "", "wmr");
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    
     $stmt = $conn->prepare("SELECT profile_picture FROM users WHERE id = ?");
     $stmt->bind_param("i", $_SESSION['user_id']);
     $stmt->execute();
@@ -21,20 +24,6 @@ if ($isLoggedIn) {
     $conn->close();
 }
 ?>
-
-<?php if ($isLoggedIn): ?>
-    <div class="profile-dropdown">
-        <img src="<?= htmlspecialchars($avatar) ?>" alt="Profile" class="profile-avatar" id="profileBtn" onclick="toggleProfileDropdown()">
-        <div class="profile-dropdown-content" id="profileDropdown">
-            <a href="/wmr/src/php/profile.php">Profile</a>
-            <a href="/wmr/src/php/logout.php">Logout</a>
-        </div>
-    </div>
-<?php else: ?>
-
-<?php endif; ?>
-
-
 
 <header class="delivery-status-nav">
     <img src="../images/logo.png" class="delivery-status-logo" alt="Logo">
@@ -50,7 +39,7 @@ if ($isLoggedIn) {
         <div class="delivery-status-auth-buttons">
             <?php if ($isLoggedIn): ?>
                 <div class="profile-dropdown">
-                    <img src="../images/profile-icon.png" alt="Profile" class="profile-avatar" id="profileBtn" onclick="toggleProfileDropdown()">
+                    <img src="<?= htmlspecialchars($avatar) ?>" alt="Profile" class="profile-avatar" id="profileBtn" onclick="toggleProfileDropdown()">
                     <div class="profile-dropdown-content" id="profileDropdown">
                         <a href="/wmr/src/php/profile.php">Profile</a>
                         <a href="/wmr/src/php/logout.php">Logout</a>
@@ -69,15 +58,26 @@ if ($isLoggedIn) {
         const menu = document.getElementById('delivery-status-nav-menu');
         menu.classList.toggle('show');
     }
+    
     function toggleProfileDropdown() {
+        // Close any other open dropdowns first
+        const allDropdowns = document.querySelectorAll('.profile-dropdown-content');
+        allDropdowns.forEach(dropdown => {
+            if (dropdown.id !== 'profileDropdown' && dropdown.classList.contains('show')) {
+                dropdown.classList.remove('show');
+            }
+        });
+        
+        // Toggle the clicked dropdown
         document.getElementById('profileDropdown').classList.toggle('show');
     }
-    // Close dropdown if clicked outside
+    
+    // Close dropdowns when clicking outside
     window.onclick = function(event) {
-        if (!event.target.matches('#profileBtn')) {
-            var dropdowns = document.getElementsByClassName("profile-dropdown-content");
-            for (var i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
+        if (!event.target.matches('#profileBtn') && !event.target.matches('.profile-avatar')) {
+            const dropdowns = document.getElementsByClassName("profile-dropdown-content");
+            for (let i = 0; i < dropdowns.length; i++) {
+                const openDropdown = dropdowns[i];
                 if (openDropdown.classList.contains('show')) {
                     openDropdown.classList.remove('show');
                 }
