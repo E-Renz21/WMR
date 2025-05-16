@@ -3,27 +3,34 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+
 $isLoggedIn = isset($_SESSION['user_id']);
-$avatar = "../images/profile-avatar.png"; // default
+$defaultAvatar = "../images/profileAvatar.png"; // fallback
+$avatar = $defaultAvatar;
+
 
 if ($isLoggedIn) {
-    // Connect to DB and get user's profile picture
-    $conn = new mysqli("localhost", "root", "", "wmr");
+    $conn = new mysqli("localhost", "root", "", "wmr_db"); // updated DB name if needed
+
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-    
+
+    // Fetch the profile picture from the clients table
     $stmt = $conn->prepare("SELECT profile_picture FROM users WHERE id = ?");
-    $stmt->bind_param("i", $_SESSION['user_id']);
+    $stmt->bind_param("i", $_SESSION['user_id']); // assuming clients.id = users.id
     $stmt->execute();
     $stmt->bind_result($profilePic);
-    if ($stmt->fetch() && $profilePic) {
-        $avatar = "../uploads/" . $profilePic;
+
+    if ($stmt->fetch() && !empty($profilePic)) {
+        $avatar = "../uploads/" . htmlspecialchars($profilePic);
     }
+
     $stmt->close();
     $conn->close();
 }
 ?>
+
 
 <header class="delivery-status-nav">
     <img src="../images/logo.png" class="delivery-status-logo" alt="Logo">
@@ -31,6 +38,7 @@ if ($isLoggedIn) {
     <div class="delivery-status-right-side" id="delivery-status-nav-menu">
         <nav class="delivery-status-nav-links">
             <a href="/wmr/src/php/index.php#hero">Request Delivery</a>
+            <a href="/wmr/src/php/deliveryStatus.php">Delivery Status</a>
             <a href="/wmr/src/php/index.php#trucks">Trucks</a>
             <a href="/wmr/src/php/index.php#vision-mission">About Us</a>
             <a href="/wmr/src/php/index.php#contactUs">Contact Us</a>
@@ -42,7 +50,8 @@ if ($isLoggedIn) {
                     <img src="<?= htmlspecialchars($avatar) ?>" alt="Profile" class="profile-avatar" id="profileBtn" onclick="toggleProfileDropdown()">
                     <div class="profile-dropdown-content" id="profileDropdown">
                         <a href="/wmr/src/php/profile.php">Profile</a>
-                        <a href="/wmr/src/php/logout.php">Logout</a>
+                       <a href="/wmr/src/php/logout.php">Logout</a>
+
                     </div>
                 </div>
             <?php else: ?>

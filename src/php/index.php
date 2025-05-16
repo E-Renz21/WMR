@@ -1,3 +1,9 @@
+<?php
+session_start();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -103,21 +109,21 @@
         <div class="contact-left">
             <h1>CONTACT US</h1>
             <div class="contact-form">
-                <form action="">
+                <form action="handle_contact.php" method="POST">
                     <p>First Name</p>
-                    <input type="text" required>
+                     <input type="text" name="first_name" required>
                     
                     <p>Last Name</p>
-                    <input type="text" required>
+                    <input type="text" name="last_name" required>
                     
                     <p>Phone Number</p>
-                    <input type="tel" required>
+                    <input type="tel" name="phone_number" required>
                     
                     <p>Email</p>
-                    <input type="email" required>
+                    <input type="email" name="email" required>
                     
                     <p>Message</p>
-                    <textarea rows="4" style="resize: none;"></textarea>
+                    <textarea name="message" rows="4" style="resize: none;" required></textarea>
                     
                     <button class="submitBTN" type="submit">SEND MESSAGE</button>
                 </form>

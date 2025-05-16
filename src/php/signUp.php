@@ -1,53 +1,54 @@
 <?php
-$registrationMessage = "";
+session_start();
+$signupMessage = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // DB config
-    $host = "localhost";
-    $user = "root";
-    $pass = "";
-    $dbname = "wmr";
-
-    $conn = new mysqli($host, $user, $pass, $dbname);
+    $conn = new mysqli("localhost", "root", "", "wmr_db");
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+    $username = trim($_POST['username']);
     $password = $_POST['password'];
     $confirmPassword = $_POST['confirm_password'];
 
-    if ($password !== $confirmPassword) {
-        $registrationMessage = "❌ Passwords do not match.";
+    // Validation: both fields must be 8+ characters
+    if (strlen($username) < 4 || strlen($password) < 8) {
+        $signupMessage = "❌ Username and password must be at least 8 characters.";
+    } elseif ($password !== $confirmPassword) {
+        $signupMessage = "❌ Passwords do not match.";
     } else {
-        $check = $conn->prepare("SELECT id FROM users WHERE email = ?");
-        $check->bind_param("s", $email);
-        $check->execute();
-        $check->store_result(); 
+        $stmt = $conn->prepare("SELECT id FROM users WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $stmt->store_result();
 
-        if ($check->num_rows > 0) {
-            $registrationMessage = "❌ This email is already registered.";
+        if ($stmt->num_rows > 0) {
+            $signupMessage = "❌ Username already exists.";
         } else {
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            $stmt = $conn->prepare("INSERT INTO users (email, password) VALUES (?, ?)");
-            $stmt->bind_param("ss", $email, $hashedPassword);
+            $insert = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
+            $insert->bind_param("ss", $username, $hashedPassword);
 
-            if ($stmt->execute()) {
-                $registrationMessage = "✅ User registered successfully. <a href='login.php'>Login here</a>.";
+            if ($insert->execute()) {
+                $_SESSION['user_id'] = $insert->insert_id;
+                $_SESSION['username'] = $username;
+                header("Location: index.php");
+                exit();
             } else {
-                $registrationMessage = "❌ Error: " . $stmt->error;
+                $signupMessage = "❌ Error creating account.";
             }
-
-            $stmt->close();
+            $insert->close();
         }
-        $check->close();
+        $stmt->close();
     }
 
     $conn->close();
 }
 ?>
 
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,20 +70,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="card-login">
             <h1>Sign up</h1>
-            <form action="signUp.php" method="POST" onsubmit="return validateForm()">
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" placeholder="Enter email" class="rounded" required>
-                </div>
-                <div>
-                    <label for="password">Password</label>
-                    <input type="password" name="password" placeholder="Enter password" class="rounded" required>
-                    <label for="confirm_password">Confirm Password</label>
-                    <input type="password" name="confirm_password" placeholder="Confirm password" class="rounded" required>
-                </div>
-                <button type="submit" class="rounded">Sign up</button>
-            </form>
+                <form action="signUp.php" method="POST" onsubmit="return validateForm()">
+                    <div>
+                        <label for="username">Username:</label>
+                        <input type="text" name="username" placeholder="Enter username" class="rounded" id="username" minlength="4" required>
+                    </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <input type="password" name="password" placeholder="Enter password" class="rounded" id="password" minlength="8" required>
 
+                        <label for="confirm_password">Confirm Password</label>
+                        <input type="password" name="confirm_password" placeholder="Confirm password" class="rounded" id="confirm_password" minlength="8" required>
+                    </div>
+                    <button type="submit" class="rounded">Sign up</button>
+                </form>
             <div style="margin-top: 20px; text-align: center;">
                 <div id="g_id_onload"
                     data-client_id="YOUR_GOOGLE_CLIENT_ID"
@@ -108,17 +109,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 
-    <script>
-        function validateForm() {
-            const password = document.querySelector('input[name="password"]').value;
-            const confirmPassword = document.querySelector('input[name="confirm_password"]').value;
+<script>
+    function validateForm() {
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm_password').value;
 
-            if (password !== confirmPassword) {
-                alert("Passwords do not match!");
-                return false;
-            }
-            return true;
+        if (username.length < 4) {
+            alert("Username must be at least 4 characters.");
+            return false;
         }
-    </script>
+
+        if (password.length < 8) {
+            alert("Password must be at least 8 characters.");
+            return false;
+        }
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
 </body>
 </html>

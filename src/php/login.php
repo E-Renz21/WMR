@@ -1,37 +1,37 @@
 <?php
-  session_start();
-
+session_start();
 $loginMessage = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $conn = new mysqli("localhost", "root", "", "wmr");
+    $conn = new mysqli("localhost", "root", "", "wmr_db");
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $email = $_POST['email'];
+    $username = trim($_POST['username']);
     $password = $_POST['password'];
 
-    $stmt = $conn->prepare("SELECT id, email, password FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
+    $stmt = $conn->prepare("SELECT id, username, password FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
     $stmt->execute();
     $stmt->store_result();
-    $stmt->bind_result($userId, $userEmail, $userPassword);
+    $stmt->bind_result($userId, $username, $userPassword);
 
     if ($stmt->num_rows > 0) {
         $stmt->fetch();
-
         if (password_verify($password, $userPassword)) {
             $_SESSION['user_id'] = $userId;
-            $_SESSION['email'] = $userEmail;
-            header("Location: index.php");
+            $_SESSION['username'] = $username;
+            $redirectTo = isset($_SESSION['redirect_after_login']) ? $_SESSION['redirect_after_login'] : 'index.php';
+            unset($_SESSION['redirect_after_login']); // Clean up
+            header("Location: " . $redirectTo);
             exit();
         } else {
             $loginMessage = "❌ Invalid password.";
         }
     } else {
-        $loginMessage = "❌ No user found with this email.";
+        $loginMessage = "❌ No user found with this username.";
     }
 
     $stmt->close();
@@ -62,13 +62,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h1>Login</h1>
             <form method="POST" action="login.php">
                 <div>
-                    <label for="login-name">Email:</label>
-                    <input type="text" name="email" placeholder="Enter email" id="login-name" class="rounded" required>
+                    <label for="login-name">username:</label>
+                    <input type="text" name="username" placeholder="Enter username" id="login-name" class="rounded" required>
                 </div>
                 <div>
                     <label for="login-password">Password</label>
                     <input type="password" name="password" placeholder="Enter password" id="login-password" class="rounded" required>
-                    <a id="forgotPassBTN" href="#">Forgot Password?</a>
                 </div>
                 <button class="rounded" type="submit">Login</button>
             </form>

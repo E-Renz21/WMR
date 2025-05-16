@@ -1,4 +1,46 @@
-    <!DOCTYPE html>
+   <?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+$conn = new mysqli("localhost", "root", "", "wmr_db");
+$user_id = $_SESSION['user_id'];
+$user = [
+    'full_name' => '',
+    'nickname' => '',
+    'residence' => '',
+    'birthday' => '',
+    'business_name' => '',
+    'type_of_business' => '',
+    'email' => '',
+    'phone_number' => ''
+];
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+$stmt = $conn->prepare("SELECT full_name, nickname, residence, birthday, business_name, type_of_business, email, phone_number, profile_picture FROM users WHERE id = ?");
+
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$stmt->bind_result(
+    $user['full_name'],
+    $user['nickname'],
+    $user['residence'],
+    $user['birthday'],
+    $user['business_name'],
+    $user['type_of_business'],
+    $user['email'],
+    $user['phone_number'],
+    $user['profile_picture']
+);
+
+$stmt->fetch();
+$stmt->close();
+$conn->close();
+?>
+   
+   <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -25,17 +67,19 @@
                     </div>
 
                     
-                    <div class="menu-item">
+                    <a href="/wmr/src/php/logout.php"> <div class="menu-item">
                         <img src="../images/Log_outLogo.png" alt="">
                         <span>Log Out</span>
-                    </div>
+                    </div></a>
+                   
                 </div>
             </div>
             
             <div class="profile-content">
                 <div class="profile-header">
                         <div class="profile-pic-container">
-                            <img src="<?php echo isset($_SESSION['profile_picture']) ? '../uploads/'.$_SESSION['profile_picture'] : '../images/profileAvatar.png'; ?>" alt="Profile Picture" class="profile-pic" id="profilePicture">
+                            <img src="<?php echo $user['profile_picture'] ? '../uploads/'.$user['profile_picture'] : '../images/profileAvatar.png'; ?>" alt="Profile Picture" class="profile-pic" id="profilePicture">
+
                             <form id="profilePicForm" enctype="multipart/form-data" style="display:none;">
                                 <input type="file" id="profilePicInput" name="profile_picture" accept="image/*">
                             </form>
@@ -53,7 +97,7 @@
                                     <span>Name</span>
                                 </div>
                                 <div class="info-value">
-                                    <span></span>
+                                    <span><?php echo htmlspecialchars($user['full_name']); ?></span>
                                     <img src="pencil-icon.png" alt="Edit" class="edit-icon">
                                 </div>
                             </div>
@@ -63,7 +107,7 @@
                                     <span>Nickname</span>
                                 </div>
                                 <div class="info-value">
-                                    <span></span>
+                                    <span><?php echo htmlspecialchars($user['nickname']); ?></span>
                                     <img src="pencil-icon.png" alt="Edit" class="edit-icon">
                                 </div>
                             </div>
@@ -75,7 +119,7 @@
                                     <span>Residence (Full Address)</span>
                                 </div>
                                 <div class="info-value">
-                                    <span></span>
+                                    <span><?php echo htmlspecialchars($user['residence']); ?></span>
                                     <img src="pencil-icon.png" alt="Edit" class="edit-icon">
                                 </div>
                             </div>
@@ -87,7 +131,9 @@
                                     <span>Birthdate</span>
                                 </div>
                                 <div class="info-value">
-                                    <span></span>
+                                    <span>
+                                    <?php echo $user['birthday'] ? date('F j, Y', strtotime($user['birthday'])) : ''; ?>
+                                    </span>
                                     <img src="pencil-icon.png" alt="Edit" class="edit-icon">
                                 </div>
                             </div>
@@ -97,7 +143,7 @@
                                     <span>Company/Business Name</span>
                                 </div>
                                 <div class="info-value">
-                                    <span></span>
+                                    <span><?php echo htmlspecialchars($user['business_name']); ?></span>
                                     <img src="pencil-icon.png" alt="Edit" class="edit-icon">
                                 </div>
                             </div>
@@ -110,7 +156,7 @@
                                 </div>
                                 <div class="info-value">
                                     <span>Type of business</span>
-                                    <span></span>
+                                    <span><?php echo htmlspecialchars($user['type_of_business']); ?></span>
                                     <img src="pencil-icon.png" alt="Edit" class="edit-icon">
                                 </div>
                             </div>
@@ -122,7 +168,7 @@
                                     <span>Email</span>
                                 </div>
                                 <div class="info-value">
-                                    <span></span>
+                                    <span><?php echo htmlspecialchars($user['email']); ?></span>
                                     <img src="../images/pencil-icon.png" alt="Edit" class="edit-icon">
                                 </div>
                             </div>
@@ -132,7 +178,7 @@
                                     <span>Phone Number</span>
                                 </div>
                                 <div class="info-value">
-                                    <span></span>
+                                    <span><?php echo htmlspecialchars($user['phone_number']); ?></span>
                                     <img src="pencil-icon.png" alt="Edit" class="edit-icon">
                                 </div>
                             </div>

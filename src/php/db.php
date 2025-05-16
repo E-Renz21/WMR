@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $pass = "";
-$dbname = "wmr";
+$dbname = "wmr_db";
 
 $conn = new mysqli($host, $user, $pass, $dbname);
 
