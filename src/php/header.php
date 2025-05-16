@@ -1,3 +1,41 @@
+<?php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$isLoggedIn = isset($_SESSION['user_id']);
+$avatar = "../images/profile-avatar.png"; // default
+
+if ($isLoggedIn) {
+    // Connect to DB and get user's profile picture
+    $conn = new mysqli("localhost", "root", "", "wmr");
+    $stmt = $conn->prepare("SELECT profile_picture FROM users WHERE id = ?");
+    $stmt->bind_param("i", $_SESSION['user_id']);
+    $stmt->execute();
+    $stmt->bind_result($profilePic);
+    if ($stmt->fetch() && $profilePic) {
+        $avatar = "../uploads/" . $profilePic;
+    }
+    $stmt->close();
+    $conn->close();
+}
+?>
+
+<?php if ($isLoggedIn): ?>
+    <div class="profile-dropdown">
+        <img src="<?= htmlspecialchars($avatar) ?>" alt="Profile" class="profile-avatar" id="profileBtn" onclick="toggleProfileDropdown()">
+        <div class="profile-dropdown-content" id="profileDropdown">
+            <a href="/wmr/src/php/profile.php">Profile</a>
+            <a href="/wmr/src/php/logout.php">Logout</a>
+        </div>
+    </div>
+<?php else: ?>
+
+<?php endif; ?>
+
+
+
 <header class="delivery-status-nav">
     <img src="../images/logo.png" class="delivery-status-logo" alt="Logo">
     <div class="delivery-status-burger" onclick="toggleDeliveryStatusMenu()">☰</div>
@@ -10,16 +48,40 @@
         </nav>
 
         <div class="delivery-status-auth-buttons">
-            <button class="delivery-status-btn" onclick="window.location.href='/wmr/src/php/login.php'">Login</button>
-            <button class="delivery-status-btn" onclick="window.location.href='/wmr/src/php/signUp.php'">Sign up</button>
+            <?php if ($isLoggedIn): ?>
+                <div class="profile-dropdown">
+                    <img src="../images/profile-icon.png" alt="Profile" class="profile-avatar" id="profileBtn" onclick="toggleProfileDropdown()">
+                    <div class="profile-dropdown-content" id="profileDropdown">
+                        <a href="/wmr/src/php/profile.php">Profile</a>
+                        <a href="/wmr/src/php/logout.php">Logout</a>
+                    </div>
+                </div>
+            <?php else: ?>
+                <button class="delivery-status-btn" onclick="window.location.href='/wmr/src/php/login.php'">Login</button>
+                <button class="delivery-status-btn" onclick="window.location.href='/wmr/src/php/signUp.php'">Sign up</button>
+            <?php endif; ?>
         </div>
     </div>
 </header>
-
 
 <script>
     function toggleDeliveryStatusMenu() {
         const menu = document.getElementById('delivery-status-nav-menu');
         menu.classList.toggle('show');
+    }
+    function toggleProfileDropdown() {
+        document.getElementById('profileDropdown').classList.toggle('show');
+    }
+    // Close dropdown if clicked outside
+    window.onclick = function(event) {
+        if (!event.target.matches('#profileBtn')) {
+            var dropdowns = document.getElementsByClassName("profile-dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
     }
 </script>

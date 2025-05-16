@@ -15,6 +15,7 @@
         z-index: 1000;
     }
     
+    
     .delivery-status-logo {
         height: 80px;
         margin-left: 100px;
@@ -118,3 +119,59 @@
             padding: 0;
         }
     }
+    
+
+
+    /* ...existing code... */
+    .profile-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #DFBE3A;
+        cursor: pointer;
+        background: #fff;
+        transition: box-shadow 0.2s;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        vertical-align: middle;
+    }
+    
+    .profile-avatar:hover {
+        box-shadow: 0 4px 12px rgba(241,200,36,0.3);
+    }
+    
+    .profile-dropdown {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .profile-dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        background-color: #fff;
+        min-width: 120px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1001;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    .profile-dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        font-weight: normal;
+        text-align: left;
+    }
+    
+    .profile-dropdown-content a:hover {
+        background-color: #f1c824;
+        color: white;
+    }
+    
+    .profile-dropdown .show {
+        display: block;
+    }
+    /* ...existing code... */

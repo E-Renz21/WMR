@@ -1,5 +1,6 @@
 <?php
-session_start();
+  session_start();
+
 $loginMessage = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -24,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($password, $userPassword)) {
             $_SESSION['user_id'] = $userId;
             $_SESSION['email'] = $userEmail;
-            header("Location: dashboard.php");
+            header("Location: index.php");
             exit();
         } else {
             $loginMessage = "❌ Invalid password.";
@@ -110,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    window.location.href = "dashboard.php";
+                    window.location.href = "index.php";
                 } else {
                     alert("Google login failed");
                 }

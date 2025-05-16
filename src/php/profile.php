@@ -105,7 +105,8 @@
                                     <span></span>
                                 </div>
                                 <div class="info-value">
-                                    <span>Logistics</span>
+                                    <span>Type of business</span>
+                                    <span></span>
                                     <img src="pencil-icon.png" alt="Edit" class="edit-icon">
                                 </div>
                             </div>
