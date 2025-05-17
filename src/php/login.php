@@ -23,6 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($password, $userPassword)) {
             $_SESSION['user_id'] = $userId;
             $_SESSION['username'] = $username;
+
+            if ($username === 'admin' && $password === 'adminadmin') {
+            header("Location: ../php/admin/dashboard.php");
+            exit();
+        }
+
             $redirectTo = isset($_SESSION['redirect_after_login']) ? $_SESSION['redirect_after_login'] : 'index.php';
             unset($_SESSION['redirect_after_login']); // Clean up
             header("Location: " . $redirectTo);

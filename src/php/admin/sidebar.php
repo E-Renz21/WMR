@@ -8,7 +8,7 @@
     <div class="sidebar-menu">
         <div class="menu-item">
             <i class="fas fa-tachometer-alt"></i>
-            <span>Dashboard</span>
+            <span>Contacts</span>
         </div>
         <div class="menu-item active">
             <i class="fas fa-truck"></i>

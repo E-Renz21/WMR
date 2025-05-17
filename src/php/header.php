@@ -37,11 +37,11 @@ if ($isLoggedIn) {
     <div class="delivery-status-burger" onclick="toggleDeliveryStatusMenu()">☰</div>
     <div class="delivery-status-right-side" id="delivery-status-nav-menu">
         <nav class="delivery-status-nav-links">
-            <a href="/wmr/src/php/index.php#hero">Request Delivery</a>
-            <a href="/wmr/src/php/deliveryStatus.php">Delivery Status</a>
-            <a href="/wmr/src/php/index.php#trucks">Trucks</a>
-            <a href="/wmr/src/php/index.php#vision-mission">About Us</a>
-            <a href="/wmr/src/php/index.php#contactUs">Contact Us</a>
+            <a href="/src/php/index.php#hero">Request Delivery</a>
+            <a href="/src/php/deliveryStatus.php">Delivery Status</a>
+            <a href="/src/php/index.php#trucks">Trucks</a>
+            <a href="/src/php/index.php#vision-mission">About Us</a>
+            <a href="/src/php/index.php#contactUs">Contact Us</a>
         </nav>
 
         <div class="delivery-status-auth-buttons">
@@ -49,14 +49,14 @@ if ($isLoggedIn) {
                 <div class="profile-dropdown">
                     <img src="<?= htmlspecialchars($avatar) ?>" alt="Profile" class="profile-avatar" id="profileBtn" onclick="toggleProfileDropdown()">
                     <div class="profile-dropdown-content" id="profileDropdown">
-                        <a href="/wmr/src/php/profile.php">Profile</a>
-                       <a href="/wmr/src/php/logout.php">Logout</a>
+                        <a href="/src/php/profile.php">Profile</a>
+                       <a href="/src/php/logout.php">Logout</a>
 
                     </div>
                 </div>
             <?php else: ?>
-                <button class="delivery-status-btn" onclick="window.location.href='/wmr/src/php/login.php'">Login</button>
-                <button class="delivery-status-btn" onclick="window.location.href='/wmr/src/php/signUp.php'">Sign up</button>
+                <button class="delivery-status-btn" onclick="window.location.href='/src/php/login.php'">Login</button>
+                <button class="delivery-status-btn" onclick="window.location.href='/src/php/signUp.php'">Sign up</button>
             <?php endif; ?>
         </div>
     </div>
