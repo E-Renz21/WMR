@@ -29,12 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $deliveryAddress = $_POST['delivery_address'];
     $pickupDate = $_POST['pickup_date'];
     $arrivalDate = $_POST['estimated_arrival_date'];
+    $contactNumber = $_POST['contact_number'];
 
-    $stmt = $conn->prepare("INSERT INTO delivery_requests 
-        (product_description, estimated_boxes, estimated_weight, pickup_city, pickup_address, delivery_city, delivery_address, pickup_date, estimated_arrival_date, client_id) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO delivery_requests 
+    (product_description, estimated_boxes, estimated_weight, pickup_city, pickup_address, delivery_city, delivery_address, pickup_date, estimated_arrival_date, contact_number, client_id) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    $stmt->bind_param("sidssssssi", $productDescriptions, $estimatedBoxes, $estimatedWeight, $pickupCity, $pickupAddress, $deliveryCity, $deliveryAddress, $pickupDate, $arrivalDate, $clientId);
+
+$stmt->bind_param("sidsssssssi", $productDescriptions, $estimatedBoxes, $estimatedWeight, $pickupCity, $pickupAddress, $deliveryCity, $deliveryAddress, $pickupDate, $arrivalDate, $contactNumber, $clientId);
 
     if ($stmt->execute()) {
         echo "<script>alert('Delivery request submitted successfully!'); window.location.href='index.php';</script>";
@@ -117,10 +119,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </section>
 
             <section class="right-panel">
+                    <div class="address-field">
+                        <label>Contact Number</label>
+                        <input type="text" name="contact_number" placeholder="Enter contact number"  required>
+                    </div>
                     <div class="address-section">
                     <div class="address-header">
                         <img class="pickupLogo" src="../images/PICK UP 1.png" alt="Pickup icon">
                         <h4>Pick-up Address</h4>
+                        
                     </div>
                     
                     <div class="address-field">
