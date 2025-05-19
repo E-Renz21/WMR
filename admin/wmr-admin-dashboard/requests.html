@@ -1,0 +1,77 @@
+<div class="delivery-requests">
+  <h2>Delivery Requests</h2>
+  
+  <div class="requests-table-container">
+    <table class="requests-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Last Name</th>
+          <th>First Name</th>
+          <th>Products</th>
+          <th>Estimated Kg/Tons</th>
+          <th>Boxes</th>
+          <th>Delivery Date & Address</th>
+          <th>Contact No.</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>May 19, 2025</td>
+          <td>Obguia</td>
+          <td>Earl Lawrence</td>
+          <td>Gins, Softdrinks, Beers, Beverages</td>
+          <td>20 Tons</td>
+          <td>56</td>
+          <td class="address-cell">
+            <div class="address-actions">
+              <button class="more-btn">⋮</button>
+            </div>
+          </td>
+          <td>09202313282</td>
+          <td class="actions-cell">
+            <div class="action-buttons">
+              <button class="approve-btn">✓</button>
+              <button class="reject-btn">✕</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Delivery Details Modal -->
+  <div id="deliveryDetailsModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h3>Delivery Details</h3>
+      <div class="details-container">
+        <div class="detail-row">
+          <span class="detail-label">Date:</span>
+          <span class="detail-value">May 20, 2025</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Pickup Address:</span>
+          <span class="detail-value">Davao City</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Full Address:</span>
+          <span class="detail-value">Matina Crossing, Davao City, Davao Del Sur, Philippines</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Deliver To:</span>
+          <span class="detail-value">Cagayan De Oro</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Full Address:</span>
+          <span class="detail-value">Barangay Dimaguiba, Cagayan De Oro, Philippines</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Expected Date:</span>
+          <span class="detail-value">May 22, 2025</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
