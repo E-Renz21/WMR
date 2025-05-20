@@ -124,6 +124,7 @@ body {
 .requests-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout:auto;
 }
 
 .requests-table th {
@@ -132,12 +133,13 @@ body {
   padding: 12px 15px;
   font-weight: bold;
   border-bottom: 2px solid #ddd;
+  table-layout:auto;
 }
 
 .requests-table td {
   padding: 12px 15px;
-  
   border-bottom: 1px solid #ddd;
+  table-layout:auto;
 }
 
 .action-buttons {
