@@ -3,6 +3,7 @@ $host = 'localhost';
 $db   = 'wmr_db';
 $user = 'root';
 $pass = '';
+
 $conn = new mysqli($host, $user, $pass, $db);
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 1;
@@ -22,8 +23,6 @@ if ($result) {
       $contactNumber = $row['contact_number'];
       $status = $row['status'];
       $estimatedArrivalDate = $row['estimated_arrival_date'];
-
-
     }
   } else {
     echo "Error running query: " . $conn->error;

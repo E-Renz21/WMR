@@ -1,3 +1,27 @@
+<?php
+$host = 'localhost';
+$db   = 'wmr_db';
+$user = 'root';
+$pass = '';
+
+$conn = new mysqli($host, $user, $pass, $db);
+
+$id = isset($_GET['id']) ? (int)$_GET['id'] : 1;
+
+$sql = "SELECT * FROM contact_messages WHERE id = $id";
+
+$result = $conn->query($sql);
+
+if ($result) {
+    if ($row = $result->fetch_assoc()) {
+      $id = $row["id"];
+      echo json_encode($row);
+    }
+  } else {
+    echo "Error running query: " . $conn->error;
+  }
+?>
+
 <div class="delivery-requests">
   <h2>Delivery Requests & Status</h2>
   
@@ -5,6 +29,7 @@
     <table class="requests-table">
       <thead>
         <tr>
+          <th>ID</th>
           <th>Date</th>
           <th>Name</th>
           <th>Products</th>
@@ -18,6 +43,7 @@
       </thead>
       <tbody>
         <tr>
+          <td>1</td>
           <td>May 19, 2025</td>
           <td>Earl Lawrence Obguia</td>
           <td>Gins, Softdrinks, Beers, Beverages</td>
