@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h1>Login</h1>
             <form method="POST" action="login.php">
                 <div>
-                    <label for="login-name">username:</label>
+                    <label for="login-name">Username</label>
                     <input type="text" name="username" placeholder="Enter username" id="login-name" class="rounded" required>
                 </div>
                 <div>

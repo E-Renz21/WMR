@@ -63,8 +63,9 @@ $result = $conn->query($sql);
                 <td><?= htmlspecialchars($row['phone_number']) ?></td>
                 <td>
                   <div class="profile-pic-placeholder">
-                    <?= htmlspecialchars($row['profile_picture']) ?>
-                  </div>
+                  <img src="../src/uploads/<?= htmlspecialchars($row['profile_pictpure']) ?>" alt="" width="40px" height="40px">
+                </div>
+
                 </td>
               </tr>
             <?php endwhile; ?>
