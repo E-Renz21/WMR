@@ -142,11 +142,11 @@ function initTableButtons() {
 function loadComponents() {
   // Load header
   fetch('header.html')
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById('header-container').innerHTML = data;
-    })
-    .catch(err => console.error('Error loading header:', err));
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById('header-container').innerHTML = data;
+  })
+  .catch(err => console.error('Error loading header:', err));
 
   // Load menu
   fetch('menu.html')
