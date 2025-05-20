@@ -1,4 +1,3 @@
-
 <div class="delivery-requests">
   <h2>Delivery Requests & Status</h2>
   

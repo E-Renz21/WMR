@@ -1,3 +1,28 @@
+<?php
+$host = 'localhost';
+$db   = 'wmr_db';
+$user = 'root';
+$pass = '';
+$conn = new mysqli($host, $user, $pass, $db);
+
+$id = isset($_GET['id']) ? (int)$_GET['id'] : 25;
+
+$sql = "SELECT * FROM delivery_requests WHERE id = $id";
+
+$result = $conn->query($sql);
+
+if ($result) {
+    if ($row = $result->fetch_assoc()) {
+        echo json_encode($row) . "<br>";
+    } else {
+        echo "No r  ecord found with ID = $id<br>";
+    }
+} else {
+    echo "Error running query: " . $conn->error;
+}
+?>
+
+
 <style>
     * {
       box-sizing: border-box;
@@ -248,29 +273,29 @@
       <div class="form-row">
         <div class="form-col">
           <label>Driver's Name</label>
-          <input type="text" value="">
+          <input type="text" value="" id="driver_name">
         </div>
         <div class="form-col">
           <label>Plate Number</label>
-          <input type="text" value="">
+          <input type="text" value="" id="plate_number">
         </div>
       </div>
       
     <div class="form-row">
   <div class="form-col" style="max-width: 300px;">  <!-- Added max-width -->
     <label>Current Location</label>
-    <input type="text" value="Pagadian">
+    <input type="text" value="Pagadian" id="current_location">
   </div>
 </div>
       
       <div class="form-row">
         <div class="form-col">
           <label>Departure Date</label>
-          <input type="date" value="">
+          <input type="date" value="" id="departure_date">
         </div>
         <div class="form-col">
           <label>Departure Time</label>
-          <input type="time" value="">
+          <input type="time" value="" id="departure_time">
         </div>
       </div>
       
@@ -288,11 +313,11 @@
       <div class="form-row">
         <div class="form-col">
           <label>Drive Assistant</label>
-          <input type="text" value="">
+          <input type="text" value="" id="driver_assistant">
         </div>
         <div class="form-col">
           <label>Driver/Assistant Contact Number</label>
-          <input type="text" value="">
+          <input type="text" value="" id="contact_number">
         </div>
       </div>
       
@@ -300,7 +325,7 @@
         <div class="form-col">
           <label>Status</label>
           <div class="status-dropdown">
-            <div class="status-select status-in-transit" onclick="toggleStatusDropdown()">
+            <div class="status-select status-in-transit" id="status" onclick="toggleStatusDropdown()">
               <div class="status-icon"></div>
               <span>In Transit</span>
             </div>
@@ -330,7 +355,7 @@
         </div>
         <div class="form-col">
           <label>Expected Date to Arrive</label>
-          <input type="date" value="">
+          <input type="date" value="" id="estimated_arrival_date">
         </div>
       </div>
       

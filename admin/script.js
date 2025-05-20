@@ -115,7 +115,7 @@ function loadComponents() {
     .catch(err => console.error('Error loading menu:', err));
 
   // Load requests panel
-  fetch('requests.html')
+  fetch('requests.php')
     .then(res => res.text())
     .then(data => {
       document.getElementById('requests').innerHTML = data;
@@ -151,7 +151,7 @@ function loadComponents() {
     .catch(err => console.error('Error loading clients:', err));
 
     // Load edit status panel
-  fetch('editstatus.html')
+  fetch('editstatus.php')
     .then(res => res.text())
     .then(data => {
       document.getElementById('editstatus').innerHTML = data;
