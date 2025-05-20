@@ -149,7 +149,7 @@ function loadComponents() {
   .catch(err => console.error('Error loading header:', err));
 
   // Load menu
-  fetch('menu.html')
+  fetch('menu.php')
     .then(res => res.text())
     .then(data => {
       document.getElementById('menu-container').innerHTML = data;

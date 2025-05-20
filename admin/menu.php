@@ -12,6 +12,6 @@
     <span>Client Lists</span>
   </div>
   <div class="menu-item" onclick="showPanel('clients')">
-    <span>Log Out</span>
+    <a style="text-decoration: none;" href="../src/php/logout.php">Log Out</ssp</a>
   </div>
 </div>

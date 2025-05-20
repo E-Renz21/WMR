@@ -14,7 +14,6 @@ $result = $conn->query($sql);
 
 if ($result) {
     if ($row = $result->fetch_assoc()) {
-      echo json_encode($row);
 
       $id = $row['id'];
       $date = $row["created_at"];

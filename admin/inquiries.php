@@ -14,8 +14,6 @@ $result = $conn->query($sql);
 
 if ($result) {
     if ($row = $result->fetch_assoc()) {
-      echo json_encode($row);
-
       $id = $row['id'];
       $date = $row["submitted_at"];
       $lastName = $row['last_name'];
