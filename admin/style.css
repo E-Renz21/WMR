@@ -16,14 +16,19 @@ body {
   display: flex;
   flex-direction: column;
   color: #000;
+  padding-top: 76px; /* Space for fixed header */
 }
 
-/* Header styles - matches your image */
+/* Full-width white header */
 .header-wrapper {
   background: #ffffff;
   width: 100%;
-  padding: 15px 30px;
+  padding: 15px 0;
   border-bottom: 1px solid #e0e0e0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
 .header {
@@ -31,6 +36,7 @@ body {
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 30px;
 }
 
 .header img {
@@ -48,13 +54,11 @@ body {
 /* Dashboard layout */
 .dashboard {
   display: flex;
-  margin-top: 30px;
   padding: 0 30px;
   flex: 1;
   width: 100%;
   max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 }
 
 /* Menu panel */
@@ -100,24 +104,12 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.content-panel h2 {
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.content-panel p {
-  color: #666;
-  line-height: 1.6;
-}
-
-/* Exact Delivery Requests Table Styling */
+/* Delivery Requests Table */
 .delivery-requests {
   width: 100%;
-  font-family: Arial, sans-serif;
 }
 
 .requests-table-container {
-  width: 100%;
   overflow-x: auto;
   margin-top: 20px;
 }
@@ -125,7 +117,6 @@ body {
 .requests-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
 }
 
 .requests-table th {
@@ -139,11 +130,6 @@ body {
 .requests-table td {
   padding: 12px 15px;
   border-bottom: 1px solid #ddd;
-  vertical-align: top;
-}
-
-.requests-table tr:last-child td {
-  border-bottom: none;
 }
 
 .action-buttons {
@@ -161,12 +147,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
 }
 
 .more-btn {
   background-color: #e0e0e0;
-  color: #333;
 }
 
 .approve-btn {
@@ -179,16 +163,51 @@ body {
   color: white;
 }
 
-/* Exact text styling from image */
-.requests-table td:nth-child(7) {
+/* Status Page Styles */
+.status-table-container {
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+.status-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.status-table th {
+  background-color: #f2f2f2;
+  text-align: left;
+  padding: 12px 15px;
   font-weight: bold;
+  border-bottom: 2px solid #ddd;
+}
+
+.status-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.status-label {
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: #ffc107;
+  color: #000;
+}
+
+.edit-btn {
+  padding: 6px 12px;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 /* Modal Styles */
 .modal {
   display: none;
   position: fixed;
-  z-index: 1000;
+  z-index: 1001;
   left: 0;
   top: 0;
   width: 100%;
@@ -203,7 +222,6 @@ body {
   border-radius: 8px;
   width: 500px;
   max-width: 90%;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .close-btn {
@@ -212,10 +230,6 @@ body {
   font-size: 24px;
   font-weight: bold;
   cursor: pointer;
-}
-
-.close-btn:hover {
-  color: #333;
 }
 
 .details-container {
@@ -230,9 +244,5 @@ body {
 .detail-label {
   font-weight: bold;
   width: 120px;
-  flex-shrink: 0;
 }
 
-.detail-value {
-  flex: 1;
-}

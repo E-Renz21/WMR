@@ -1,2 +1,83 @@
-<h2>Delivery Status</h2>
-<p>Status of current deliveries will be displayed...</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delivery Status</title>
+  <link rel="stylesheet" href="status.css" />
+</head>
+<body>
+
+<div class="delivery-status">
+  <h2>Delivery Status</h2>
+  
+  <div class="status-table-container">
+    <table class="status-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Last Name</th>
+          <th>First Name</th>
+          <th>Product</th>
+          <th>Estimated Kg/Tons</th>
+          <th>Boxes</th>
+          <th>Delivery Date & Address</th>
+          <th>Contact No.</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>May 19, 2025</td>
+          <td>Obguia</td>
+          <td>Earl Lawrence</td>
+          <td>Gins, Softdrinks, Beers</td>
+          <td>20 Tons</td>
+          <td>56</td>
+          <td class="address-cell">
+            <button class="more-btn" onclick="openModal()">⋮</button>
+          </td>
+          <td>09202313282</td>
+          <td><span class="status-label delivered">Delivered</span></td>
+          <td><button class="edit-btn">Edit</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal -->
+  <div id="detailsModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h3>Delivery Details</h3>
+      <div class="details-container">
+        <div class="detail-row"><span class="label">Pickup:</span><span class="value">Davao City</span></div>
+        <div class="detail-row"><span class="label">Pickup Address:</span><span class="value">Matina Crossing, Davao City, Philippines</span></div>
+        <div class="detail-row"><span class="label">Destination:</span><span class="value">Cagayan de Oro</span></div>
+        <div class="detail-row"><span class="label">Destination Address:</span><span class="value">Barangay Dimaguiba, CDO, Philippines</span></div>
+        <div class="detail-row"><span class="label">Expected Date:</span><span class="value">May 22, 2025</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openModal() {
+    document.getElementById("detailsModal").style.display = "block";
+  }
+
+  function closeModal() {
+    document.getElementById("detailsModal").style.display = "none";
+  }
+
+  window.onclick = function (event) {
+    const modal = document.getElementById("detailsModal");
+    if (event.target == modal) {
+      closeModal();
+    }
+  }
+</script>
+
+</body>
+</html>
