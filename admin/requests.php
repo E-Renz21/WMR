@@ -62,11 +62,34 @@ $result = $conn->query($sql);
           <button class="edit-btn" onclick="showPanel('editstatus')">Edit Status</button>
         </div>
       </td>
-      <td class="actions-cell">
-        <div class="action-buttons">
-          <button class="status-btn status-for-pickup">Pending</button>
-        </div>
-      </td>
+      <?php
+  // Determine CSS class based on status
+  $status = htmlspecialchars($row['status']);
+  $statusClass = '';
+
+  switch (strtolower($status)) {
+    case 'arrived':
+      $statusClass = 'status-arrived';
+      break;
+      case 'delayed':
+      $statusClass = 'status-delayed';
+      break;
+    case 'in transit':
+      $statusClass = 'status-in-transit';
+      break;
+    case 'for pickup':
+      $statusClass = 'status-for-pickup';
+      break;
+    default:
+      $statusClass = 'status-pending';
+      break;
+  }
+?>
+<td class="actions-cell">
+  <div class="action-buttons">
+    <button class="status-btn <?= $statusClass ?>"><?= $status ?></button>
+  </div>
+</td>
     </tr>
   <?php endwhile; ?>
 <?php else: ?>
