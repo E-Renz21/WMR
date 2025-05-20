@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['username'] = $username;
 
             if ($username === 'admin' && $password === 'adminadmin') {
-            header("Location: ../php/admin/dashboard.php");
+            header("Location: ../../admin/index.php");
             exit();
         }
 

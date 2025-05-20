@@ -15,7 +15,6 @@ $result = $conn->query($sql);
 if ($result) {
     if ($row = $result->fetch_assoc()) {
       $id = $row["id"];
-      echo json_encode($row);
     }
   } else {
     echo "Error running query: " . $conn->error;
