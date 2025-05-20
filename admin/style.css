@@ -51,6 +51,14 @@ body {
   margin: 0;
 }
 
+/* Dashboard wrapper for spacing from header */
+.dashboard-wrapper {
+  margin-top: 40px; /* Space below header */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 /* Dashboard layout */
 .dashboard {
   display: flex;
@@ -59,15 +67,18 @@ body {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  gap: 40px; /* Space between menu and content */
+  align-items: flex-start;
 }
 
 /* Menu panel */
 .menu-panel {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.97);
   border-radius: 10px;
   padding: 20px;
-  width: 300px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 280px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  margin-top: 0;
 }
 
 .menu-item {
@@ -95,13 +106,14 @@ body {
 
 /* Content panels */
 .content-panel {
-  margin-left: 40px;
+  margin-left: 0;
   flex: 1;
   background: white;
   border-radius: 10px;
   padding: 30px;
   display: none;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  min-height: 500px;
 }
 
 /* Delivery Requests Table */
@@ -245,4 +257,3 @@ body {
   font-weight: bold;
   width: 120px;
 }
-
