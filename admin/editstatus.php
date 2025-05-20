@@ -5,29 +5,72 @@ $user = 'root';
 $pass = '';
 
 $conn = new mysqli($host, $user, $pass, $db);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-$id = isset($_GET['id']) ? (int)$_GET['id'] : 1;
+// Get ID from GET or POST
+$id = isset($_GET['id']) ? (int)$_GET['id'] : (int)($_POST['id'] ?? 1);
 
+// Save if form was submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $driverName = $_POST['driver_name'];
+    $plateNumber = $_POST['plate_number'];
+    $currentLocation = $_POST['current_location'];
+    $departureDate = $_POST['departure_date'];
+    $departureTime = $_POST['departure_time'];
+    $driverAssistant = $_POST['driver_assistant'];
+    $contactNumber = $_POST['contact_number'];
+    $status = $_POST['status'];
+    $estimatedArrivalDate = $_POST['estimated_arrival_date'];
+
+    $sqlUpdate = "UPDATE delivery_requests SET 
+        driver_name = ?, 
+        plate_number = ?, 
+        current_location = ?, 
+        departure_date = ?, 
+        departure_time = ?, 
+        driver_assistant = ?, 
+        contact_number = ?, 
+        status = ?, 
+        estimated_arrival_date = ?
+        WHERE id = ?";
+
+    $stmt = $conn->prepare($sqlUpdate);
+    $stmt->bind_param("sssssssssi", 
+        $driverName, $plateNumber, $currentLocation, 
+        $departureDate, $departureTime, $driverAssistant, 
+        $contactNumber, $status, $estimatedArrivalDate, $id);
+
+    if ($stmt->execute()) {
+        $message = "Saved successfully!";
+    } else {
+        $message = "Error saving data: " . $stmt->error;
+    }
+
+    $stmt->close();
+}
+
+// Load existing data
 $sql = "SELECT * FROM delivery_requests WHERE id = $id";
-
 $result = $conn->query($sql);
 
-if ($result) {
-    if ($row = $result->fetch_assoc()) {
-      $driverName = $row['driver_name'];
-      $plateNumber = $row['plate_number'];
-      $currentLocation = $row['current_location'];
-      $departureDate = $row['departure_date'];
-      $departureTime = $row['departure_time'];
-      $driverAssistant = $row['driver_assistant'];
-      $contactNumber = $row['contact_number'];
-      $status = $row['status'];
-      $estimatedArrivalDate = $row['estimated_arrival_date'];
-    }
-  } else {
-    echo "Error running query: " . $conn->error;
-  }
+if ($result && $row = $result->fetch_assoc()) {
+    $driverName = $row['driver_name'];
+    $plateNumber = $row['plate_number'];
+    $currentLocation = $row['current_location'];
+    $departureDate = $row['departure_date'];
+    $departureTime = $row['departure_time'];
+    $driverAssistant = $row['driver_assistant'];
+    $contactNumber = $row['contact_number'];
+    $status = $row['status'];
+    $estimatedArrivalDate = $row['estimated_arrival_date'];
+} else {
+    echo "Error loading data: " . $conn->error;
+    exit;
+}
 ?>
+
 
 <style>
     * {
