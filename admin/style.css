@@ -1,4 +1,5 @@
 * {
+
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -124,7 +125,6 @@ body {
 .requests-table {
   width: 100%;
   border-collapse: collapse;
-  table-layout:auto;
 }
 
 .requests-table th {
@@ -133,13 +133,11 @@ body {
   padding: 12px 15px;
   font-weight: bold;
   border-bottom: 2px solid #ddd;
-  table-layout:auto;
 }
 
 .requests-table td {
   padding: 12px 15px;
   border-bottom: 1px solid #ddd;
-  table-layout:auto;
 }
 
 .action-buttons {
@@ -412,7 +410,8 @@ body {
 
 /*Inquries*/
 
-* {
+{
+
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -506,7 +505,8 @@ h1 {
 
 /*Client Lists*/ 
 
-* {
+{
+
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -646,8 +646,8 @@ h1 {
   width: 180px;
 }
 
-.clients-table th:nth-child(8),
-.clients-table td:nth-child(8) {
+.clients-table th:nth-child(😎,
+.clients-table td:nth-child(😎 {
   width: 120px;
 }
 
@@ -832,11 +832,11 @@ h1 {
   }
 }
 
-/* --- Requests Table: Match Client Lists Style --- */
+/* --- Requests Table: Spacious, Wrapping, Scrollable --- */
 .requests-table-container {
   overflow-x: auto;
   overflow-y: auto;
-  max-height: 600px; /* Adjust as needed */
+  max-height: 600px;
   margin-top: 20px;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -846,36 +846,54 @@ h1 {
 .requests-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
-  table-layout: fixed;
+  font-size: 15px;
 }
 
 .requests-table th {
   position: sticky;
   top: 0;
   background-color: #f8f9fa;
-  padding: 12px 15px;
+  padding: 16px 20px;
   text-align: left;
   font-weight: 600;
   border-bottom: 2px solid #dee2e6;
   z-index: 10;
+  white-space: normal;
 }
 
 .requests-table td {
-  padding: 12px 15px;
+  padding: 16px 20px;
   border-bottom: 1px solid #dee2e6;
-  word-wrap: break-word;
-  white-space: nowrap;
+  word-break: break-word;
+  vertical-align: top;
+  background: #fff;
+  white-space: normal;
 }
 
 .requests-table tr:last-child td {
   border-bottom: none;
 }
 
-/* Optional: alternate row color */
 .requests-table tbody tr:nth-child(even) {
   background: #fafafa;
 }
+
+/* Set minimum widths for each column for better spacing */
+.requests-table th:nth-child(1),  .requests-table td:nth-child(1)  { min-width: 40px; }
+.requests-table th:nth-child(2),  .requests-table td:nth-child(2)  { min-width: 100px; }
+.requests-table th:nth-child(3),  .requests-table td:nth-child(3)  { min-width: 120px; }
+.requests-table th:nth-child(4),  .requests-table td:nth-child(4)  { min-width: 180px; }
+.requests-table th:nth-child(5),  .requests-table td:nth-child(5)  { min-width: 110px; }
+.requests-table th:nth-child(6),  .requests-table td:nth-child(6)  { min-width: 70px; }
+.requests-table th:nth-child(7),  .requests-table td:nth-child(7)  { min-width: 110px; }
+.requests-table th:nth-child(😎,  .requests-table td:nth-child(😎  { min-width: 110px; }
+.requests-table th:nth-child(9),  .requests-table td:nth-child(9)  { min-width: 160px; }
+.requests-table th:nth-child(10), .requests-table td:nth-child(10) { min-width: 110px; }
+.requests-table th:nth-child(11), .requests-table td:nth-child(11) { min-width: 160px; }
+.requests-table th:nth-child(12), .requests-table td:nth-child(12) { min-width: 110px; }
+.requests-table th:nth-child(13), .requests-table td:nth-child(13) { min-width: 110px; }
+.requests-table th:nth-child(14), .requests-table td:nth-child(14) { min-width: 90px; }
+.requests-table th:nth-child(15), .requests-table td:nth-child(15) { min-width: 90px; }
 
 /* Custom scrollbar styling for requests table */
 .requests-table-container::-webkit-scrollbar {
@@ -892,21 +910,4 @@ h1 {
 }
 .requests-table-container::-webkit-scrollbar-thumb:hover {
   background: #555;
-}
-
-/* Responsive: On small screens, allow horizontal scroll */
-@media (max-width: 900px) {
-  .requests-table {
-    min-width: 600px;
-    font-size: 13px;
-  }
-  .requests-table-container {
-    max-width: 100vw;
-  }
-  .requests-table th,
-  .requests-table td {
-    padding: 6px 4px;
-    font-size: 13px;
-    word-break: break-word;
-  }
 }

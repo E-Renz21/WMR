@@ -50,11 +50,12 @@ $result = $conn->query($sql);
       <td><?= htmlspecialchars($row['product_description']) ?></td>
       <td><?= htmlspecialchars($row['estimated_weight']) ?></td>
       <td><?= htmlspecialchars($row['estimated_boxes']) ?></td> 
-      <td class="address-cell">
-        <div class="address-actions">
-          <button class="more-btn" data-id="<?= $row['id'] ?>">⋮</button>
-        </div>
-      </td>
+      <td><?= htmlspecialchars($row['pickup_date']) ?></td> 
+      <td><?= htmlspecialchars($row['pickup_city']) ?></td>
+      <td><?= htmlspecialchars($row['pickup_address']) ?></td>
+      <td><?= htmlspecialchars($row['delivery_city']) ?></td>
+      <td><?= htmlspecialchars($row['delivery_address']) ?></td>
+      <td><?= htmlspecialchars($row['expected_arrival']) ?></td>
       <td><?= htmlspecialchars($row['contact_number']) ?></td>
       <td class="actions-cell">
         <div class="action-buttons">
@@ -73,40 +74,5 @@ $result = $conn->query($sql);
 <?php endif; ?>
       </tbody>
     </table>
-  </div>
-</div>
-  
-  <!-- Delivery Details Modal -->
-  <!-- Delivery Details Modal -->
-<div id="deliveryDetailsModal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn">&times;</span>
-    <h3>Delivery Details</h3>
-    <div class="details-container">
-      <div class="detail-row">
-        <span class="detail-label">Date:</span>
-        <span class="detail-value" id="expected_arrival"></span>
-      </div>git 
-      <div class="detail-row">
-        <span class="detail-label">Pickup Address:</span>
-        <span class="detail-value" id="modal-pickup-address"></span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Full Address:</span>
-        <span class="detail-value" id="modal-pickup-full"></span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Deliver To:</span>
-        <span class="detail-value" id="modal-destination"></span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Full Address:</span>
-        <span class="detail-value" id="modal-destination-full"></span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Expected Date:</span>
-        <span class="detail-value" id="modal-expected-date"></span>
-      </div>
-    </div>
   </div>
 </div>
