@@ -67,7 +67,7 @@ $conn->close();
                     </div>
 
                     
-                    <a href="/wmr/src/php/logout.php"> <div class="menu-item">
+                    <a href="/src/php/logout.php"> <div class="menu-item">
                         <img src="../images/Log_outLogo.png" alt="">
                         <span>Log Out</span>
                     </div></a>

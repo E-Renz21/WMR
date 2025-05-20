@@ -886,7 +886,11 @@ h1 {
 .requests-table th:nth-child(5),  .requests-table td:nth-child(5)  { min-width: 110px; }
 .requests-table th:nth-child(6),  .requests-table td:nth-child(6)  { min-width: 70px; }
 .requests-table th:nth-child(7),  .requests-table td:nth-child(7)  { min-width: 110px; }
+<<<<<<< HEAD
 .requests-table th:nth-child(😎,  .requests-table td:nth-child(😎  { min-width: 110px; }
+=======
+.requests-table th:nth-child(8),  .requests-table td:nth-child(8)  { min-width: 110px; }
+>>>>>>> 80c030adbde4515c5943caf0b69ddcbdde0fead0
 .requests-table th:nth-child(9),  .requests-table td:nth-child(9)  { min-width: 160px; }
 .requests-table th:nth-child(10), .requests-table td:nth-child(10) { min-width: 110px; }
 .requests-table th:nth-child(11), .requests-table td:nth-child(11) { min-width: 160px; }

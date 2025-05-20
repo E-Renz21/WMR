@@ -30,7 +30,6 @@ if (isset($_GET['request_id'])) {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,6 +80,60 @@ if (isset($_GET['request_id'])) {
         .driver-details h2 {
             margin: 5px 0 0;
             font-size: 18px;
+        }
+
+        /* New styles for date-time sections */
+        .date-time-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        .date-time-section {
+            flex: 1;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .date-time-section p {
+            margin: 0 0 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .date-time-section h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .admin-note {
+            background: #333;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .admin-note p {
+            margin: 0 0 5px 0;
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        .admin-note-content {
+            width: 100%;
+            min-height: 80px;
+            background: #444;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 4px;
+            padding: 8px;
+            overflow: auto;
+            resize: none; /* Disable resizing */
+            white-space: pre-wrap; /* Preserve formatting */
         }
     </style>
 </head>
@@ -164,6 +217,23 @@ if (isset($_GET['request_id'])) {
                                 </div>
                             </div>
                         </div>
+
+                        <!-- New date-time sections -->
+                        <div class="date-time-container">
+                            <div class="date-time-section">
+                                <p>Departure Date</p>
+                                <h2><?= htmlspecialchars($selectedRequest['departure_date'] ?? 'Not set') ?></h2>
+                                <p>Departure Time</p>
+                                <h2><?= htmlspecialchars($selectedRequest['departure_time'] ?? 'Not set') ?></h2>
+                            </div>
+
+                            <div class="date-time-section">
+                                <p>Arrival Date</p>
+                                <h2><?= htmlspecialchars($selectedRequest['arrival_date'] ?? 'Not set') ?></h2>
+                                <p>Arrival Time</p>
+                                <h2><?= htmlspecialchars($selectedRequest['arrival_time'] ?? 'Not set') ?></h2>
+                            </div>
+                        </div>
                     <?php endif; ?>
                 </div>
 
@@ -180,13 +250,14 @@ if (isset($_GET['request_id'])) {
 
                             <div class="address-section">
                                 <p>Departure Address</p>
-                                <p><?= htmlspecialchars($selectedRequest['departure_address'] ?? 'Not available yet') ?></p>
+                                <p><?= htmlspecialchars($selectedRequest['pickup_address'] ?? 'Not available yet') ?></p>
                             </div>
 
                             <div class="address-section">
                                 <p>Arrival Address</p>
-                                <p><?= htmlspecialchars($selectedRequest['arrival_address'] ?? 'Not available yet') ?></p>
+                                <p><?= htmlspecialchars($selectedRequest['delivery_address'] ?? 'Not available yet') ?></p>
                             </div>
+
                         </div>
 
                         <div class="details-right">
@@ -198,6 +269,12 @@ if (isset($_GET['request_id'])) {
                             <div class="date-time-item">
                                 <p>Expected Arrival</p>
                                 <h2><?= htmlspecialchars($selectedRequest['expected_arrival'] ?? 'Not set') ?></h2>
+                            </div>
+
+                            <!-- Admin note section -->
+                            <div class="admin-note">
+                                <p>Admin Notes</p>
+                                <div class="admin-note-content"><?= nl2br(htmlspecialchars($selectedRequest['admin_notes'] ?? 'No notes available')) ?></div>
                             </div>
 
                             <div class="cargo-section">
