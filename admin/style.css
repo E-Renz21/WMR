@@ -323,12 +323,12 @@ body {
   font-size: 14px;
 }
 
-.status-intransit {
+.status-in-transit {
   background-color: darkblue;
   color: white;
 }
 
-.status-arrive {
+.status-arrived {
   background-color: green;
   color: white;
 }

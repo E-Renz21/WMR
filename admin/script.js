@@ -45,6 +45,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+document.addEventListener('click', function(event) {
+      const dropdown = document.querySelector('.status-dropdown');
+      if (!dropdown.contains(event.target)) {
+        document.getElementById('statusOptions').style.display = 'none';
+      }
+    });
 
 // Initialize the dashboard
 function initDashboard() {
@@ -194,6 +200,28 @@ function loadComponents() {
     })  
     .catch(err => console.error('Error loading edit status:', err));
 }
+
+function toggleStatusDropdown() {
+      const options = document.getElementById('statusOptions');
+      options.style.display = options.style.display === 'block' ? 'none' : 'block';
+    }
+
+  function selectStatus(statusText, statusClass) {
+    const select = document.querySelector('.status-select');
+    const options = document.getElementById('statusOptions');
+    
+    // Update selected status
+    select.innerHTML = `
+      <div class="status-icon"></div>
+      <span>${statusText}</span>
+    `;
+    
+    // Update class for color
+    select.className = 'status-select ' + statusClass;
+    
+    // Close dropdown
+    options.style.display = 'none';
+  }
 
 // Global function for menu items to use
 window.showPanel = showPanel;
