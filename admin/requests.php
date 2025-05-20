@@ -1,24 +1,20 @@
 <?php
 $host = 'localhost';
 $db   = 'wmr_db';
-$user = 'root';
+$user = 'root'; 
 $pass = '';
 
 $conn = new mysqli($host, $user, $pass, $db);
 
-$id = isset($_GET['id']) ? (int)$_GET['id'] : 1;
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-$sql = "SELECT * FROM contact_messages WHERE id = $id";
-
+// Get all users, not just one
+$sql = "SELECT * FROM delivery_requests ORDER BY id DESC";
 $result = $conn->query($sql);
 
-if ($result) {
-    if ($row = $result->fetch_assoc()) {
-      $id = $row["id"];
-    }
-  } else {
-    echo "Error running query: " . $conn->error;
-  }
+$modal_sql = "SELECT * FROM delivery_requests WHERE id = $id";
 ?>
 
 <div class="delivery-requests">
@@ -41,30 +37,36 @@ if ($result) {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>May 19, 2025</td>
-          <td>Earl Lawrence Obguia</td>
-          <td>Gins, Softdrinks, Beers, Beverages</td>
-          <td>20 Tons</td>
-          <td>56</td> 
-          <td class="address-cell">
-            <div class="address-actions">
-              <button class="more-btn">⋮</button>
-            </div>
-          </td>
-          <td>09202313282</td>
-          <td class="actions-cell">
-            <div class="action-buttons">
-              <button class="edit-btn" onclick="showPanel('editstatus')">Edit Status</button>
-            </div>
-          </td>
-          <td class="actions-cell">
-            <div class="action-buttons">
-              <button class="status-btn status-for-pickup">Pending</button>
-            </div>
-          </td>
-        </tr>
+        <?php if ($result && $result->num_rows > 0): ?>
+  <?php while($row = $modalresult_result->fetch_assoc()): ?>
+    <tr>
+      <td><?= htmlspecialchars($row['id']) ?></td>
+      <td><?= htmlspecialchars($row['expected_arrival']) ?></td>
+      <td><?= htmlspecialchars($row['driver_name']) ?></td>
+      <td><?= htmlspecialchars($row['product_description']) ?></td>
+      <td><?= htmlspecialchars($row['estimated_weight']) ?></td>
+      <td><?= htmlspecialchars($row['estimated_boxes']) ?></td> 
+      <td class="address-cell">
+        <div class="address-actions">
+          <button class="more-btn"  >⋮</button>
+        </div>
+      </td>
+      <td><?= htmlspecialchars($row['contact_number']) ?></td>
+      <td class="actions-cell">
+        <div class="action-buttons">
+          <button class="edit-btn" onclick="showPanel('editstatus')">Edit Status</button>
+        </div>
+      </td>
+      <td class="actions-cell">
+        <div class="action-buttons">
+          <button class="status-btn status-for-pickup">Pending</button>
+        </div>
+      </td>
+    </tr>
+  <?php endwhile; ?>
+<?php else: ?>
+  <tr><td colspan="10">No delivery requests found.</td></tr>
+<?php endif; ?>
       </tbody>
     </table>
   </div>
@@ -77,7 +79,7 @@ if ($result) {
       <div class="details-container">
         <div class="detail-row">
           <span class="detail-label">Date:</span>
-          <span class="detail-value">May 20, 2025</span>
+          <span class="detail-value"></span>
         </div>
         <div class="detail-row">
           <span class="detail-label">Pickup Address:</span>
@@ -96,7 +98,7 @@ if ($result) {
           <span class="detail-value">Barangay Dimaguiba, Cagayan De Oro, Philippines</span>
         </div>
         <div class="detail-row">
-          <span class="detail-label">Expected Date:</span>
+          <span class="detail-lab el">Expected Date:</span>
           <span class="detail-value">May 22, 2025</span>
         </div>
       </div>
