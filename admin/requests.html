@@ -15,6 +15,7 @@
           <th>Delivery Date & Address</th>
           <th>Contact No.</th>
           <th>Actions</th>
+          <th>Status</th>
         </tr>
       </thead>
       <tbody>
@@ -33,8 +34,12 @@
           <td>09202313282</td>
           <td class="actions-cell">
             <div class="action-buttons">
-              <button class="approve-btn">✓</button>
-              <button class="reject-btn">✕</button>
+              <button class="edit-btn" onclick="showPanel('editstatus')">Edit Status</button>
+            </div>
+          </td>
+          <td class="actions-cell">
+            <div class="action-buttons">
+              <button class="status-btn status-for-pickup">Pending</button>
             </div>
           </td>
         </tr>
