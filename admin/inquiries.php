@@ -6,7 +6,7 @@ $pass = '';
 
 $conn = new mysqli($host, $user, $pass, $db);
 
-$id = isset($_GET['id']) ? (int)$_GET['id'] : 1;
+$id = isset($_GET['id']) ? (int)$_GET['id'] : 3;
 
 $sql = "SELECT * FROM contact_messages WHERE id = $id";
 
