@@ -4,6 +4,8 @@ $db   = 'wmr_db';
 $user = 'root'; 
 $pass = '';
 
+$id = 1;
+
 $conn = new mysqli($host, $user, $pass, $db);
 
 if ($conn->connect_error) {
@@ -38,7 +40,7 @@ $modal_sql = "SELECT * FROM delivery_requests WHERE id = $id";
       </thead>
       <tbody>
         <?php if ($result && $result->num_rows > 0): ?>
-  <?php while($row = $modalresult_result->fetch_assoc()): ?>
+  <?php while($row = $result->fetch_assoc()): ?>
     <tr>
       <td><?= htmlspecialchars($row['id']) ?></td>
       <td><?= htmlspecialchars($row['expected_arrival']) ?></td>
@@ -48,7 +50,7 @@ $modal_sql = "SELECT * FROM delivery_requests WHERE id = $id";
       <td><?= htmlspecialchars($row['estimated_boxes']) ?></td> 
       <td class="address-cell">
         <div class="address-actions">
-          <button class="more-btn"  >⋮</button>
+          <button class="more-btn" data-id="<?= $row['id'] ?>">⋮</button>
         </div>
       </td>
       <td><?= htmlspecialchars($row['contact_number']) ?></td>
@@ -72,35 +74,36 @@ $modal_sql = "SELECT * FROM delivery_requests WHERE id = $id";
   </div>
   
   <!-- Delivery Details Modal -->
-  <div id="deliveryDetailsModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn">&times;</span>
-      <h3>Delivery Details</h3>
-      <div class="details-container">
-        <div class="detail-row">
-          <span class="detail-label">Date:</span>
-          <span class="detail-value"></span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Pickup Address:</span>
-          <span class="detail-value">Davao City</span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Full Address:</span>
-          <span class="detail-value">Matina Crossing, Davao City, Davao Del Sur, Philippines</span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Deliver To:</span>
-          <span class="detail-value">Cagayan De Oro</span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Full Address:</span>
-          <span class="detail-value">Barangay Dimaguiba, Cagayan De Oro, Philippines</span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-lab el">Expected Date:</span>
-          <span class="detail-value">May 22, 2025</span>
-        </div>
+  <!-- Delivery Details Modal -->
+<div id="deliveryDetailsModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <h3>Delivery Details</h3>
+    <div class="details-container">
+      <div class="detail-row">
+        <span class="detail-label">Date:</span>
+        <span class="detail-value" id="expected_arrival"></span>
+      </div>git 
+      <div class="detail-row">
+        <span class="detail-label">Pickup Address:</span>
+        <span class="detail-value" id="modal-pickup-address"></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Full Address:</span>
+        <span class="detail-value" id="modal-pickup-full"></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Deliver To:</span>
+        <span class="detail-value" id="modal-destination"></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Full Address:</span>
+        <span class="detail-value" id="modal-destination-full"></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Expected Date:</span>
+        <span class="detail-value" id="modal-expected-date"></span>
       </div>
     </div>
   </div>
+</div>
