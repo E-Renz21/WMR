@@ -1,6 +1,49 @@
 document.addEventListener('DOMContentLoaded', function() {
+  console.log('Client Lists page loaded');
+  
+  // Initialize row click functionality
+  const rows = document.querySelectorAll('.clients-table tbody tr');
+  rows.forEach(row => {
+    row.addEventListener('click', (e) => {
+      // Skip if clicking on action elements
+      if (e.target.tagName === 'BUTTON' || e.target.classList.contains('profile-pic-placeholder')) return;
+      
+      // Toggle row selection
+      rows.forEach(r => r.classList.remove('selected-row'));
+      row.classList.toggle('selected-row');
+      
+      console.log('Selected client:', row.cells[1].textContent);
+    });
+  });
+  
+  // Future functionality can be added here
+  // Example: View profile picture in modal
+  const profilePics = document.querySelectorAll('.profile-pic-placeholder');
+  profilePics.forEach(pic => {
+    pic.addEventListener('click', (e) => {
+      e.stopPropagation();
+      console.log('View profile picture');
+      // Add modal functionality here
+    });
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
   // Initialize the dashboard
   initDashboard();
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Future JavaScript functionality can be added here
+  console.log('Client Inquiries page loaded');
+  
+  // Example: Add click event for rows if needed
+  const rows = document.querySelectorAll('.inquiries-table tbody tr');
+  rows.forEach(row => {
+    row.addEventListener('click', () => {
+      // Add row click functionality here
+    });
+  });
 });
 
 // Initialize the dashboard
