@@ -5,7 +5,7 @@ $user = 'root';
 $pass = '';
 $conn = new mysqli($host, $user, $pass, $db);
 
-$id = isset($_GET['id']) ? (int)$_GET['id'] : 25;
+$id = isset($_GET['id']) ? (int)$_GET['id'] : 1;
 
 $sql = "SELECT * FROM delivery_requests WHERE id = $id";
 
@@ -13,15 +13,22 @@ $result = $conn->query($sql);
 
 if ($result) {
     if ($row = $result->fetch_assoc()) {
-        echo json_encode($row) . "<br>";
-    } else {
-        echo "No r  ecord found with ID = $id<br>";
-    }
-} else {
-    echo "Error running query: " . $conn->error;
-}
-?>
+      $driverName = $row['driver_name'];
+      $plateNumber = $row['plate_number'];
+      $currentLocation = $row['current_location'];
+      $departureDate = $row['departure_date'];
+      $departureTime = $row['departure_time'];
+      $driverAssistant = $row['driver_assistant'];
+      $contactNumber = $row['contact_number'];
+      $status = $row['status'];
+      $estimatedArrivalDate = $row['estimated_arrival_date'];
 
+
+    }
+  } else {
+    echo "Error running query: " . $conn->error;
+  }
+?>
 
 <style>
     * {
@@ -273,29 +280,29 @@ if ($result) {
       <div class="form-row">
         <div class="form-col">
           <label>Driver's Name</label>
-          <input type="text" value="" id="driver_name">
+          <input type="text" value="<?= htmlspecialchars($driverName) ?>" id="driver_name" name="driver_name">
         </div>
         <div class="form-col">
           <label>Plate Number</label>
-          <input type="text" value="" id="plate_number">
+          <input type="text" value="<?= htmlspecialchars($plateNumber) ?>" id="plate_number">
         </div>
       </div>
       
     <div class="form-row">
   <div class="form-col" style="max-width: 300px;">  <!-- Added max-width -->
     <label>Current Location</label>
-    <input type="text" value="Pagadian" id="current_location">
+    <input type="text" value="<?= htmlspecialchars($currentLocation) ?>" id="current_location">
   </div>
 </div>
       
       <div class="form-row">
         <div class="form-col">
           <label>Departure Date</label>
-          <input type="date" value="" id="departure_date">
+          <input type="date" value="<?= htmlspecialchars($departureDate) ?>" id="departure_date">
         </div>
         <div class="form-col">
           <label>Departure Time</label>
-          <input type="time" value="" id="departure_time">
+          <input type="time" value="<?= htmlspecialchars($departureTime) ?>" id="departure_time">
         </div>
       </div>
       
@@ -313,11 +320,11 @@ if ($result) {
       <div class="form-row">
         <div class="form-col">
           <label>Drive Assistant</label>
-          <input type="text" value="" id="driver_assistant">
+          <input type="text" value="<?= htmlspecialchars($driverAssistant) ?>" id="driver_assistant">
         </div>
         <div class="form-col">
           <label>Driver/Assistant Contact Number</label>
-          <input type="text" value="" id="contact_number">
+          <input type="text" value="<?= htmlspecialchars($contactNumber) ?>" id="contact_number">
         </div>
       </div>
       
@@ -327,7 +334,7 @@ if ($result) {
           <div class="status-dropdown">
             <div class="status-select status-in-transit" id="status" onclick="toggleStatusDropdown()">
               <div class="status-icon"></div>
-              <span>In Transit</span>
+              <span><?= htmlspecialchars($status) ?></span>
             </div>
             <div class="status-options" id="statusOptions">
               <div class="status-option status-in-transit" onclick="selectStatus('In Transit', 'status-in-transit')">
@@ -355,7 +362,7 @@ if ($result) {
         </div>
         <div class="form-col">
           <label>Expected Date to Arrive</label>
-          <input type="date" value="" id="estimated_arrival_date">
+          <input type="date" value="<?= htmlspecialchars($estimatedArrivalDate) ?>" id="estimated_arrival_date">
         </div>
       </div>
       
