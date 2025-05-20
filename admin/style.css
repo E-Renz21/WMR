@@ -315,6 +315,39 @@ body {
   font-size: 14px;
 }
 
+.status-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.status-intransit {
+  background-color: darkblue;
+  color: white;
+}
+
+.status-arrive {
+  background-color: green;
+  color: white;
+}
+
+.status-for-pickup {
+  background-color: yellow;
+  color: black;
+}
+
+.status-delayed {
+  background-color: red;
+  color: white;
+}
+
+.status-pending {
+  background-color: gray;
+  color: white;
+}
+
 .status-label {
   padding: 4px 8px;
   border-radius: 4px;

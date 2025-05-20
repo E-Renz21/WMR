@@ -142,6 +142,14 @@ function loadComponents() {
       document.getElementById('clients').innerHTML = data;
     })
     .catch(err => console.error('Error loading clients:', err));
+
+    // Load edit status panel
+  fetch('editstatus.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('editstatus').innerHTML = data;
+    })  
+    .catch(err => console.error('Error loading edit status:', err));
 }
 
 // Global function for menu items to use
