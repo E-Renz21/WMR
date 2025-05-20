@@ -264,6 +264,13 @@ if ($result) {
 .status-pending .status-icon {
   background-color: #9E9E9E; /* Gray */
 }
+
+.status-select span,
+.status-option span {
+  color: #222 !important;
+  font-weight: bold;
+  opacity: 1 !important;
+}
   </style>
   <div class="header-wrapper">
     <div class="header">
