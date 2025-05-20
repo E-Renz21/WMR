@@ -1,30 +1,18 @@
 <?php
 $host = 'localhost';
 $db   = 'wmr_db';
-$user = 'root';
+$user = 'root'; 
 $pass = '';
 
 $conn = new mysqli($host, $user, $pass, $db);
 
-$id = isset($_GET['id']) ? (int)$_GET['id'] : 3;
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-$sql = "SELECT * FROM contact_messages WHERE id = $id";
-
+// Fetch all messages, not just one by ID
+$sql = "SELECT * FROM contact_messages ORDER BY submitted_at DESC";
 $result = $conn->query($sql);
-
-if ($result) {
-    if ($row = $result->fetch_assoc()) {
-      $id = $row['id'];
-      $date = $row["submitted_at"];
-      $lastName = $row['last_name'];
-      $firstName = $row['first_name'];
-      $phoneNumber = $row['phone_number'];
-      $email = $row['email'];
-      $message = $row['message'];
-    }
-  } else {
-    echo "Error running query: " . $conn->error;
-  }
 ?>
 
 <!DOCTYPE html>
@@ -59,14 +47,22 @@ if ($result) {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><?= htmlspecialchars($date) ?></td>
-            <td><?= htmlspecialchars($lastName) ?></td>
-            <td><?= htmlspecialchars($firstName) ?></td>
-            <td><?= htmlspecialchars($phoneNumber) ?></td>
-            <td><?= htmlspecialchars($email) ?></td>
-            <td><?= htmlspecialchars($message) ?></td>
-          </tr>
+          <?php if ($result && $result->num_rows > 0): ?>
+            <?php while ($row = $result->fetch_assoc()): ?>
+              <tr>
+                <td><?= htmlspecialchars($row['submitted_at']) ?></td>
+                <td><?= htmlspecialchars($row['last_name']) ?></td>
+                <td><?= htmlspecialchars($row['first_name']) ?></td>
+                <td><?= htmlspecialchars($row['phone_number']) ?></td>
+                <td><?= htmlspecialchars($row['email']) ?></td>
+                <td><?= nl2br(htmlspecialchars($row['message'])) ?></td>
+              </tr>
+            <?php endwhile; ?>
+          <?php else: ?>
+            <tr>
+              <td colspan="6">No inquiries found.</td>
+            </tr>
+          <?php endif; ?>
         </tbody>
       </table>
     </div>
@@ -75,3 +71,5 @@ if ($result) {
   <script src="inquiries.js"></script>
 </body>
 </html>
+
+<?php $conn->close(); ?>

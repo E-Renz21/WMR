@@ -6,29 +6,13 @@ $pass = '';
 
 $conn = new mysqli($host, $user, $pass, $db);
 
-$id = isset($_GET['id']) ? (int)$_GET['id'] : 14;
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-$sql = "SELECT * FROM users WHERE id = $id";
-
+// Get all users, not just one
+$sql = "SELECT * FROM users ORDER BY created_at DESC";
 $result = $conn->query($sql);
-
-if ($result) {
-    if ($row = $result->fetch_assoc()) {
-
-      $id = $row['id'];
-      $date = $row["created_at"];
-      $name = $row['full_name'];
-      $nickname = $row['nickname'];
-      $residence = $row['residence'];
-      $birthdate = $row['birthday'];
-      $businessName = $row['business_name'];
-      $email = $row['email'];
-      $contactNumber = $row['phone_number'];
-      $profilePicture = $row['profile_picture'];
-    }
-  } else {
-    echo "Error running query: " . $conn->error;
-  }
 ?>
 
 <!DOCTYPE html>
@@ -66,19 +50,29 @@ if ($result) {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><?= htmlspecialchars(string: $date) ?></td>
-            <td><?= htmlspecialchars($name) ?></td>
-            <td><?= htmlspecialchars(string: $nickname) ?></td>
-            <td><?= htmlspecialchars(string: $residence) ?></td>
-            <td><?= htmlspecialchars(string: $birthdate) ?></td>
-            <td><?= htmlspecialchars(string: $businessName) ?></td>
-            <td>&lt;<?= htmlspecialchars(string: $email) ?>&gt;</td>
-            <td><?= htmlspecialchars(string: $contactNumber) ?></td>
-            <td>
-              <div class="profile-pic-placeholder"><?= htmlspecialchars(string: $profilePicture) ?></div>
-            </td>
-          </tr>
+          <?php if ($result && $result->num_rows > 0): ?>
+            <?php while ($row = $result->fetch_assoc()): ?>
+              <tr>
+                <td><?= htmlspecialchars($row['created_at']) ?></td>
+                <td><?= htmlspecialchars($row['full_name']) ?></td>
+                <td><?= htmlspecialchars($row['nickname']) ?></td>
+                <td><?= htmlspecialchars($row['residence']) ?></td>
+                <td><?= htmlspecialchars($row['birthday']) ?></td>
+                <td><?= htmlspecialchars($row['business_name']) ?></td>
+                <td><?= htmlspecialchars($row['email']) ?></td>
+                <td><?= htmlspecialchars($row['phone_number']) ?></td>
+                <td>
+                  <div class="profile-pic-placeholder">
+                    <?= htmlspecialchars($row['profile_picture']) ?>
+                  </div>
+                </td>
+              </tr>
+            <?php endwhile; ?>
+          <?php else: ?>
+            <tr>
+              <td colspan="9">No users found.</td>
+            </tr>
+          <?php endif; ?>
         </tbody>
       </table>
     </div>
@@ -88,3 +82,4 @@ if ($result) {
 </body>
 </html>
 
+<?php $conn->close(); ?>
