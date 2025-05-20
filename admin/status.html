@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Delivery Status</title>
-  <link rel="stylesheet" href="status.css" />
+  <link rel="stylesheet" href="status.css">
 </head>
 <body>
 
@@ -36,48 +36,46 @@
           <td>20 Tons</td>
           <td>56</td>
           <td class="address-cell">
-            <button class="more-btn" onclick="openModal()">⋮</button>
+            <button class="more-btn" id="detailsBtn">⋮</button>
           </td>
-          <td>09202313282</td>
-          <td><span class="status-label delivered">Delivered</span></td>
+          <td>08020313282</td>
+          <td><span class="status-label">Delivered</span></td>
           <td><button class="edit-btn">Edit</button></td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <!-- Modal -->
-  <div id="detailsModal" class="modal">
+  <div id="deliveryDetailsModal" class="modal">
     <div class="modal-content">
-      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <span class="close-btn" id="closeModalBtn">&times;</span>
       <h3>Delivery Details</h3>
       <div class="details-container">
-        <div class="detail-row"><span class="label">Pickup:</span><span class="value">Davao City</span></div>
-        <div class="detail-row"><span class="label">Pickup Address:</span><span class="value">Matina Crossing, Davao City, Philippines</span></div>
-        <div class="detail-row"><span class="label">Destination:</span><span class="value">Cagayan de Oro</span></div>
-        <div class="detail-row"><span class="label">Destination Address:</span><span class="value">Barangay Dimaguiba, CDO, Philippines</span></div>
-        <div class="detail-row"><span class="label">Expected Date:</span><span class="value">May 22, 2025</span></div>
+        <div class="detail-row">
+          <span class="detail-label">Pickup Address:</span>
+          <span class="detail-value">Davao City</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Full Address:</span>
+          <span class="detail-value">Matina Crossing, Davao City</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Deliver To:</span>
+          <span class="detail-value">Cagayan De Oro</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Full Address:</span>
+          <span class="detail-value">Barangay Dimaguiba</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Expected Date:</span>
+          <span class="detail-value">May 22, 2025</span>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<script>
-  function openModal() {
-    document.getElementById("detailsModal").style.display = "block";
-  }
-
-  function closeModal() {
-    document.getElementById("detailsModal").style.display = "none";
-  }
-
-  window.onclick = function (event) {
-    const modal = document.getElementById("detailsModal");
-    if (event.target == modal) {
-      closeModal();
-    }
-  }
-</script>
-
+<script src="status.js"></script>
 </body>
 </html>
