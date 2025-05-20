@@ -675,3 +675,157 @@ h1 {
   padding: 0 30px;
   background: transparent !important;
 }
+
+/* Add these styles to your existing inquiries.css */
+
+.inquiries-table-container {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 600px; /* Adjust this value based on your needs */
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.inquiries-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.inquiries-table th {
+  position: sticky;
+  top: 0;
+  background-color: #f8f9fa;
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid #dee2e6;
+  z-index: 10;
+}
+
+.inquiries-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.inquiries-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Custom scrollbar styling */
+.inquiries-table-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.inquiries-table-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.inquiries-table-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.inquiries-table-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* --- Responsive Design for Mobile --- */
+@media (max-width: 900px) {
+  .dashboard {
+    flex-direction: column;
+    padding: 0 10px;
+    gap: 0;
+  }
+  .menu-panel {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  .content-panel {
+    width: 100%;
+    padding: 15px;
+    min-height: 300px;
+  }
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .header-wrapper {
+    padding: 8px 0;
+  }
+  .header img {
+    height: 40px;
+    margin-right: 8px;
+  }
+  .header h1 {
+    font-size: 20px;
+  }
+  .dashboard-wrapper {
+    margin-top: 60px !important;
+  }
+  .menu-panel {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px;
+  }
+  .menu-item {
+    font-size: 16px;
+    padding: 8px 0;
+  }
+  .content-panel {
+    padding: 8px;
+    font-size: 15px;
+  }
+  .requests-table th,
+  .requests-table td,
+  .clients-table th,
+  .clients-table td,
+  .inquiries-table th,
+  .inquiries-table td {
+    padding: 6px 4px;
+    font-size: 13px;
+    word-break: break-word;
+  }
+  .clients-table,
+  .requests-table,
+  .inquiries-table {
+    font-size: 13px;
+    min-width: 600px;
+  }
+  .content-container {
+    padding: 10px;
+    width: 100%;
+    margin: 10px 0;
+  }
+  .modal-content {
+    width: 95%;
+    padding: 10px;
+  }
+}
+
+/* Make tables scrollable horizontally on small screens */
+@media (max-width: 900px) {
+  .clients-table-container,
+  .requests-table-container,
+  .inquiries-table-container,
+  .status-table-container {
+    overflow-x: auto;
+    width: 100%;
+  }
+  .clients-table,
+  .requests-table,
+  .inquiries-table,
+  .status-table {
+    min-width: 600px;
+  }
+}
+
