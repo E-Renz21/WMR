@@ -1,8 +1,7 @@
-
 <?php
 $host = 'localhost';
 $db   = 'wmr_db';
-$user = 'root'; 
+$user = 'root';
 $pass = '';
 
 $conn = new mysqli($host, $user, $pass, $db);
@@ -11,16 +10,27 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Get all users, not just one
 $sql = "SELECT * FROM delivery_requests ORDER BY id DESC";
 $result = $conn->query($sql);
 ?>
 
-<div class="delivery-requests">
-  <h2>Delivery Requests & Status</h2>
-  
-  <div class="requests-table-container">
-    <table class="requests-table">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Delivery Requests</title>
+  <link rel="stylesheet" href="../../css/header.css"/>
+  <link rel="stylesheet" href="../../css/admincss/requestsadmin.css"/>
+</head>
+<body>
+
+<?php include('header.php'); ?>
+
+<div class="content-container">
+  <h1>Delivery Requests & Status</h1>
+  <div class="clients-table-container">
+    <table class="clients-table">
       <thead>
         <tr>
           <th>ID</th>
@@ -36,66 +46,50 @@ $result = $conn->query($sql);
           <th>Delivery Address</th>
           <th>Expected Date</th>
           <th>Contact No.</th>
-          <th>Actions</th>
           <th>Status</th>
         </tr>
       </thead>
       <tbody>
         <?php if ($result && $result->num_rows > 0): ?>
-  <?php while($row = $result->fetch_assoc()): ?>
-    <tr>
-      <td><?= htmlspecialchars($row['id']) ?></td>
-      <td><?= htmlspecialchars($row['expected_arrival']) ?></td>
-      <td><?= htmlspecialchars($row['driver_name']) ?></td>
-      <td><?= htmlspecialchars($row['product_description']) ?></td>
-      <td><?= htmlspecialchars($row['estimated_weight']) ?></td>
-      <td><?= htmlspecialchars($row['estimated_boxes']) ?></td> 
-      <td><?= htmlspecialchars($row['pickup_date']) ?></td> 
-      <td><?= htmlspecialchars($row['pickup_city']) ?></td>
-      <td><?= htmlspecialchars($row['pickup_address']) ?></td>
-      <td><?= htmlspecialchars($row['delivery_city']) ?></td>
-      <td><?= htmlspecialchars($row['delivery_address']) ?></td>
-      <td><?= htmlspecialchars($row['expected_arrival']) ?></td>
-      <td><?= htmlspecialchars($row['contact_number']) ?></td>
-      <td class="actions-cell">
-        <div class="action-buttons">
-          <button class="edit-btn" onclick="showPanel('editstatus')">Edit Status</button>
-        </div>
-      </td>
-      <?php
-  // Determine CSS class based on status
-  $status = htmlspecialchars($row['status']);
-  $statusClass = '';
-
-  switch (strtolower($status)) {
-    case 'arrived':
-      $statusClass = 'status-arrived';
-      break;
-      case 'delayed':
-      $statusClass = 'status-delayed';
-      break;
-    case 'in transit':
-      $statusClass = 'status-in-transit';
-      break;
-    case 'for pickup':
-      $statusClass = 'status-for-pickup';
-      break;
-    default:
-      $statusClass = 'status-pending';
-      break;
-  }
-?>
-<td class="actions-cell">
-  <div class="action-buttons">
-    <button class="status-btn <?= $statusClass ?>"><?= $status ?></button>
-  </div>
-</td>
-    </tr>
-  <?php endwhile; ?>
-<?php else: ?>
-  <tr><td colspan="10">No delivery requests found.</td></tr>
-<?php endif; ?>
+          <?php while($row = $result->fetch_assoc()): ?>
+            <tr>
+              <td><?= htmlspecialchars($row['id']) ?></td>
+              <td><?= htmlspecialchars($row['expected_arrival']) ?></td>
+              <td><?= htmlspecialchars($row['driver_name']) ?></td>
+              <td><?= htmlspecialchars($row['product_description']) ?></td>
+              <td><?= htmlspecialchars($row['estimated_weight']) ?></td>
+              <td><?= htmlspecialchars($row['estimated_boxes']) ?></td>
+              <td><?= htmlspecialchars($row['pickup_date']) ?></td>
+              <td><?= htmlspecialchars($row['pickup_city']) ?></td>
+              <td><?= htmlspecialchars($row['pickup_address']) ?></td>
+              <td><?= htmlspecialchars($row['delivery_city']) ?></td>
+              <td><?= htmlspecialchars($row['delivery_address']) ?></td>
+              <td><?= htmlspecialchars($row['expected_arrival']) ?></td>
+              <td><?= htmlspecialchars($row['contact_number']) ?></td>
+              <td>
+                <?php
+                  $status = strtolower($row['status']);
+                  $class = match($status) {
+                    'arrived'     => 'status-arrived',
+                    'delayed'     => 'status-delayed',
+                    'in transit'  => 'status-in-transit',
+                    'for pickup'  => 'status-for-pickup',
+                    default       => 'status-pending',
+                  };
+                ?>
+                <span class="status-tag <?= $class ?>"><?= ucfirst($status) ?></span>
+              </td>
+            </tr>
+          <?php endwhile; ?>
+        <?php else: ?>
+          <tr><td colspan="14">No delivery requests found.</td></tr>
+        <?php endif; ?>
       </tbody>
     </table>
   </div>
 </div>
+
+</body>
+</html>
+
+<?php $conn->close(); ?>
