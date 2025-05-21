@@ -6,9 +6,9 @@
   <title>WMR Admin Dashboard</title>
   <link rel="stylesheet" href="../../css/header.css">
   <link rel="stylesheet" href="../../css/admincss/dashboard.css">
-    <link rel="stylesheet" href="../../css/admincss/clients.css"/>
-      <link rel="stylesheet" href="../../css/admincss/inquiries.css">
-        <link rel="stylesheet" href="../../css/admincss/requestsadmin.css"/>
+  <link rel="stylesheet" href="../../css/admincss/clients.css"/>
+  <link rel="stylesheet" href="../../css/admincss/inquiries.css">
+  <link rel="stylesheet" href="../../css/admincss/requestsadmin.css"/>
 </head>
 <body class="dashboard-page">
   <?php include('header.php'); ?>

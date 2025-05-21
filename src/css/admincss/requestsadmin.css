@@ -94,6 +94,7 @@
 .request-expected-date { width: 100px; min-width: 100px; }
 .request-contact { width: 120px; min-width: 120px; }
 .request-status { width: 120px; min-width: 120px; }
+.request-logistics{ width: 120px; min-width: 120px; }
 
 /* Responsive Design */
 @media (max-width: 1024px) {
