@@ -1,13 +1,4 @@
-body.inquiries-page {
-  background-image: url('../../images/background-truck-admin.png');
-  background-size: cover;
-  background-position: center;
-  color: #000;
-  padding-top: 76px;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
+
 /* Client List Specific Styles */
 .client-list-container {
   background: #fff;

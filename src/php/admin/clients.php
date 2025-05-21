@@ -14,18 +14,9 @@ $sql = "SELECT * FROM users ORDER BY created_at DESC";
 $result = $conn->query($sql);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Client List</title>
-  <link rel="stylesheet" href="../../css/header.css"/>
-  <link rel="stylesheet" href="../../css/admincss/clients.css"/>
-</head>
+
 <body>
 
-<?php include('header.php'); ?>
 
 <div class="client-list-container">
   <h1 class="client-list-title">Client List</h1>

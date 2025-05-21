@@ -1,7 +1,7 @@
 <div class="dashboard-menu" id="menu-container">
   <div class="dashboard-menu-item" onclick="showPanel('requests')">
     <img src="../../images/DeliveryRequest(Logo).png" alt="Requests" />
-    <span>Delivery Requests & Status</span>
+    <span>Delivery Requests</span>
   </div>
   <div class="dashboard-menu-item" onclick="showPanel('inquiries')">
     <img src="../../images/ClientInquiries(Logo).png" alt="Inquiries" />
