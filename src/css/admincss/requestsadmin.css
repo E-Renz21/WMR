@@ -1,32 +1,37 @@
-.content-container {
+/* Delivery Requests Specific Styles */
+.delivery-requests-container {
   background: #fff;
   border-radius: 10px;
   padding: 30px;
-  margin: 80px auto 20px auto;
-  width: 90%;
+
+  width: 100%;
   max-width: 1400px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
 
-h1 {
+.delivery-requests-title {
   font-size: 24px;
   margin-bottom: 20px;
   color: #333;
   border-bottom: 2px solid #f2f2f2;
   padding-bottom: 10px;
+  font-weight: 600;
 }
 
-.clients-table-container {
+.delivery-requests-table-wrapper {
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
 }
 
-.clients-table {
+.delivery-requests-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
+  min-width: 1200px;
 }
 
-.clients-table th {
+.delivery-requests-table th {
   background-color: #f8f9fa;
   padding: 12px 15px;
   text-align: left;
@@ -36,17 +41,21 @@ h1 {
   top: 0;
 }
 
-.clients-table td {
+.delivery-requests-table td {
   padding: 12px 15px;
   border-bottom: 1px solid #dee2e6;
   word-wrap: break-word;
 }
 
-.clients-table tr:last-child td {
+.delivery-requests-table tr:last-child td {
   border-bottom: none;
 }
 
-.status-tag {
+.delivery-requests-table tr:hover {
+  background-color: rgba(52, 152, 219, 0.05);
+}
+
+.delivery-status-tag {
   padding: 4px 8px;
   border-radius: 4px;
   font-weight: bold;
@@ -56,38 +65,90 @@ h1 {
   text-transform: capitalize;
 }
 
-.status-arrived     { background-color: #28a745; }
-.status-delayed     { background-color: #dc3545; }
-.status-in-transit  { background-color: #007bff; }
-.status-for-pickup  { background-color: #ffc107; color: #000; }
-.status-pending     { background-color: #6c757d; }
+.delivery-status-arrived     { background-color: #28a745; }
+.delivery-status-delayed     { background-color: #dc3545; }
+.delivery-status-in-transit  { background-color: #007bff; }
+.delivery-status-for-pickup  { background-color: #ffc107; color: #000; }
+.delivery-status-pending     { background-color: #6c757d; }
 
-/* Column widths can be set if needed */
-.clients-table th:nth-child(1), .clients-table td:nth-child(1)   { width: 60px; }
-.clients-table th:nth-child(2), .clients-table td:nth-child(2)   { width: 100px; }
-/* ... Add more if needed */
+.delivery-requests-empty {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-style: italic;
+}
+
+/* Column specific styles */
+.request-id { width: 60px; min-width: 60px; }
+.request-date { width: 100px; min-width: 100px; }
+.request-name { width: 120px; min-width: 120px; }
+.request-products { width: 150px; min-width: 150px; }
+.request-weight { width: 100px; min-width: 100px; }
+.request-boxes { width: 80px; min-width: 80px; }
+.request-pickup-date { width: 100px; min-width: 100px; }
+.request-pickup-location { width: 120px; min-width: 120px; }
+.request-pickup-address { width: 180px; min-width: 180px; }
+.request-delivery-to { width: 120px; min-width: 120px; }
+.request-delivery-address { width: 180px; min-width: 180px; }
+.request-expected-date { width: 100px; min-width: 100px; }
+.request-contact { width: 120px; min-width: 120px; }
+.request-status { width: 120px; min-width: 120px; }
 
 /* Responsive Design */
-@media (max-width: 900px) {
-  .content-container {
+@media (max-width: 1024px) {
+  .delivery-requests-container {
+    padding: 20px;
+    width: calc(100% - 40px);
+  }
+  
+  .delivery-requests-table th,
+  .delivery-requests-table td {
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .delivery-requests-container {
+    margin-top: 70px;
+    padding: 15px;
+    width: calc(100% - 30px);
+  }
+  
+  .delivery-requests-title {
+    font-size: 20px;
+  }
+  
+  .delivery-requests-table {
+    min-width: 1100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .delivery-requests-container {
+    margin-top: 60px;
     padding: 10px;
-    width: 100%;
-    margin: 10px 0;
+    width: calc(100% - 20px);
+    border-radius: 0;
   }
-
-  .clients-table th,
-  .clients-table td {
-    padding: 6px 4px;
+  
+  .delivery-requests-table-wrapper {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+  
+  .delivery-requests-table th,
+  .delivery-requests-table td {
+    padding: 8px 10px;
     font-size: 13px;
   }
-
-  .clients-table {
-    font-size: 13px;
-    min-width: 600px;
+  
+  .delivery-requests-table {
+    min-width: 1000px;
   }
-
-  .clients-table-container {
-    overflow-x: auto;
-    width: 100%;
+  
+  .delivery-status-tag {
+    font-size: 12px;
+    padding: 3px 6px;
   }
 }

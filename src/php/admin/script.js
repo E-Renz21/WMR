@@ -64,18 +64,22 @@ function initDashboard() {
 
 // Function to show specific content panels
 function showPanel(panelId) {
-  const panels = document.querySelectorAll('.content-panel');
-  panels.forEach(panel => {
-    panel.style.display = 'none';
-  });
-  
+  const panels = document.querySelectorAll('.dashboard-content-panel');
+  panels.forEach(panel => panel.classList.remove('active'));
+
   const activePanel = document.getElementById(panelId);
-  if (activePanel) {
-    activePanel.style.display = 'block';
-  } else {
-    console.error(`Panel with ID ${panelId} not found`);
-  }
+  if (activePanel) activePanel.classList.add('active');
+
+  // Highlight active menu item
+  const items = document.querySelectorAll('.dashboard-menu-item');
+  items.forEach(item => item.classList.remove('active'));
+  items.forEach(item => {
+    if (item.getAttribute('onclick')?.includes(panelId)) {
+      item.classList.add('active');
+    }
+  });
 }
+
 
 // Function to initialize modal functionality
 function initModal() {
@@ -148,13 +152,6 @@ function loadComponents() {
   })
   .catch(err => console.error('Error loading header:', err));
 
-  // Load menu
-  fetch('menu.php')
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById('menu-container').innerHTML = data;
-    })
-    .catch(err => console.error('Error loading menu:', err));
 
   // Load requests panel
   fetch('requests.php')

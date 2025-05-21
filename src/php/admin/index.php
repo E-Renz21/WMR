@@ -5,20 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WMR Admin Dashboard</title>
   <link rel="stylesheet" href="../../css/header.css">
-
+  <link rel="stylesheet" href="../../css/admincss/dashboard.css">
 </head>
-<body>
-   <?php include('header.php'); ?> <!-- Includes your nav and logo -->
+<body class="dashboard-page">
+  <?php include('header.php'); ?>
+  
 
-  <div class="dashboard-wrapper">
-    <div class="dashboard">
-      <div id="menu-container"></div>
-      <div class="content-panel" id="requests"></div>
-      <div class="content-panel" id="inquiries"></div>
-      <div class="content-panel" id="clients"></div>
-      <div class="content-panel" id="editstatus"></div>
-    </div>
+<div class="dashboard-wrapper">
+  <div class="dashboard">
+    <?php include('menu.php'); ?>
+    <div class="dashboard-content-panel" id="requests"></div>
+    <div class="dashboard-content-panel" id="inquiries"></div>
+    <div class="dashboard-content-panel" id="clients"></div>
+    <div class="dashboard-content-panel" id="editstatus"></div>
   </div>
+</div>
   <script src="script.js"></script>
 </body>
 </html>

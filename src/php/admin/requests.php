@@ -27,62 +27,62 @@ $result = $conn->query($sql);
 
 <?php include('header.php'); ?>
 
-<div class="content-container">
-  <h1>Delivery Requests & Status</h1>
-  <div class="clients-table-container">
-    <table class="clients-table">
+<div class="delivery-requests-container">
+  <h1 class="delivery-requests-title">Delivery Requests & Status</h1>
+  <div class="delivery-requests-table-wrapper">
+    <table class="delivery-requests-table">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Date</th>
-          <th>Name</th>
-          <th>Products</th>
-          <th>Estimated Kg/Tons</th>
-          <th>Boxes</th>
-          <th>Pickup Date</th>
-          <th>Pickup Location</th>
-          <th>Pickup Address</th>
-          <th>Deliver To</th>
-          <th>Delivery Address</th>
-          <th>Expected Date</th>
-          <th>Contact No.</th>
-          <th>Status</th>
+          <th class="request-id">ID</th>
+          <th class="request-date">Date</th>
+          <th class="request-name">Name</th>
+          <th class="request-products">Products</th>
+          <th class="request-weight">Estimated Kg/Tons</th>
+          <th class="request-boxes">Boxes</th>
+          <th class="request-pickup-date">Pickup Date</th>
+          <th class="request-pickup-location">Pickup Location</th>
+          <th class="request-pickup-address">Pickup Address</th>
+          <th class="request-delivery-to">Deliver To</th>
+          <th class="request-delivery-address">Delivery Address</th>
+          <th class="request-expected-date">Expected Date</th>
+          <th class="request-contact">Contact No.</th>
+          <th class="request-status">Status</th>
         </tr>
       </thead>
       <tbody>
         <?php if ($result && $result->num_rows > 0): ?>
           <?php while($row = $result->fetch_assoc()): ?>
-            <tr>
-              <td><?= htmlspecialchars($row['id']) ?></td>
-              <td><?= htmlspecialchars($row['expected_arrival']) ?></td>
-              <td><?= htmlspecialchars($row['driver_name']) ?></td>
-              <td><?= htmlspecialchars($row['product_description']) ?></td>
-              <td><?= htmlspecialchars($row['estimated_weight']) ?></td>
-              <td><?= htmlspecialchars($row['estimated_boxes']) ?></td>
-              <td><?= htmlspecialchars($row['pickup_date']) ?></td>
-              <td><?= htmlspecialchars($row['pickup_city']) ?></td>
-              <td><?= htmlspecialchars($row['pickup_address']) ?></td>
-              <td><?= htmlspecialchars($row['delivery_city']) ?></td>
-              <td><?= htmlspecialchars($row['delivery_address']) ?></td>
-              <td><?= htmlspecialchars($row['expected_arrival']) ?></td>
-              <td><?= htmlspecialchars($row['contact_number']) ?></td>
-              <td>
+            <tr class="delivery-request-row">
+              <td class="request-id"><?= htmlspecialchars($row['id']) ?></td>
+              <td class="request-date"><?= htmlspecialchars($row['expected_arrival']) ?></td>
+              <td class="request-name"><?= htmlspecialchars($row['driver_name']) ?></td>
+              <td class="request-products"><?= htmlspecialchars($row['product_description']) ?></td>
+              <td class="request-weight"><?= htmlspecialchars($row['estimated_weight']) ?></td>
+              <td class="request-boxes"><?= htmlspecialchars($row['estimated_boxes']) ?></td>
+              <td class="request-pickup-date"><?= htmlspecialchars($row['pickup_date']) ?></td>
+              <td class="request-pickup-location"><?= htmlspecialchars($row['pickup_city']) ?></td>
+              <td class="request-pickup-address"><?= htmlspecialchars($row['pickup_address']) ?></td>
+              <td class="request-delivery-to"><?= htmlspecialchars($row['delivery_city']) ?></td>
+              <td class="request-delivery-address"><?= htmlspecialchars($row['delivery_address']) ?></td>
+              <td class="request-expected-date"><?= htmlspecialchars($row['expected_arrival']) ?></td>
+              <td class="request-contact"><?= htmlspecialchars($row['contact_number']) ?></td>
+              <td class="request-status">
                 <?php
                   $status = strtolower($row['status']);
                   $class = match($status) {
-                    'arrived'     => 'status-arrived',
-                    'delayed'     => 'status-delayed',
-                    'in transit'  => 'status-in-transit',
-                    'for pickup'  => 'status-for-pickup',
-                    default       => 'status-pending',
+                    'arrived'     => 'delivery-status-arrived',
+                    'delayed'     => 'delivery-status-delayed',
+                    'in transit'  => 'delivery-status-in-transit',
+                    'for pickup'  => 'delivery-status-for-pickup',
+                    default       => 'delivery-status-pending',
                   };
                 ?>
-                <span class="status-tag <?= $class ?>"><?= ucfirst($status) ?></span>
+                <span class="delivery-status-tag <?= $class ?>"><?= ucfirst($status) ?></span>
               </td>
             </tr>
           <?php endwhile; ?>
         <?php else: ?>
-          <tr><td colspan="14">No delivery requests found.</td></tr>
+          <tr><td colspan="14" class="delivery-requests-empty">No delivery requests found.</td></tr>
         <?php endif; ?>
       </tbody>
     </table>

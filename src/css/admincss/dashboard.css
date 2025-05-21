@@ -1,0 +1,170 @@
+
+body {
+  background-image: url('../../images/background-truck-admin.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Dashboard Base Styles */
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2980b9;
+  --text-color: #333;
+  --light-gray: #f8f9fa;
+  --medium-gray: #e0e0e0;
+  --dark-gray: #dee2e6;
+  --white: #ffffff;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  --border-radius: 8px;
+}
+
+/* Dashboard Layout */
+.dashboard-wrapper {
+  margin-top: 80px;
+  padding: 20px;
+  width: 100%;
+  max-width: 1400px;
+
+  margin-right: auto;
+}
+
+
+.dashboard {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+}
+
+
+/* Menu Panel Styles */
+.dashboard-menu {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  width: 260px;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+.dashboard-menu-item.active {
+  background-color: var(--medium-gray);
+  font-weight: bold;
+}
+
+
+.dashboard-menu-item {
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--medium-gray);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  text-decoration: none;
+  background-color: white;
+}
+
+.dashboard-menu-item:last-child {
+  border-bottom: none;
+}
+
+.dashboard-menu-item:hover {
+  background-color: var(--light-gray);
+  transform: translateX(5px);
+}
+
+.dashboard-menu-item img {
+  height: 26px;
+  width: 26px;
+  margin-right: 14px;
+  object-fit: contain;
+}
+
+.dashboard-menu-item span {
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+
+/* Content Panel Styles */
+.dashboard-content-panel {
+  flex: 1;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  padding: 30px;
+  box-shadow: var(--shadow);
+  display: none;
+}
+
+.dashboard-content-panel.active {
+  display: block;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .dashboard {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .dashboard-menu {
+    width: 100%;
+    position: static;
+    top: auto;
+  }
+  
+  .dashboard-content-panel {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-wrapper {
+    margin-top: 70px;
+    padding: 15px;
+  }
+  
+  .dashboard-menu {
+    padding: 15px;
+  }
+  
+  .dashboard-menu-item {
+    padding: 12px 15px;
+  }
+  
+  .dashboard-content-panel {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-wrapper {
+    margin-top: 60px;
+    padding: 10px;
+  }
+  
+  .dashboard-menu-item {
+    padding: 10px 12px;
+  }
+  
+  .dashboard-menu-item img {
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+  }
+  
+  .dashboard-menu-item span {
+    font-size: 14px;
+  }
+  
+  .dashboard-content-panel {
+    padding: 15px;
+    border-radius: 0;
+  }
+}
