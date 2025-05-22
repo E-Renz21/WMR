@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2025 at 06:42 PM
+-- Generation Time: May 22, 2025 at 08:38 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -80,7 +80,9 @@ INSERT INTO `delivery_requests` (`id`, `product_description`, `estimated_boxes`,
 (1, 'a', 3, 3.00, '123abc', '123abc', 'abv', 'abc', '2025-05-22', '2025-05-30', 2, '123', NULL, NULL, '2025-05-21 15:06:28', '2025-05-21 23:06:28', NULL, NULL),
 (2, 's, s, a', 2, 1.00, 'sdf', 'sdf', 'fd', 'fd', '2025-05-22', '2025-05-31', 2, '4334', NULL, NULL, '2025-05-21 15:39:48', '2025-05-21 23:39:48', NULL, NULL),
 (3, '1, 2, 3', 1, 1.00, 'sdf', 'sdf', 'fd', 'fd', '2025-05-13', '2025-06-07', 2, '4334', NULL, NULL, '2025-05-21 15:48:06', '2025-05-21 23:48:06', NULL, NULL),
-(4, 'ad', 12, 123.00, 'sdf', 'sdf', 'dfs', 'dfs', '2025-05-31', '2025-05-30', 2, '4334', NULL, NULL, '2025-05-21 15:50:04', '2025-05-21 23:50:04', NULL, NULL);
+(4, 'ad', 12, 123.00, 'sdf', 'sdf', 'dfs', 'dfs', '2025-05-31', '2025-05-30', 2, '4334', NULL, NULL, '2025-05-21 15:50:04', '2025-05-21 23:50:04', NULL, NULL),
+(5, '1, 2, 3, 4', 1, 1.00, '123abc', '123avbc', '123ac', '123acv', '2025-05-23', '2025-05-31', 2, '123', NULL, NULL, '2025-05-22 05:37:03', '2025-05-22 13:37:03', NULL, NULL),
+(6, '1, 2', 1, 1.00, '123', '123', 'asd', 'asd', '2025-05-23', '2025-05-31', 2, 'adasdf', NULL, NULL, '2025-05-22 05:44:30', '2025-05-22 13:44:30', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -109,6 +111,13 @@ CREATE TABLE `delivery_status` (
   `arrival_date` date DEFAULT NULL,
   `arrival_time` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `delivery_status`
+--
+
+INSERT INTO `delivery_status` (`id`, `delivery_request_id`, `status`, `driver_name`, `driver_assistant`, `driver_contact_number`, `assistant_contact_number`, `plate_number`, `departure_date`, `departure_time`, `current_location`, `expected_arrival`, `admin_note`, `created_at`, `updated_at`, `created_by`, `updated_by`, `arrival_date`, `arrival_time`) VALUES
+(1, 6, 'Arrived', 'a', 'a', '', NULL, 'a', '2025-05-23', '14:59:00', 'a', '0000-00-00', '', '2025-05-22 05:58:09', '2025-05-22 14:21:14', NULL, NULL, '0000-00-00', '00:00:00');
 
 -- --------------------------------------------------------
 
@@ -140,6 +149,47 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `username`, `password`, `full_name`, `nickname`, `residence`, `birthday`, `email`, `phone_number`, `business_name`, `type_of_business`, `profile_picture`, `created_at`, `updated_at`) VALUES
 (1, 'admin', '$2y$10$t7ZPMD06wuAxsfxLIoU.P.X95LyOHjr.V8nZ9TwGQkY3HoYkmad/S', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-21 04:09:20', '2025-05-21 12:09:20'),
 (2, 'jomm31', '$2y$10$Ze2QtA4jrvrA8JSLU2eCFOdpU/WPnV4KurLzLLHm0a2UH31xdVAGG', 'jomm', '3months ago', 'bago', '2008-04-29', 'jommwapo@gmail.com', '091234567', 'abx', NULL, '682dea3e2b4f2_494358699_735413878813436_2992733080820663742_n.png', '2025-05-21 14:54:50', '2025-05-21 22:59:10');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vw_delivery_requests_with_status`
+-- (See below for the actual view)
+--
+CREATE TABLE `vw_delivery_requests_with_status` (
+`id` bigint(20) unsigned
+,`product_description` text
+,`estimated_boxes` int(11)
+,`estimated_weight` decimal(10,2)
+,`pickup_address` text
+,`delivery_address` text
+,`pickup_date` date
+,`estimated_arrival_date` date
+,`created_at` timestamp
+,`contact_number` varchar(50)
+,`user_name` varchar(150)
+,`driver_name` varchar(255)
+,`driver_assistant` varchar(255)
+,`plate_number` varchar(50)
+,`driver_contact_number` varchar(50)
+,`current_location` varchar(255)
+,`departure_date` date
+,`departure_time` time
+,`arrival_date` date
+,`arrival_time` time
+,`expected_arrival` date
+,`admin_notes` text
+,`status` enum('Pending','In Transit','Arrived','Rejected')
+);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vw_delivery_requests_with_status`
+--
+DROP TABLE IF EXISTS `vw_delivery_requests_with_status`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_delivery_requests_with_status`  AS SELECT `dr`.`id` AS `id`, `dr`.`product_description` AS `product_description`, `dr`.`estimated_boxes` AS `estimated_boxes`, `dr`.`estimated_weight` AS `estimated_weight`, `dr`.`pickup_address` AS `pickup_address`, `dr`.`delivery_address` AS `delivery_address`, `dr`.`pickup_date` AS `pickup_date`, `dr`.`estimated_arrival_date` AS `estimated_arrival_date`, `dr`.`created_at` AS `created_at`, `dr`.`contact_number` AS `contact_number`, `u`.`full_name` AS `user_name`, `ds`.`driver_name` AS `driver_name`, `ds`.`driver_assistant` AS `driver_assistant`, `ds`.`plate_number` AS `plate_number`, `ds`.`driver_contact_number` AS `driver_contact_number`, `ds`.`current_location` AS `current_location`, `ds`.`departure_date` AS `departure_date`, `ds`.`departure_time` AS `departure_time`, `ds`.`arrival_date` AS `arrival_date`, `ds`.`arrival_time` AS `arrival_time`, `ds`.`expected_arrival` AS `expected_arrival`, `ds`.`admin_note` AS `admin_notes`, `ds`.`status` AS `status` FROM ((`delivery_requests` `dr` left join `users` `u` on(`dr`.`created_by` = `u`.`id`)) left join `delivery_status` `ds` on(`dr`.`id` = `ds`.`delivery_request_id`)) ;
 
 --
 -- Indexes for dumped tables
@@ -191,13 +241,13 @@ ALTER TABLE `contact_messages`
 -- AUTO_INCREMENT for table `delivery_requests`
 --
 ALTER TABLE `delivery_requests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `delivery_status`
 --
 ALTER TABLE `delivery_status`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`

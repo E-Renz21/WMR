@@ -106,102 +106,107 @@ if ($result && $row = $result->fetch_assoc()) {
 <html>
 <head>
     <title>Edit Delivery Status</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/admincss/editstatus.css">
+    <link rel="stylesheet" href="../../css/header.css">
 </head>
-<body>
-<div class="content-container">
-    <h2>Edit Delivery Status</h2>
+<body class="edit-status-page">
+    <?php include('header.php'); ?>
+    
+    <div class="status-edit-container">
+        <h2 class="status-edit-title">Edit Delivery Status</h2>
 
-    <?php if (!empty($message)): ?>
-        <p class="form-message"><?= htmlspecialchars($message) ?></p>
-    <?php endif; ?>
+        <?php if (!empty($message)): ?>
+            <p class="status-form-message"><?= htmlspecialchars($message) ?></p>
+        <?php endif; ?>
 
-    <form method="POST">
-        <input type="hidden" name="id" value="<?= $id ?>">
+        <form method="POST" class="status-edit-form">
+            <input type="hidden" name="id" value="<?= $id ?>">
 
-        <div class="form-group">
-            <div class="form-row">
-                <div class="form-col">
-                    <label>Driver's Name</label>
-                    <input type="text" name="driver_name" value="<?= htmlspecialchars($driverName) ?>">
+            <div class="form-section">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Driver's Name</label>
+                        <input type="text" name="driver_name" value="<?= htmlspecialchars($driverName) ?>">
+                    </div>
+                    <div class="form-group">
+                        <label>Plate Number</label>
+                        <input type="text" name="plate_number" value="<?= htmlspecialchars($plateNumber) ?>">
+                    </div>
                 </div>
-                <div class="form-col">
-                    <label>Plate Number</label>
-                    <input type="text" name="plate_number" value="<?= htmlspecialchars($plateNumber) ?>">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Current Location</label>
+                        <input type="text" name="current_location" value="<?= htmlspecialchars($currentLocation) ?>">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Departure Date</label>
+                        <input type="date" name="departure_date" value="<?= htmlspecialchars($departureDate) ?>">
+                    </div>
+                    <div class="form-group">
+                        <label>Departure Time</label>
+                        <input type="time" name="departure_time" value="<?= htmlspecialchars($departureTime) ?>">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Arrival Date</label>
+                        <input type="date" name="arrival_date" value="<?= htmlspecialchars($arrivalDate) ?>">
+                    </div>
+                    <div class="form-group">
+                        <label>Arrival Time</label>
+                        <input type="time" name="arrival_time" value="<?= htmlspecialchars($arrivalTime) ?>">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Driver Assistant</label>
+                        <input type="text" name="driver_assistant" value="<?= htmlspecialchars($driverAssistant) ?>">
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Number</label>
+                        <input type="text" name="contact_number" value="<?= htmlspecialchars($contactNumber) ?>">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select name="status">
+                            <option <?= $status === 'Pending' ? 'selected' : '' ?>>Pending</option>
+                            <option <?= $status === 'In Transit' ? 'selected' : '' ?>>In Transit</option>
+                            <option <?= $status === 'Arrived' ? 'selected' : '' ?>>Arrived</option>
+                            <option <?= $status === 'Rejected' ? 'selected' : '' ?>>Rejected</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Expected Arrival Date</label>
+                        <input type="date" name="estimated_arrival_date" value="<?= htmlspecialchars($estimatedArrivalDate) ?>">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label>Admin Note</label>
+                        <textarea name="admin_note"><?= htmlspecialchars($adminNote) ?></textarea>
+                    </div>
                 </div>
             </div>
 
-            <div class="form-row">
-                <div class="form-col">
-                    <label>Current Location</label>
-                    <input type="text" name="current_location" value="<?= htmlspecialchars($currentLocation) ?>">
-                </div>
+            <div class="form-actions">
+                <a href="index.php" class="btn btn-back">Back</a>
+                <button  type="submit" class="btn btn-save" onclick="window.location.href='/src/php/admin/index.php'">Save Changes</button>
             </div>
-
-            <div class="form-row">
-                <div class="form-col">
-                    <label>Departure Date</label>
-                    <input type="date" name="departure_date" value="<?= htmlspecialchars($departureDate) ?>">
-                </div>
-                <div class="form-col">
-                    <label>Departure Time</label>
-                    <input type="time" name="departure_time" value="<?= htmlspecialchars($departureTime) ?>">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-col">
-                    <label>Arrival Date</label>
-                    <input type="date" name="arrival_date" value="<?= htmlspecialchars($arrivalDate) ?>">
-                </div>
-                <div class="form-col">
-                    <label>Arrival Time</label>
-                    <input type="time" name="arrival_time" value="<?= htmlspecialchars($arrivalTime) ?>">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-col">
-                    <label>Driver Assistant</label>
-                    <input type="text" name="driver_assistant" value="<?= htmlspecialchars($driverAssistant) ?>">
-                </div>
-                <div class="form-col">
-                    <label>Driver/Assistant Contact Number</label>
-                    <input type="text" name="contact_number" value="<?= htmlspecialchars($contactNumber) ?>">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-col">
-                    <label>Status</label>
-                    <select name="status">
-                        <option <?= $status === 'Pending' ? 'selected' : '' ?>>Pending</option>
-                        <option <?= $status === 'In Transit' ? 'selected' : '' ?>>In Transit</option>
-                        <option <?= $status === 'Arrived' ? 'selected' : '' ?>>Arrived</option>
-                        <option <?= $status === 'Rejected' ? 'selected' : '' ?>>Rejected</option>
-                    </select>
-                </div>
-                <div class="form-col">
-                    <label>Expected Arrival Date</label>
-                    <input type="date" name="estimated_arrival_date" value="<?= htmlspecialchars($estimatedArrivalDate) ?>">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-col">
-                    <label>Admin Note</label>
-                    <input type="text" name="admin_note" value="<?= htmlspecialchars($adminNote) ?>">
-                </div>
-            </div>
-        </div>
-
-        <div class="button-group">
-            <a href="index.php" class="btn btn-back">Back</a>
-            <button type="submit" class="btn btn-save">Save</button>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
 </body>
 </html>
 
 <?php $conn->close(); ?>
+

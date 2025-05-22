@@ -10,40 +10,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "
-SELECT 
-  dr.id,
-  dr.product_description,
-  dr.estimated_boxes,
-  dr.estimated_weight,
-  dr.pickup_address,
-  dr.delivery_address,
-  dr.pickup_date,
-  dr.estimated_arrival_date,
-  dr.created_at,
-  dr.contact_number,
-  u.full_name AS user_name,
-  ds.driver_name,
-  ds.driver_assistant,
-  ds.plate_number,
-  ds.driver_contact_number,
-  ds.current_location,
-  ds.departure_date,
-  ds.departure_time,
-  ds.arrival_date,
-  ds.arrival_time,
-  ds.expected_arrival,
-  ds.admin_note AS admin_notes,
-  ds.status
-FROM 
-  delivery_requests dr
-LEFT JOIN 
-  users u ON dr.created_by = u.id
-LEFT JOIN 
-  delivery_status ds ON dr.id = ds.delivery_request_id
-ORDER BY 
-  dr.id DESC
-";
+$sql = "SELECT * FROM vw_delivery_requests_with_status ORDER BY id DESC";
 
 $result = $conn->query($sql);
 
