@@ -22,7 +22,7 @@ $result = $conn->query($sql);
     <table class="inquiries-data-table">
       <thead>
         <tr>
-          <th class="inquiry-date">Date</th>
+          <th class="inquiry-date">Date of Request</th>
           <th class="inquiry-lastname">Last Name</th>
           <th class="inquiry-firstname">First Name</th>
           <th class="inquiry-phone">Contact No.</th>

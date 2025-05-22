@@ -24,7 +24,7 @@ $result = $conn->query($sql);
     <table class="client-list-table">
       <thead>
         <tr>
-          <th class="client-date">Date</th>
+          <th class="client-date">Date Created</th>
           <th class="client-name">Name</th>
           <th class="client-nickname">Nickname</th>
           <th class="client-residence">Residence</th>

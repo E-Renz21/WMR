@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2025 at 08:38 AM
+-- Generation Time: May 22, 2025 at 08:59 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -117,7 +117,7 @@ CREATE TABLE `delivery_status` (
 --
 
 INSERT INTO `delivery_status` (`id`, `delivery_request_id`, `status`, `driver_name`, `driver_assistant`, `driver_contact_number`, `assistant_contact_number`, `plate_number`, `departure_date`, `departure_time`, `current_location`, `expected_arrival`, `admin_note`, `created_at`, `updated_at`, `created_by`, `updated_by`, `arrival_date`, `arrival_time`) VALUES
-(1, 6, 'Arrived', 'a', 'a', '', NULL, 'a', '2025-05-23', '14:59:00', 'a', '0000-00-00', '', '2025-05-22 05:58:09', '2025-05-22 14:21:14', NULL, NULL, '0000-00-00', '00:00:00');
+(1, 6, 'In Transit', 'aaa', 'aa', '12', NULL, 'aaa', '2025-05-23', '14:59:00', 'aaa', '0000-00-00', 'asdadfsad', '2025-05-22 05:58:09', '2025-05-22 14:57:18', NULL, NULL, '0000-00-00', '00:00:00');
 
 -- --------------------------------------------------------
 
@@ -158,9 +158,12 @@ INSERT INTO `users` (`id`, `username`, `password`, `full_name`, `nickname`, `res
 --
 CREATE TABLE `vw_delivery_requests_with_status` (
 `id` bigint(20) unsigned
+,`client_id` int(10) unsigned
 ,`product_description` text
 ,`estimated_boxes` int(11)
 ,`estimated_weight` decimal(10,2)
+,`pickup_city` varchar(100)
+,`delivery_city` varchar(100)
 ,`pickup_address` text
 ,`delivery_address` text
 ,`pickup_date` date
@@ -189,7 +192,7 @@ CREATE TABLE `vw_delivery_requests_with_status` (
 --
 DROP TABLE IF EXISTS `vw_delivery_requests_with_status`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_delivery_requests_with_status`  AS SELECT `dr`.`id` AS `id`, `dr`.`product_description` AS `product_description`, `dr`.`estimated_boxes` AS `estimated_boxes`, `dr`.`estimated_weight` AS `estimated_weight`, `dr`.`pickup_address` AS `pickup_address`, `dr`.`delivery_address` AS `delivery_address`, `dr`.`pickup_date` AS `pickup_date`, `dr`.`estimated_arrival_date` AS `estimated_arrival_date`, `dr`.`created_at` AS `created_at`, `dr`.`contact_number` AS `contact_number`, `u`.`full_name` AS `user_name`, `ds`.`driver_name` AS `driver_name`, `ds`.`driver_assistant` AS `driver_assistant`, `ds`.`plate_number` AS `plate_number`, `ds`.`driver_contact_number` AS `driver_contact_number`, `ds`.`current_location` AS `current_location`, `ds`.`departure_date` AS `departure_date`, `ds`.`departure_time` AS `departure_time`, `ds`.`arrival_date` AS `arrival_date`, `ds`.`arrival_time` AS `arrival_time`, `ds`.`expected_arrival` AS `expected_arrival`, `ds`.`admin_note` AS `admin_notes`, `ds`.`status` AS `status` FROM ((`delivery_requests` `dr` left join `users` `u` on(`dr`.`created_by` = `u`.`id`)) left join `delivery_status` `ds` on(`dr`.`id` = `ds`.`delivery_request_id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_delivery_requests_with_status`  AS SELECT `dr`.`id` AS `id`, `dr`.`client_id` AS `client_id`, `dr`.`product_description` AS `product_description`, `dr`.`estimated_boxes` AS `estimated_boxes`, `dr`.`estimated_weight` AS `estimated_weight`, `dr`.`pickup_city` AS `pickup_city`, `dr`.`delivery_city` AS `delivery_city`, `dr`.`pickup_address` AS `pickup_address`, `dr`.`delivery_address` AS `delivery_address`, `dr`.`pickup_date` AS `pickup_date`, `dr`.`estimated_arrival_date` AS `estimated_arrival_date`, `dr`.`created_at` AS `created_at`, `dr`.`contact_number` AS `contact_number`, `u`.`full_name` AS `user_name`, `ds`.`driver_name` AS `driver_name`, `ds`.`driver_assistant` AS `driver_assistant`, `ds`.`plate_number` AS `plate_number`, `ds`.`driver_contact_number` AS `driver_contact_number`, `ds`.`current_location` AS `current_location`, `ds`.`departure_date` AS `departure_date`, `ds`.`departure_time` AS `departure_time`, `ds`.`arrival_date` AS `arrival_date`, `ds`.`arrival_time` AS `arrival_time`, `ds`.`expected_arrival` AS `expected_arrival`, `ds`.`admin_note` AS `admin_notes`, `ds`.`status` AS `status` FROM ((`delivery_requests` `dr` left join `users` `u` on(`dr`.`created_by` = `u`.`id`)) left join `delivery_status` `ds` on(`dr`.`id` = `ds`.`delivery_request_id`)) ;
 
 --
 -- Indexes for dumped tables
