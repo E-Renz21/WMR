@@ -154,3 +154,39 @@
     padding: 3px 6px;
   }
 }
+
+.modal {
+  position: fixed;
+  z-index: 2000;
+  left: 0; top: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-content {
+  background: #fff;
+  padding: 30px 20px 20px 20px;
+  border-radius: 10px;
+  min-width: 300px;
+  max-width: 90vw;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  position: relative;
+}
+.close-btn {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #888;
+  cursor: pointer;
+}
+@media (max-width: 600px) {
+  .modal-content {
+    padding: 15px 5px 10px 5px;
+    min-width: 0;
+    width: 98vw;
+  }
+}
+

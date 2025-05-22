@@ -222,3 +222,58 @@ function toggleStatusDropdown() {
 
 // Global function for menu items to use
 window.showPanel = showPanel;
+
+// script.js (add this to the bottom)
+
+// Show logistics modal
+function showDetailsModal(pickupDate, pickupAddress, deliveryAddress, expectedArrival) {
+  const modal = document.getElementById('detailsModal');
+  const body = document.getElementById('modalDetailsBody');
+  if (!modal || !body) return;
+  body.innerHTML = `
+    <p><strong>Pickup Address:</strong> ${pickupAddress || 'N/A'}</p>
+    <p><strong>Pickup Date:</strong> ${pickupDate || 'N/A'}</p><br>
+
+    <p><strong>Delivery Address:</strong> ${deliveryAddress || 'N/A'}</p>
+    <p><strong>Estimated Arrival Date:</strong> ${expectedArrival || 'N/A'}</p>
+  `;
+  modal.style.display = 'flex';
+}
+
+// Close modal
+function closeDetailsModal() {
+  const modal = document.getElementById('detailsModal');
+  if (modal) modal.style.display = 'none';
+}
+
+// Optional: Close modal if user clicks outside
+window.addEventListener('click', function(event) {
+  const modal = document.getElementById('detailsModal');
+  if (event.target === modal) {
+    closeDetailsModal();
+  }
+});
+
+
+function showStatusModal(data) {
+  const body = document.getElementById('statusModalBody');
+  body.innerHTML = `
+    <p><strong>Driver's Name:</strong> ${data.driver_name || 'N/A'}</p>
+    <p><strong>Plate Number:</strong> ${data.plate_number || 'N/A'}</p>
+    <p><strong>Current Location:</strong> ${data.current_location || 'N/A'}</p>
+    <p><strong>Departure Date:</strong> ${data.departure_date || 'N/A'}</p>
+    <p><strong>Departure Time:</strong> ${data.departure_time || 'N/A'}</p>
+    <p><strong>Arrival Date:</strong> ${data.arrival_date || 'N/A'}</p>
+    <p><strong>Arrival Time:</strong> ${data.arrival_time || 'N/A'}</p>
+    <p><strong>Driver Assistant:</strong> ${data.driver_assistant || 'N/A'}</p>
+    <p><strong>Driver/Assistant Contact:</strong> ${data.contact_number || 'N/A'}</p>
+    <p><strong>Status:</strong> ${data.status || 'N/A'}</p>
+    <p><strong>Expected Arrival Date:</strong> ${data.expected_arrival || 'N/A'}</p>
+    <p><strong>Admin Note:</strong> ${data.admin_note || 'N/A'}</p>
+  `;
+  document.getElementById('statusModal').style.display = 'block';
+}
+
+function closeStatusModal() {
+  document.getElementById('statusModal').style.display = 'none';
+}

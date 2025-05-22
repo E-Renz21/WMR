@@ -9,10 +9,10 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Get ID from GET or POST
-$id = isset($_GET['id']) ? (int)$_GET['id'] : (int)($_POST['id'] ?? 1);
+$id = isset($_GET['id']) ? (int)$_GET['id'] : (int)($_POST['id'] ?? 0);
+$message = '';
 
-// Save if form was submitted
+// Handle form submit
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $driverName = $_POST['driver_name'];
     $plateNumber = $_POST['plate_number'];
@@ -23,24 +23,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $contactNumber = $_POST['contact_number'];
     $status = $_POST['status'];
     $estimatedArrivalDate = $_POST['estimated_arrival_date'];
+    $arrivalDate = $_POST['arrival_date'];
+    $arrivalTime = $_POST['arrival_time'];
+    $adminNote = $_POST['admin_note'];
 
-    $sqlUpdate = "UPDATE delivery_requests SET 
-        driver_name = ?, 
-        plate_number = ?, 
-        current_location = ?, 
-        departure_date = ?, 
-        departure_time = ?, 
-        driver_assistant = ?, 
-        contact_number = ?, 
-        status = ?, 
-        estimated_arrival_date = ?
-        WHERE id = ?";
+    // Check if a status entry already exists
+    $checkSql = "SELECT id FROM delivery_status WHERE delivery_request_id = ?";
+    $checkStmt = $conn->prepare($checkSql);
+    $checkStmt->bind_param("i", $id);
+    $checkStmt->execute();
+    $checkStmt->store_result();
 
-    $stmt = $conn->prepare($sqlUpdate);
-    $stmt->bind_param("sssssssssi", 
-        $driverName, $plateNumber, $currentLocation, 
-        $departureDate, $departureTime, $driverAssistant, 
-        $contactNumber, $status, $estimatedArrivalDate, $id);
+    if ($checkStmt->num_rows > 0) {
+        // Update existing
+        $sqlUpdate = "UPDATE delivery_status SET 
+            driver_name = ?, plate_number = ?, current_location = ?, 
+            departure_date = ?, departure_time = ?, driver_assistant = ?, 
+            driver_contact_number = ?, status = ?, expected_arrival = ?, 
+            arrival_date = ?, arrival_time = ?, admin_note = ?
+            WHERE delivery_request_id = ?";
+
+        $stmt = $conn->prepare($sqlUpdate);
+        $stmt->bind_param("ssssssssssssi", 
+            $driverName, $plateNumber, $currentLocation,
+            $departureDate, $departureTime, $driverAssistant,
+            $contactNumber, $status, $estimatedArrivalDate,
+            $arrivalDate, $arrivalTime, $adminNote, $id
+        );
+    } else {
+        // Insert new
+        $sqlInsert = "INSERT INTO delivery_status 
+            (delivery_request_id, driver_name, plate_number, current_location, 
+             departure_date, departure_time, driver_assistant, driver_contact_number, 
+             status, expected_arrival, arrival_date, arrival_time, admin_note) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        $stmt = $conn->prepare($sqlInsert);
+        $stmt->bind_param("issssssssssss", 
+            $id, $driverName, $plateNumber, $currentLocation,
+            $departureDate, $departureTime, $driverAssistant,
+            $contactNumber, $status, $estimatedArrivalDate,
+            $arrivalDate, $arrivalTime, $adminNote
+        );
+    }
 
     if ($stmt->execute()) {
         $message = "Saved successfully!";
@@ -49,10 +74,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $stmt->close();
+    $checkStmt->close();
 }
 
-// Load existing data
-$sql = "SELECT * FROM delivery_requests WHERE id = $id";
+// Load existing data if available
+$sql = "SELECT * FROM delivery_status WHERE delivery_request_id = $id";
 $result = $conn->query($sql);
 
 if ($result && $row = $result->fetch_assoc()) {
@@ -62,125 +88,120 @@ if ($result && $row = $result->fetch_assoc()) {
     $departureDate = $row['departure_date'];
     $departureTime = $row['departure_time'];
     $driverAssistant = $row['driver_assistant'];
-    $contactNumber = $row['contact_number'];
+    $contactNumber = $row['driver_contact_number'];
     $status = $row['status'];
-    $estimatedArrivalDate = $row['estimated_arrival_date'];
+    $estimatedArrivalDate = $row['expected_arrival'];
+    $arrivalDate = $row['arrival_date'];
+    $arrivalTime = $row['arrival_time'];
+    $adminNote = $row['admin_note'];
 } else {
-    echo "Error loading data: " . $conn->error;
-    exit;
+    // Default values
+    $driverName = $plateNumber = $currentLocation = $departureDate = $departureTime = '';
+    $driverAssistant = $contactNumber = $status = $estimatedArrivalDate = '';
+    $arrivalDate = $arrivalTime = $adminNote = '';
 }
 ?>
 
-<header>
-  <link rel="stylesheet" href="../../css/admincss/editstatus.css">
-</header>
-
-  <div class="content-container">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Delivery Status</title>
+    <link rel="stylesheet" href="../../css/admincss/editstatus.css">
+</head>
+<body>
+<div class="content-container">
     <h2>Edit Delivery Status</h2>
-    
-    <div class="form-group">
-      <div class="form-row">
-        <div class="form-col">
-          <label>Driver's Name</label>
-          <input type="text" value="<?= htmlspecialchars($driverName) ?>" id="driver_name" name="driver_name">
+
+    <?php if (!empty($message)): ?>
+        <p class="form-message"><?= htmlspecialchars($message) ?></p>
+    <?php endif; ?>
+
+    <form method="POST">
+        <input type="hidden" name="id" value="<?= $id ?>">
+
+        <div class="form-group">
+            <div class="form-row">
+                <div class="form-col">
+                    <label>Driver's Name</label>
+                    <input type="text" name="driver_name" value="<?= htmlspecialchars($driverName) ?>">
+                </div>
+                <div class="form-col">
+                    <label>Plate Number</label>
+                    <input type="text" name="plate_number" value="<?= htmlspecialchars($plateNumber) ?>">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <label>Current Location</label>
+                    <input type="text" name="current_location" value="<?= htmlspecialchars($currentLocation) ?>">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <label>Departure Date</label>
+                    <input type="date" name="departure_date" value="<?= htmlspecialchars($departureDate) ?>">
+                </div>
+                <div class="form-col">
+                    <label>Departure Time</label>
+                    <input type="time" name="departure_time" value="<?= htmlspecialchars($departureTime) ?>">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <label>Arrival Date</label>
+                    <input type="date" name="arrival_date" value="<?= htmlspecialchars($arrivalDate) ?>">
+                </div>
+                <div class="form-col">
+                    <label>Arrival Time</label>
+                    <input type="time" name="arrival_time" value="<?= htmlspecialchars($arrivalTime) ?>">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <label>Driver Assistant</label>
+                    <input type="text" name="driver_assistant" value="<?= htmlspecialchars($driverAssistant) ?>">
+                </div>
+                <div class="form-col">
+                    <label>Driver/Assistant Contact Number</label>
+                    <input type="text" name="contact_number" value="<?= htmlspecialchars($contactNumber) ?>">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <label>Status</label>
+                    <select name="status">
+                        <option <?= $status === 'Pending' ? 'selected' : '' ?>>Pending</option>
+                        <option <?= $status === 'In Transit' ? 'selected' : '' ?>>In Transit</option>
+                        <option <?= $status === 'Arrived' ? 'selected' : '' ?>>Arrived</option>
+                        <option <?= $status === 'Rejected' ? 'selected' : '' ?>>Rejected</option>
+                    </select>
+                </div>
+                <div class="form-col">
+                    <label>Expected Arrival Date</label>
+                    <input type="date" name="estimated_arrival_date" value="<?= htmlspecialchars($estimatedArrivalDate) ?>">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <label>Admin Note</label>
+                    <input type="text" name="admin_note" value="<?= htmlspecialchars($adminNote) ?>">
+                </div>
+            </div>
         </div>
-        <div class="form-col">
-          <label>Plate Number</label>
-          <input type="text" value="<?= htmlspecialchars($plateNumber) ?>" id="plate_number">
+
+        <div class="button-group">
+            <a href="index.php" class="btn btn-back">Back</a>
+            <button type="submit" class="btn btn-save">Save</button>
         </div>
-      </div>
-      
-    <div class="form-row">
-  <div class="form-col" style="max-width: 300px;">  <!-- Added max-width -->
-    <label>Current Location</label>
-    <input type="text" value="<?= htmlspecialchars($currentLocation) ?>" id="current_location">
-  </div>
+    </form>
 </div>
-      
-      <div class="form-row">
-        <div class="form-col">
-          <label>Departure Date</label>
-          <input type="date" value="<?= htmlspecialchars($departureDate) ?>" id="departure_date">
-        </div>
-        <div class="form-col">
-          <label>Departure Time</label>
-          <input type="time" value="<?= htmlspecialchars($departureTime) ?>" id="departure_time">
-        </div>
-      </div>
-      
-      <div class="form-row">
-        <div class="form-col">
-          <label>Arrival Date</label>
-          <input type="date">
-        </div>
-        <div class="form-col">
-          <label>Arrival Time</label>
-          <input type="time">
-        </div>
-      </div>
-      
-      <div class="form-row">
-        <div class="form-col">
-          <label>Drive Assistant</label>
-          <input type="text" value="<?= htmlspecialchars($driverAssistant) ?>" id="driver_assistant">
-        </div>
-        <div class="form-col">
-          <label>Driver/Assistant Contact Number</label>
-          <input type="text" value="<?= htmlspecialchars($contactNumber) ?>" id="contact_number">
-        </div>
-      </div>
-      
-      <div class="form-row">
-        <div class="form-col">
-          <label>Status</label>
-          <div class="status-dropdown">
-            <div class="status-select status-in-transit" id="status" onclick="toggleStatusDropdown()">
-              <div class="status-icon"></div>
-              <span><?= htmlspecialchars($status) ?></span>
-            </div>
-            <div class="status-options" id="statusOptions">
-              <div class="status-option status-in-transit" onclick="selectStatus('In Transit', 'status-in-transit')">
-                <div class="status-icon"></div>
-                <span>In Transit</span>
-              </div>
-              <div class="status-option status-arrived" onclick="selectStatus('Arrived', 'status-arrived')">
-                <div class="status-icon"></div>
-                <span>Arrived</span>
-              </div>
-              <div class="status-option status-for-pickup" onclick="selectStatus('For Pick-up', 'status-for-pickup')">
-                <div class="status-icon"></div>
-                <span>For Pick-up</span>
-              </div>
-              <div class="status-option status-delayed" onclick="selectStatus('Delayed', 'status-delayed')">
-                <div class="status-icon"></div>
-                <span>Delayed</span>
-              </div>
-              <div class="status-option status-pending" onclick="selectStatus('Pending', 'status-pending')">
-                <div class="status-icon"></div>
-                <span>Pending</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-col">
-          <label>Expected Date to Arrive</label>
-          <input type="date" value="<?= htmlspecialchars($estimatedArrivalDate) ?>" id="estimated_arrival_date">
-        </div>
-      </div>
-      
-      <div class="form-row">
-        <div class="form-col">
-          <label>Note</label>
-          <input type="text">
-        </div>
-      </div>
-    </div>
-    
-    <div class="button-group">
-      <button class="btn btn-back" onclick="showPanel('requests')">Back</button>
-      <div>
-        <button class="btn btn-edit">Edit</button>
-        <button class="btn btn-save">Save</button>
-      </div>
-    </div>
-  </div>
+</body>
+</html>
+
+<?php $conn->close(); ?>

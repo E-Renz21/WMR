@@ -19,6 +19,7 @@ SELECT
   dr.pickup_address,
   dr.delivery_address,
   dr.pickup_date,
+  dr.estimated_arrival_date,
   dr.created_at,
   dr.contact_number,
   u.full_name AS user_name,
@@ -58,7 +59,7 @@ if (!$result) {
       <thead>
         <tr>
           <th class="request-id">ID</th>
-          <th class="request-date">Date</th>
+          <th class="request-date">Requested Date</th>
           <th class="request-name">Name</th>
           <th class="request-products">Products</th>
           <th class="request-weight">Estimated Kg/Tons</th>
@@ -66,6 +67,8 @@ if (!$result) {
           <th class="request-logistics">Logistics request</th>
           <th class="request-contact">Contact No.</th>
           <th class="request-status">Status</th>
+          <th class="request-action">Action</th>
+
         </tr>
       </thead>
       <tbody>
@@ -79,7 +82,17 @@ if (!$result) {
     <td class="request-weight"><?= htmlspecialchars($row['estimated_weight']) ?></td>
     <td class="request-boxes"><?= htmlspecialchars($row['estimated_boxes']) ?></td>
     <td class="request-logistics">
-      <button type="button" class="toggle-details-btn" onclick="toggleDetails(this)">⋮</button>
+      <button 
+        type="button" 
+        class="toggle-details-btn" 
+        onclick="showDetailsModal(
+          '<?= htmlspecialchars($row['pickup_date']) ?>',
+          '<?= htmlspecialchars($row['pickup_address']) ?>',
+          '<?= htmlspecialchars($row['delivery_address']) ?>',
+          '<?= htmlspecialchars($row['estimated_arrival_date']) ?>'
+        )"
+        title="Show Logistics Details"
+      >⋮</button>
 
     </td>
     <td class="request-contact"><?= htmlspecialchars($row['contact_number']) ?></td>
@@ -97,49 +110,65 @@ if (!$result) {
       
       <br><span class="delivery-status-tag <?= $class ?>"><?= ucfirst($status) ?></span>
     </td>
-  </tr>
+      <td class="request-action">
+    <a href="editstatus.php?id=<?= $row['id'] ?>" class="edit-status-btn">Edit</a>
+    <button 
+  type="button" 
+  class="edit-status-btn view-status-btn"
+  onclick='showStatusModal(
+    <?= json_encode([
+      'driver_name' => $row['driver_name'],
+      'plate_number' => $row['plate_number'],
+      'current_location' => $row['current_location'],
+      'departure_date' => $row['departure_date'],
+      'departure_time' => $row['departure_time'],
+      'arrival_date' => $row['arrival_date'],
+      'arrival_time' => $row['arrival_time'],
+      'driver_assistant' => $row['driver_assistant'],
+      'contact_number' => $row['driver_contact_number'],
+      'status' => $row['status'],
+      'expected_arrival' => $row['expected_arrival'],
+      'admin_note' => $row['admin_notes'],
+    ]) ?>)'
+>View</button>
 
-  <!-- Hidden Row for Logistics Details -->
-  <tr class="details-row" style="display: none;">
-    <td colspan="9">
-      <div class="details-content">
-        <strong>Pickup Date:</strong> <?= htmlspecialchars($row['pickup_date']) ?><br>
-        <strong>Pickup Address:</strong> <?= htmlspecialchars($row['pickup_address']) ?><br>
-        <strong>Delivery Address:</strong> <?= htmlspecialchars($row['delivery_address']) ?><br>
-        <strong>Expected Arrival:</strong> <?= htmlspecialchars($row['expected_arrival']) ?>
-      </div>
     </td>
+    
   </tr>
-<?php endwhile; ?>
+        
+
+
+  <?php endwhile; ?>
 
   <?php else: ?>
     <tr><td colspan="9" class="delivery-requests-empty">No delivery requests found.</td></tr>
   <?php endif; ?>
+
+
 </tbody>  
 
 
     </table>
   </div>
 </div>
-<script>
-function toggleDetails(button) {
-  const row = button.closest("tr");
-  const nextRow = row.nextElementSibling;
-  if (nextRow && nextRow.classList.contains("details-row")) {
-    nextRow.style.display = nextRow.style.display === "none" ? "table-row" : "none";
-  }
-}
-
-function toggleDetails(button) {
-  console.log("Button clicked"); // Add this line
-  const row = button.closest("tr");
-  const nextRow = row.nextElementSibling;
-  if (nextRow && nextRow.classList.contains("details-row")) {
-    nextRow.style.display = nextRow.style.display === "none" ? "table-row" : "none";
-  }
-}
-
-</script>
+    <div id="detailsModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeDetailsModal()">&times;</span>
+    <h2>Logistics Details</h2>
+    <div id="modalDetailsBody">
+      <!-- Details will be injected here -->
+    </div>
+  </div>
+</div>
+<div id="statusModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeStatusModal()">&times;</span>
+    <h2>Delivery Status Details</h2>
+    <div id="statusModalBody" class="modal-body">
+      <!-- Injected details -->
+    </div>
+  </div>
+</div>
 
 
 
