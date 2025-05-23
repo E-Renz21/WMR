@@ -1,3 +1,8 @@
+window.onerror = function (msg, url, lineNo, columnNo, error) {
+  console.error(`Error: ${msg} at ${url}:${lineNo}:${columnNo}`, error);
+};
+
+
 document.addEventListener('DOMContentLoaded', function() {
   console.log('Client Lists page loaded');
   
@@ -158,9 +163,11 @@ function loadComponents() {
     .then(res => res.text())
     .then(data => {
       document.getElementById('requests').innerHTML = data;
-      initModal(); // Re-initialize modal after loading requests
+      initModal();          // For Logistics Details modal
+      initStatusModal();    // ✅ Also initialize status modal here!
     })
     .catch(err => console.error('Error loading requests:', err));
+
 
   // Load status panel
   fetch('status.html')
@@ -196,8 +203,24 @@ function loadComponents() {
       document.getElementById('editstatus').innerHTML = data;
     })  
     .catch(err => console.error('Error loading edit status:', err));
+
+  
 }
 
+function initStatusModal() {
+  // Close button handler
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('close-btn')) {
+      const modal = e.target.closest('.modal');
+      if (modal) modal.style.display = 'none';
+    }
+    
+    // Close when clicking outside
+    if (e.target.classList.contains('modal')) {
+      e.target.style.display = 'none';
+    }
+  });
+}
 function toggleStatusDropdown() {
       const options = document.getElementById('statusOptions');
       options.style.display = options.style.display === 'block' ? 'none' : 'block';
@@ -212,6 +235,7 @@ function toggleStatusDropdown() {
       <div class="status-icon"></div>
       <span>${statusText}</span>
     `;
+
     
     // Update class for color
     select.className = 'status-select ' + statusClass;
@@ -261,7 +285,7 @@ function showStatusModal(data) {
     <p><strong>Driver's Name:</strong> ${data.driver_name || 'N/A'}</p>
     <p><strong>Plate Number:</strong> ${data.plate_number || 'N/A'}</p>
     <p><strong>Current Location:</strong> ${data.current_location || 'N/A'}</p>
-    <p><strong>Departure Date:</strong> ${data.departure_date || 'N/A'}</p>
+    <p><strong>Pickup Date:</strong> ${data.departure_date || 'N/A'}</p>
     <p><strong>Departure Time:</strong> ${data.departure_time || 'N/A'}</p>
     <p><strong>Arrival Date:</strong> ${data.arrival_date || 'N/A'}</p>
     <p><strong>Arrival Time:</strong> ${data.arrival_time || 'N/A'}</p>
@@ -271,9 +295,13 @@ function showStatusModal(data) {
     <p><strong>Expected Arrival Date:</strong> ${data.expected_arrival || 'N/A'}</p>
     <p><strong>Admin Note:</strong> ${data.admin_note || 'N/A'}</p>
   `;
+
   document.getElementById('statusModal').style.display = 'block';
 }
 
 function closeStatusModal() {
   document.getElementById('statusModal').style.display = 'none';
 }
+
+
+window.showStatusModal = showStatusModal;

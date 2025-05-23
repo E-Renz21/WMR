@@ -144,12 +144,13 @@ $stmt->bind_param("sidsssssssi", $productDescriptions, $estimatedBoxes, $estimat
                     
                     <div class="address-field">
                         <label>City/Municipality/Town</label>
-                        <input type="text" name="pickup_address" placeholder="Enter full address" required>
+                        <input type="text" name="pickup_city" placeholder="Enter city/municipality/town" required>
+                        
                     </div>
                     
                     <div class="address-field">
                         <label>Full Address</label>
-                        <input type="text" name="pickup_city" placeholder="Enter city/municipality/town" required>
+                        <input type="text" name="pickup_address" placeholder="Enter full address" required>
                     </div>
                 </div>
 

@@ -20,6 +20,9 @@ $stmt = $conn->prepare("
     WHERE client_id = ? 
     ORDER BY created_at DESC
 ");
+if (!$stmt) {
+    die("Prepare failed: " . $conn->error);
+}
 $stmt->bind_param("i", $userId);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -87,9 +90,9 @@ if (isset($_GET['request_id'])) {
                                     <?= htmlspecialchars($row['status']) ?>
                                 </span>
                                 <div class="request-locations">
-                                    <span><?= htmlspecialchars($row['pickup_city']) ?></span>
+                                    <span><?= htmlspecialchars($row['pickup_address']) ?></span>
                                     <img src="../images/arrow_back.png" alt="To">
-                                    <span><?= htmlspecialchars($row['delivery_city']) ?></span>
+                                    <span><?= htmlspecialchars($row['delivery_address']) ?></span>
                                 </div>
                             </div>
                         </a>
@@ -140,7 +143,7 @@ if (isset($_GET['request_id'])) {
                         <img src="../images/phoneLogo.png" alt="Phone">
                         <div class="driver-details">
                             <p>Contact Number</p>
-                            <h2><?= htmlspecialchars($selectedRequest['contact_number'] ?? 'Unknown') ?></h2>
+                            <h2><?= htmlspecialchars($selectedRequest['driver_contact_number'] ?? 'Unknown') ?></h2>
                         </div>
                     </div>
                 </div>
@@ -174,13 +177,20 @@ if (isset($_GET['request_id'])) {
 
                         <div class="address-section">
                             <p>Departure Address</p>
-                            <p><?= htmlspecialchars($selectedRequest['pickup_address'] ?? 'Not available yet') ?></p>
+                            <p>
+                                <?= htmlspecialchars($selectedRequest['pickup_city'] ?? 'Unknown') ?> — 
+                                <?= htmlspecialchars($selectedRequest['pickup_address'] ?? 'Not available yet') ?>
+                            </p>
                         </div>
 
                         <div class="address-section">
                             <p>Arrival Address</p>
-                            <p><?= htmlspecialchars($selectedRequest['delivery_address'] ?? 'Not available yet') ?></p>
+                            <p>
+                                <?= htmlspecialchars($selectedRequest['delivery_city'] ?? 'Unknown') ?> — 
+                                <?= htmlspecialchars($selectedRequest['delivery_address'] ?? 'Not available yet') ?>
+                            </p>
                         </div>
+
                     </div>
 
                     <div class="details-right">

@@ -53,11 +53,12 @@ if (!$result) {
         type="button" 
         class="toggle-details-btn" 
         onclick="showDetailsModal(
-          '<?= htmlspecialchars($row['pickup_date']) ?>',
-          '<?= htmlspecialchars($row['pickup_address']) ?>',
-          '<?= htmlspecialchars($row['delivery_address']) ?>',
-          '<?= htmlspecialchars($row['estimated_arrival_date']) ?>'
-        )"
+        '<?= htmlspecialchars($row['pickup_date']) ?>',
+        '<?= htmlspecialchars($row['pickup_address']) ?>',
+        '<?= htmlspecialchars($row['delivery_address']) ?>',
+        '<?= htmlspecialchars($row['estimated_arrival_date']) ?>'
+      )"
+
         title="Show Logistics Details"
       >⋮</button>
 
@@ -115,10 +116,11 @@ if (!$result) {
 </tbody>  
 
 
-    </table>
-  </div>
+</table>
 </div>
-    <div id="detailsModal" class="modal" style="display:none;">
+</div>
+  
+<div id="detailsModal" class="modal" style="display:none;">
   <div class="modal-content">
     <span class="close-btn" onclick="closeDetailsModal()">&times;</span>
     <h2>Logistics Details</h2>
@@ -136,6 +138,8 @@ if (!$result) {
     </div>
   </div>
 </div>
+
+
 
 
 

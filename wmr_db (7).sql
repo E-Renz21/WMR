@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2025 at 08:26 AM
+-- Generation Time: May 23, 2025 at 02:21 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -61,6 +61,13 @@ CREATE TABLE `contact_messages` (
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `contact_messages`
+--
+
+INSERT INTO `contact_messages` (`id`, `first_name`, `last_name`, `phone_number`, `email`, `message`, `submitted_at`, `updated_at`) VALUES
+(6, 'EARLy ', 'skablet', '09696969', 'earl@gmail.com', '3 months ago i break up with my girlfriend', '2025-05-23 12:20:39', '2025-05-23 20:20:39');
+
 -- --------------------------------------------------------
 
 --
@@ -87,6 +94,13 @@ CREATE TABLE `delivery_requests` (
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `updated_by` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `delivery_requests`
+--
+
+INSERT INTO `delivery_requests` (`id`, `product_description`, `estimated_boxes`, `estimated_weight`, `pickup_city`, `pickup_address`, `delivery_city`, `delivery_address`, `pickup_date`, `estimated_arrival_date`, `client_id`, `contact_number`, `departure_address`, `arrival_address`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
+(20, 'product1, product2', 0, 0.00, 'Davao city', 'bago gallera', 'kidapawan city', 'kidsaps', '2025-05-24', '2025-05-31', 12, '09343', NULL, NULL, '2025-05-23 12:13:08', '2025-05-23 20:13:08', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -115,6 +129,13 @@ CREATE TABLE `delivery_status` (
   `arrival_date` date DEFAULT NULL,
   `arrival_time` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `delivery_status`
+--
+
+INSERT INTO `delivery_status` (`id`, `delivery_request_id`, `status`, `driver_name`, `driver_assistant`, `driver_contact_number`, `assistant_contact_number`, `plate_number`, `departure_date`, `departure_time`, `current_location`, `expected_arrival`, `admin_note`, `created_at`, `updated_at`, `created_by`, `updated_by`, `arrival_date`, `arrival_time`) VALUES
+(19, 20, 'Arrived', 'tiningson ni carlesen', 'Driver Assistant', '0952', NULL, '34', '2025-05-24', '12:18:00', 'Current Location', '2025-05-31', 'wait', '2025-05-23 12:15:02', '2025-05-23 20:15:23', NULL, NULL, '2025-05-31', '02:02:00');
 
 --
 -- Triggers `delivery_status`
@@ -162,6 +183,13 @@ CREATE TABLE `delivery_status_log` (
   `change_time` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `delivery_status_log`
+--
+
+INSERT INTO `delivery_status_log` (`log_id`, `delivery_request_id`, `old_status`, `new_status`, `old_location`, `new_location`, `change_time`) VALUES
+(12, 20, 'Pending', 'Arrived', 'Current Location', 'Current Location', '2025-05-23 20:15:23');
+
 -- --------------------------------------------------------
 
 --
@@ -185,6 +213,14 @@ CREATE TABLE `users` (
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `full_name`, `nickname`, `residence`, `birthday`, `email`, `phone_number`, `business_name`, `type_of_business`, `profile_picture`, `created_at`, `updated_at`) VALUES
+(11, 'admin', '$2y$10$qQRipFemkSBaQou3mm765ufh0S1Iko/.11VoNiEaFAxhNuEZET3XG', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-23 12:03:58', '2025-05-23 20:03:58'),
+(12, 'jomm31', '$2y$10$j95VBtWOADZrG2qfbIrLM.IStBi3WhfHCPiLmEjsQlu2EK4XzPB9W', 'Carlos TiNingson', 'carlesen', 'iwha', '2025-05-01', 'carlesen@gmail.com', '096969696969', 'abc', NULL, '68306689c5776_494358699_735413878813436_2992733080820663742_n.png', '2025-05-23 12:11:30', '2025-05-23 20:18:55');
+
 -- --------------------------------------------------------
 
 --
@@ -194,30 +230,30 @@ CREATE TABLE `users` (
 CREATE TABLE `vw_delivery_requests_with_status` (
 `id` bigint(20) unsigned
 ,`client_id` int(10) unsigned
+,`created_at` timestamp
 ,`product_description` text
 ,`estimated_boxes` int(11)
 ,`estimated_weight` decimal(10,2)
-,`pickup_city` varchar(100)
-,`delivery_city` varchar(100)
-,`pickup_address` text
-,`delivery_address` text
 ,`pickup_date` date
+,`pickup_address` text
+,`pickup_city` varchar(100)
+,`delivery_address` text
+,`delivery_city` varchar(100)
 ,`estimated_arrival_date` date
-,`created_at` timestamp
 ,`contact_number` varchar(50)
-,`user_name` varchar(150)
+,`status` enum('Pending','In Transit','Arrived','Rejected')
 ,`driver_name` varchar(255)
-,`driver_assistant` varchar(255)
 ,`plate_number` varchar(50)
-,`driver_contact_number` varchar(50)
 ,`current_location` varchar(255)
 ,`departure_date` date
 ,`departure_time` time
 ,`arrival_date` date
 ,`arrival_time` time
+,`driver_assistant` varchar(255)
+,`driver_contact_number` varchar(50)
 ,`expected_arrival` date
 ,`admin_notes` text
-,`status` enum('Pending','In Transit','Arrived','Rejected')
+,`user_name` varchar(150)
 );
 
 -- --------------------------------------------------------
@@ -227,7 +263,7 @@ CREATE TABLE `vw_delivery_requests_with_status` (
 --
 DROP TABLE IF EXISTS `vw_delivery_requests_with_status`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_delivery_requests_with_status`  AS SELECT `dr`.`id` AS `id`, `dr`.`client_id` AS `client_id`, `dr`.`product_description` AS `product_description`, `dr`.`estimated_boxes` AS `estimated_boxes`, `dr`.`estimated_weight` AS `estimated_weight`, `dr`.`pickup_city` AS `pickup_city`, `dr`.`delivery_city` AS `delivery_city`, `dr`.`pickup_address` AS `pickup_address`, `dr`.`delivery_address` AS `delivery_address`, `dr`.`pickup_date` AS `pickup_date`, `dr`.`estimated_arrival_date` AS `estimated_arrival_date`, `dr`.`created_at` AS `created_at`, `dr`.`contact_number` AS `contact_number`, `u`.`full_name` AS `user_name`, `ds`.`driver_name` AS `driver_name`, `ds`.`driver_assistant` AS `driver_assistant`, `ds`.`plate_number` AS `plate_number`, `ds`.`driver_contact_number` AS `driver_contact_number`, `ds`.`current_location` AS `current_location`, `ds`.`departure_date` AS `departure_date`, `ds`.`departure_time` AS `departure_time`, `ds`.`arrival_date` AS `arrival_date`, `ds`.`arrival_time` AS `arrival_time`, `ds`.`expected_arrival` AS `expected_arrival`, `ds`.`admin_note` AS `admin_notes`, `ds`.`status` AS `status` FROM ((`delivery_requests` `dr` left join `users` `u` on(`dr`.`created_by` = `u`.`id`)) left join `delivery_status` `ds` on(`dr`.`id` = `ds`.`delivery_request_id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_delivery_requests_with_status`  AS SELECT `dr`.`id` AS `id`, `dr`.`client_id` AS `client_id`, `dr`.`created_at` AS `created_at`, `dr`.`product_description` AS `product_description`, `dr`.`estimated_boxes` AS `estimated_boxes`, `dr`.`estimated_weight` AS `estimated_weight`, `dr`.`pickup_date` AS `pickup_date`, `dr`.`pickup_address` AS `pickup_address`, `dr`.`pickup_city` AS `pickup_city`, `dr`.`delivery_address` AS `delivery_address`, `dr`.`delivery_city` AS `delivery_city`, `dr`.`estimated_arrival_date` AS `estimated_arrival_date`, `dr`.`contact_number` AS `contact_number`, `ds`.`status` AS `status`, `ds`.`driver_name` AS `driver_name`, `ds`.`plate_number` AS `plate_number`, `ds`.`current_location` AS `current_location`, `ds`.`departure_date` AS `departure_date`, `ds`.`departure_time` AS `departure_time`, `ds`.`arrival_date` AS `arrival_date`, `ds`.`arrival_time` AS `arrival_time`, `ds`.`driver_assistant` AS `driver_assistant`, `ds`.`driver_contact_number` AS `driver_contact_number`, `ds`.`expected_arrival` AS `expected_arrival`, `ds`.`admin_note` AS `admin_notes`, `u`.`full_name` AS `user_name` FROM ((`delivery_requests` `dr` left join `delivery_status` `ds` on(`dr`.`id` = `ds`.`delivery_request_id`)) left join `users` `u` on(`dr`.`client_id` = `u`.`id`)) ;
 
 --
 -- Indexes for dumped tables
@@ -279,31 +315,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `contact_messages`
 --
 ALTER TABLE `contact_messages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `delivery_requests`
 --
 ALTER TABLE `delivery_requests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `delivery_status`
 --
 ALTER TABLE `delivery_status`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `delivery_status_log`
 --
 ALTER TABLE `delivery_status_log`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables

@@ -40,20 +40,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             driver_name = ?, 
             plate_number = ?, 
             current_location = ?, 
-            ...
+            departure_date = ?, 
+            departure_time = ?, 
+            driver_assistant = ?, 
+            driver_contact_number = ?, 
+            status = ?, 
+            expected_arrival = ?, 
+            arrival_date = ?, 
+            arrival_time = ?, 
+            admin_note = ?
         WHERE delivery_request_id = ?";
 
+
         $stmt = $conn->prepare($sqlUpdate);
+if (!$stmt) {
+    die("Prepare failed: " . $conn->error);
+}
+
 
         // cast NULLs explicitly
         $currentLocation = $currentLocation ?? null;
 
         $stmt->bind_param("ssssssssssssi", 
-            $driverName, $plateNumber, $currentLocation,
-            $departureDate, $departureTime, $driverAssistant,
-            $contactNumber, $status, $estimatedArrivalDate,
-            $arrivalDate, $arrivalTime, $adminNote, $id
-        );
+    $driverName, $plateNumber, $currentLocation,
+    $departureDate, $departureTime, $driverAssistant,
+    $contactNumber, $status, $estimatedArrivalDate,
+    $arrivalDate, $arrivalTime, $adminNote, $id
+);
+
 
 
     } else {
@@ -73,9 +87,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
     }
 
-    if ($stmt->execute()) {
-        $message = "Saved successfully!";
-    } else {
+if ($stmt->execute()) {
+    header("Location: index.php?success=1");
+    exit;
+}
+ else {
         $message = "Error saving data: " . $stmt->error;
     }
 
@@ -207,7 +223,7 @@ if ($result && $row = $result->fetch_assoc()) {
 
             <div class="form-actions">
                 <a href="index.php" class="btn btn-back">Back</a>
-                <button  type="submit" class="btn btn-save" onclick="window.location.href='/src/php/admin/index.php'">Save Changes</button>
+                <button  type="submit" class="btn btn-save" >Save Changes</button>
             </div>
         </form>
     </div>
