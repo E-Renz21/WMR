@@ -16,7 +16,7 @@ $message = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $driverName = $_POST['driver_name'];
     $plateNumber = $_POST['plate_number'];
-    $currentLocation = $_POST['current_location'];
+    $currentLocation = trim($_POST['current_location']) !== '' ? $_POST['current_location'] : null;
     $departureDate = $_POST['departure_date'];
     $departureTime = $_POST['departure_time'];
     $driverAssistant = $_POST['driver_assistant'];
@@ -37,19 +37,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($checkStmt->num_rows > 0) {
         // Update existing
         $sqlUpdate = "UPDATE delivery_status SET 
-            driver_name = ?, plate_number = ?, current_location = ?, 
-            departure_date = ?, departure_time = ?, driver_assistant = ?, 
-            driver_contact_number = ?, status = ?, expected_arrival = ?, 
-            arrival_date = ?, arrival_time = ?, admin_note = ?
-            WHERE delivery_request_id = ?";
+            driver_name = ?, 
+            plate_number = ?, 
+            current_location = ?, 
+            ...
+        WHERE delivery_request_id = ?";
 
         $stmt = $conn->prepare($sqlUpdate);
+
+        // cast NULLs explicitly
+        $currentLocation = $currentLocation ?? null;
+
         $stmt->bind_param("ssssssssssssi", 
             $driverName, $plateNumber, $currentLocation,
             $departureDate, $departureTime, $driverAssistant,
             $contactNumber, $status, $estimatedArrivalDate,
             $arrivalDate, $arrivalTime, $adminNote, $id
         );
+
+
     } else {
         // Insert new
         $sqlInsert = "INSERT INTO delivery_status 

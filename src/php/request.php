@@ -31,9 +31,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $arrivalDate = $_POST['estimated_arrival_date'];
     $contactNumber = $_POST['contact_number'];
 
-$stmt = $conn->prepare("INSERT INTO delivery_requests 
-    (product_description, estimated_boxes, estimated_weight, pickup_city, pickup_address, delivery_city, delivery_address, pickup_date, estimated_arrival_date, contact_number, client_id) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("CALL insert_delivery_request(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("sidsssssssi", 
+    $productDescriptions, 
+    $estimatedBoxes, 
+    $estimatedWeight, 
+    $pickupCity, 
+    $pickupAddress, 
+    $deliveryCity, 
+    $deliveryAddress, 
+    $pickupDate, 
+    $arrivalDate, 
+    $contactNumber, 
+    $clientId
+);
+
 
 
 $stmt->bind_param("sidsssssssi", $productDescriptions, $estimatedBoxes, $estimatedWeight, $pickupCity, $pickupAddress, $deliveryCity, $deliveryAddress, $pickupDate, $arrivalDate, $contactNumber, $clientId);

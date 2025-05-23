@@ -1,3 +1,4 @@
+<?php ob_start();?>
 <?php
 session_start();
 $signupMessage = "";
@@ -34,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($insert->execute()) {
                 $_SESSION['user_id'] = $insert->insert_id;
                 $_SESSION['username'] = $username;
-                header("Location: index.php");
+                header("Location: login.php");
                 exit();
             } else {
                 $signupMessage = "❌ Error creating account.";
@@ -62,9 +63,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <img class="logo" src="../images/logo.png" alt="WMR Logo">
         <h1 class="intro-text">Sign up to WMR to request a delivery and track your deliveries.</h1>
 
-        <?php if (!empty($registrationMessage)) : ?>
+        <?php if (!empty($$signupMessage)) : ?>
             <div style="text-align: center; color: red; margin-bottom: 15px;">
-                <?= $registrationMessage ?>
+                <?= $signupMessage ?>
             </div>
         <?php endif; ?>
 
@@ -133,6 +134,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         return true;
     }
 </script>
+
+<?php ob_end_flush(); ?>
 
 </body>
 </html>

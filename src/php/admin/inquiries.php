@@ -28,8 +28,10 @@ $result = $conn->query($sql);
           <th class="inquiry-phone">Contact No.</th>
           <th class="inquiry-email">Email</th>
           <th class="inquiry-message">Message</th>
+          <th class="inquiry-actions">Action</th>
         </tr>
       </thead>
+
       <tbody>
         <?php if ($result && $result->num_rows > 0): ?>
           <?php while ($row = $result->fetch_assoc()): ?>
@@ -40,8 +42,15 @@ $result = $conn->query($sql);
               <td class="inquiry-phone"><?= htmlspecialchars($row['phone_number']) ?></td>
               <td class="inquiry-email"><?= htmlspecialchars($row['email']) ?></td>
               <td class="inquiry-message"><?= nl2br(htmlspecialchars($row['message'])) ?></td>
+              <td class="inquiry-actions">
+                <form method="POST" action="delete_inquiry.php" onsubmit="return confirm('Are you sure you want to delete this inquiry?');">
+                  <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                  <button onclick="window.location.href='index.php'" type="submit" class="delete-btn">Delete</button>
+                </form>
+              </td>
             </tr>
           <?php endwhile; ?>
+
         <?php else: ?>
           <tr>
             <td colspan="6" class="inquiries-empty">No inquiries found.</td>
@@ -51,7 +60,9 @@ $result = $conn->query($sql);
     </table>
   </div>
 </div>
-<script src="inquiries.js"></script>
+<script src="delete_inquiry.php">
+  
+</script>
 </body>
 </html>
 <?php $conn->close(); ?>
